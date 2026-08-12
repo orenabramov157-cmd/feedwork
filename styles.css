@@ -3,6 +3,7 @@
   --paper:#F2F0EA;
   --sky:#BFD0DE;
   --skyink:#4E6B85;
+  --deep:#3D5570;
   --metal:#626360;
   --hair:rgba(14,14,12,.16);
   --gut:clamp(16px,3.4vw,40px);
@@ -31,7 +32,7 @@ a{color:inherit}
 .mono{font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase}
 
 /* ---------- nav ---------- */
-header.nav{position:sticky;top:0;z-index:80;background:var(--paper);border-bottom:2px solid var(--ink)}
+header.nav{position:sticky;top:0;z-index:80;background:var(--paper);border-bottom:2px solid var(--skyink)}
 .nav-in{
   max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);
   height:58px;display:flex;align-items:center;justify-content:space-between;gap:20px;
@@ -43,11 +44,11 @@ header.nav{position:sticky;top:0;z-index:80;background:var(--paper);border-botto
 .nav-links a{text-decoration:none;font-size:14px;font-weight:500}
 .nav-links a:hover{color:var(--skyink)}
 a.cta{
-  background:var(--ink);color:var(--paper);text-decoration:none;
+  background:var(--skyink);color:#fff;text-decoration:none;
   font-weight:600;font-size:14px;padding:11px 20px;white-space:nowrap;
   transition:background .16s;
 }
-a.cta:hover{background:var(--skyink)}
+a.cta:hover{background:var(--deep)}
 
 /* ---------- hero: orbital ring ---------- */
 .hero{padding:clamp(14px,2.4vw,30px) 0 0}
@@ -109,7 +110,7 @@ a.cta:hover{background:var(--skyink)}
 .case-in{
   position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   width:min(960px,calc(100vw - 2*var(--gut)));max-height:88vh;overflow-y:auto;
-  background:var(--paper);border-top:3px solid var(--ink);
+  background:var(--paper);border-top:3px solid var(--skyink);
   padding:clamp(20px,3vw,36px);
 }
 .case-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(20px,3vw,36px);align-items:start}
@@ -125,7 +126,7 @@ a.cta:hover{background:var(--skyink)}
   font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;
   text-transform:uppercase;padding:9px 14px;
 }
-.case-close:hover{background:var(--ink);color:var(--paper)}
+.case-close:hover{background:var(--skyink);color:#fff}
 .case-side .cta{align-self:flex-start;margin-top:4px}
 @media(max-width:640px){
   .case-grid{grid-template-columns:1fr}
@@ -133,7 +134,7 @@ a.cta:hover{background:var(--skyink)}
 }
 
 /* spec row: production notation */
-.spec{margin-top:clamp(34px,5vw,58px);border-top:2px solid var(--ink)}
+.spec{margin-top:clamp(34px,5vw,58px);border-top:2px solid var(--skyink)}
 .spec-in{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);display:grid;grid-template-columns:repeat(4,1fr)}
 .spec-c{padding:16px 0 18px;border-left:1px solid var(--hair)}
 .spec-c:first-child{border-left:0}
@@ -142,7 +143,7 @@ a.cta:hover{background:var(--skyink)}
 .spec-c .v{font-family:'Jost',sans-serif;font-weight:600;font-size:clamp(15px,1.7vw,20px);letter-spacing:-.02em}
 
 /* ---------- the proof: before/after, full bleed ---------- */
-.proof{background:var(--ink);color:var(--paper);padding:clamp(40px,6vw,76px) 0}
+.proof{background:var(--deep);color:var(--paper);padding:clamp(40px,6vw,76px) 0}
 .proof .grid{align-items:end;row-gap:26px}
 .proof-head{grid-column:1 / span 6}
 .proof-head h2{font-size:clamp(28px,3.6vw,46px)}
@@ -168,7 +169,7 @@ section{padding:clamp(56px,8vw,110px) 0;scroll-margin-top:70px}
 .sec-body .sub{margin-top:20px;max-width:50ch;color:#33332C;font-size:clamp(16px,1.7vw,19px)}
 
 /* ---------- process: numbered swiss rows ---------- */
-.steps{margin-top:clamp(30px,4vw,52px);border-top:2px solid var(--ink)}
+.steps{margin-top:clamp(30px,4vw,52px);border-top:2px solid var(--skyink)}
 .step{
   display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);
   padding:clamp(22px,2.6vw,32px) 0;border-bottom:1px solid var(--hair);
@@ -181,7 +182,7 @@ section{padding:clamp(56px,8vw,110px) 0;scroll-margin-top:70px}
 .built{border-top:1px solid var(--hair)}
 
 /* ---------- faq ---------- */
-.faq{margin-top:clamp(28px,3.6vw,46px);border-top:2px solid var(--ink)}
+.faq{margin-top:clamp(28px,3.6vw,46px);border-top:2px solid var(--skyink)}
 details{border-bottom:1px solid var(--hair)}
 summary{
   list-style:none;cursor:pointer;padding:20px 44px 20px 0;position:relative;
@@ -196,7 +197,7 @@ details[open] summary::after{transform:rotate(45deg)}
 details p{padding:0 44px 22px 0;color:#33332C;max-width:66ch}
 
 /* ---------- close ---------- */
-.close{background:var(--ink);color:var(--paper)}
+.close{background:var(--deep);color:var(--paper)}
 .close .sec-mark .num{color:var(--sky)}
 .close .sec-mark .lbl{color:rgba(242,240,234,.55)}
 .close .sec-body .sub{color:rgba(242,240,234,.75)}
@@ -209,7 +210,7 @@ details p{padding:0 44px 22px 0;color:#33332C;max-width:66ch}
   border-bottom:2px solid rgba(242,240,234,.3);padding-bottom:2px;
 }
 .contact a:hover{color:var(--sky);border-color:var(--sky)}
-footer{background:var(--ink);color:rgba(242,240,234,.58);padding:22px 0 30px;border-top:1px solid rgba(242,240,234,.14)}
+footer{background:var(--deep);color:rgba(242,240,234,.62);padding:22px 0 30px;border-top:1px solid rgba(242,240,234,.14)}
 .foot{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 footer a{text-decoration:none}
 footer a:hover{color:var(--paper)}
