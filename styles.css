@@ -41,7 +41,7 @@ header.nav{position:sticky;top:0;z-index:80;background:var(--paper);border-botto
 .mark-sq{width:13px;height:13px;background:var(--skyink);flex:0 0 auto}
 .mark b{font-family:'Jost',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em}
 .nav-links{display:flex;align-items:center;gap:26px}
-.nav-links a{text-decoration:none;font-size:14px;font-weight:500}
+.nav-links a{text-decoration:none;font-size:14px;font-weight:700}
 .nav-links a:hover{color:var(--skyink)}
 a.cta{
   background:var(--skyink);color:#fff;text-decoration:none;
