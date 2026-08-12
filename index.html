@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feedwork Studio — Ad creative for people who make things</title>
+<meta name="description" content="Send a product photo. Get finished ad creative back in 48 hours, built around your actual product. For DTC brands and manufacturers who make their own thing.">
+<link rel="canonical" href="https://feedworkstudio.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://feedworkstudio.com/">
+<meta property="og:site_name" content="Feedwork Studio">
+<meta property="og:title" content="Ad creative for people who make things">
+<meta property="og:description" content="Send a product photo. Get finished ad creative back in 48 hours, built around your actual product.">
+<meta property="og:image" content="https://feedworkstudio.com/work/cedarmill-ba.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ad creative for people who make things">
+<meta name="twitter:description" content="Send a product photo. Get finished ad creative back in 48 hours, built around your actual product.">
+<meta name="twitter:image" content="https://feedworkstudio.com/work/cedarmill-ba.webp">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230E0E0C'/><rect x='14' y='16' width='46' height='14' fill='%23F2F0EA'/><rect x='14' y='42' width='30' height='14' fill='%23F2F0EA'/><circle cx='72' cy='72' r='13' fill='%231B3FE8'/></svg>">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Feedwork Studio","url":"https://feedworkstudio.com/","email":"oren@feedworkstudio.com","telephone":"+1-972-742-2543","description":"Ad creative production for DTC brands and manufacturers, built around each brand's own product and customers.","areaServed":"US"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E0E0C;
+  --paper:#F2F0EA;
+  --cobalt:#1B3FE8;
+  --signal:#E8331C;
+  --metal:#6E6F6A;
+  --hair:rgba(14,14,12,.16);
+  --gut:clamp(16px,3.4vw,40px);
+  --maxw:1440px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:'Archivo',system-ui,sans-serif;font-size:17px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+
+/* ---------- swiss grid ---------- */
+.grid{
+  max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);
+  display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);
+}
+.full{max-width:100%;padding:0}
+.workwrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut)}
+
+/* type roles */
+.disp{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.035em;line-height:.92}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+
+/* ---------- rules ---------- */
+.rule{border-top:1px solid var(--hair)}
+.rule-ink{border-top:2px solid var(--ink)}
+
+/* ---------- nav ---------- */
+header.nav{position:sticky;top:0;z-index:80;background:var(--paper);border-bottom:2px solid var(--ink)}
+.nav-in{
+  max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);
+  height:58px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.mark{display:flex;align-items:center;gap:9px;text-decoration:none}
+.mark-sq{width:13px;height:13px;background:var(--cobalt);flex:0 0 auto}
+.mark b{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em}
+.nav-links{display:flex;align-items:center;gap:26px}
+.nav-links a{text-decoration:none;font-size:14px;font-weight:500}
+.nav-links a:hover{color:var(--cobalt)}
+a.cta{
+  background:var(--ink);color:var(--paper);text-decoration:none;
+  font-weight:600;font-size:14px;padding:11px 20px;white-space:nowrap;
+  transition:background .16s;
+}
+a.cta:hover{background:var(--cobalt)}
+
+/* ---------- hero: orbital ring ---------- */
+.hero{padding:clamp(18px,3vw,40px) 0 0}
+.hero h1{font-size:clamp(30px,4.6vw,58px);margin:0}
+.hero h1 em{font-style:normal;color:var(--cobalt)}
+.eyebrow{color:var(--signal);margin-bottom:14px;display:block}
+.orbit-stage{
+  position:relative;height:clamp(460px,66vh,680px);
+  perspective:2000px;perspective-origin:50% 45%;
+  touch-action:pan-y;transform-style:preserve-3d;
+}
+.orbit-center{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  pointer-events:none;padding:0 var(--gut);
+  transform:translateZ(0);
+}
+.orbit-sub{margin-top:16px;font-size:15px;color:#33332C;max-width:34ch}
+.orbit-ring{position:absolute;inset:0;transform-style:preserve-3d}
+.ocard{
+  position:absolute;left:50%;top:50%;
+  width:clamp(120px,15vw,196px);aspect-ratio:4/5;
+  margin-left:calc(clamp(120px,15vw,196px) / -2);
+  margin-top:calc(clamp(120px,15vw,196px) * -.625);
+  padding:0;border:1px solid var(--ink);background:#ddd;
+  cursor:grab;will-change:transform;
+}
+.ocard img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ocard:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+.orbit-stage.dragging .ocard{cursor:grabbing}
+.orbit-hint{
+  position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+  color:var(--metal);z-index:2;white-space:nowrap;
+}
+/* mobile: flat snap row, no 3d */
+@media(max-width:760px){
+  .orbit-stage{height:auto;perspective:none;overflow:visible;padding:26px 0 8px}
+  .orbit-center{position:static;pointer-events:auto;margin-bottom:26px}
+  .orbit-ring{
+    position:static;transform:none!important;display:flex;gap:14px;
+    overflow-x:auto;padding:0 var(--gut) 14px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  }
+  .ocard{
+    position:static;margin:0;flex:0 0 62vw;width:62vw;
+    transform:none!important;filter:none!important;scroll-snap-align:center;
+  }
+  .orbit-hint{display:none}
+}
+
+/* ---------- case panel ---------- */
+.case{
+  position:fixed;inset:0;z-index:120;display:none;
+  background:rgba(14,14,12,.55);
+}
+.case.open{display:block}
+.case-in{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(960px,calc(100vw - 2*var(--gut)));max-height:88vh;overflow-y:auto;
+  background:var(--paper);border-top:3px solid var(--ink);
+  padding:clamp(20px,3vw,36px);
+}
+.case-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--hair);padding-bottom:14px}
+.case-head .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,30px);letter-spacing:-.02em}
+.case-close{
+  border:1px solid var(--ink);background:none;cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;padding:9px 14px;
+}
+.case-close:hover{background:var(--ink);color:var(--paper)}
+.case-imgs{display:grid;grid-template-columns:1fr 1fr;gap:var(--gut);margin-top:20px}
+.case-imgs figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border:1px solid var(--ink)}
+.case-imgs figcaption{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--metal)}
+.case-body{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:var(--gut)}
+.case-body h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--signal);margin-bottom:8px}
+.case-body p{font-size:15px;color:#33332C}
+.case-cta{margin-top:24px;border-top:1px solid var(--hair);padding-top:18px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.case-cta .mono{color:var(--metal)}
+@media(max-width:640px){
+  .case-imgs,.case-body{grid-template-columns:1fr}
+}
+
+/* spec row: production notation */
+.spec{margin-top:clamp(34px,5vw,58px);border-top:2px solid var(--ink);border-bottom:1px solid var(--hair)}
+.spec-in{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);display:grid;grid-template-columns:repeat(4,1fr)}
+.spec-c{padding:16px 0 18px;border-left:1px solid var(--hair)}
+.spec-c:first-child{border-left:0}
+.spec-c:not(:first-child){padding-left:clamp(12px,2vw,24px)}
+.spec-c .k{color:var(--metal);display:block;margin-bottom:6px}
+.spec-c .v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(15px,1.7vw,20px);letter-spacing:-.02em}
+
+/* ---------- the proof: before/after, full bleed ---------- */
+.proof{background:var(--ink);color:var(--paper);padding:clamp(40px,6vw,76px) 0}
+.proof .grid{align-items:end;row-gap:26px}
+.proof-head{grid-column:1 / span 6}
+.proof-head h2{font-size:clamp(28px,3.6vw,46px)}
+.proof-note{grid-column:8 / span 5;align-self:end}
+.proof-note p{color:rgba(242,240,234,.72);font-size:15px;max-width:34ch}
+.proof-img{margin-top:clamp(26px,4vw,44px);padding:0 var(--gut);max-width:var(--maxw);margin-left:auto;margin-right:auto}
+.proof-img img{width:100%;height:auto;border:1px solid rgba(242,240,234,.18)}
+
+/* ---------- formats: cobalt field ---------- */
+.formats{background:var(--cobalt);color:#fff;padding:22px 0}
+.formats-in{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);display:flex;flex-wrap:wrap;gap:12px 30px;align-items:baseline}
+.formats .k{color:rgba(255,255,255,.62)}
+.formats ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px 26px}
+.formats li{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+
+/* ---------- section heads ---------- */
+section{padding:clamp(56px,8vw,110px) 0;scroll-margin-top:70px}
+.sec-mark{grid-column:1 / span 2}
+.sec-mark .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(38px,5vw,64px);line-height:.8;color:var(--cobalt);letter-spacing:-.05em}
+.sec-mark .lbl{color:var(--metal);margin-top:10px;display:block}
+.sec-body{grid-column:3 / span 8}
+.sec-body h2{font-size:clamp(30px,4.4vw,58px)}
+.sec-body .sub{margin-top:20px;max-width:50ch;color:#33332C;font-size:clamp(16px,1.7vw,19px)}
+
+/* ---------- work ---------- */
+.work-row{margin-top:clamp(34px,4.5vw,56px);display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);row-gap:clamp(30px,4vw,54px)}
+.w{position:relative}
+.w img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;background:#ddd}
+.w figcaption{margin-top:12px;display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-top:1px solid var(--hair);padding-top:9px}
+.w .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em}
+.w .fmt{color:var(--metal);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.w-4{grid-column:span 4}
+.w-6{grid-column:span 6}
+.w-3{grid-column:span 3}
+.demo-note{margin-top:clamp(26px,3.4vw,40px);grid-column:1 / span 7;color:var(--metal);font-size:14px;max-width:62ch}
+
+/* ---------- process: numbered swiss rows ---------- */
+.steps{margin-top:clamp(30px,4vw,52px);border-top:2px solid var(--ink)}
+.step{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);
+  padding:clamp(22px,2.6vw,32px) 0;border-bottom:1px solid var(--hair);
+}
+.step .sn{grid-column:1 / span 2;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--signal);padding-top:6px}
+.step h3{grid-column:3 / span 4;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.025em;line-height:1.04}
+.step p{grid-column:8 / span 5;color:#33332C;font-size:16px}
+
+/* ---------- built section (cobalt field) ---------- */
+.built{background:var(--cobalt);color:#fff}
+.built .sec-mark .num{color:#fff;opacity:.5}
+.built .sec-mark .lbl{color:rgba(255,255,255,.62)}
+.built .sec-body .sub{color:rgba(255,255,255,.82)}
+.built .steps{border-top-color:rgba(255,255,255,.5)}
+.built .step{border-bottom-color:rgba(255,255,255,.24)}
+.built .step .sn{color:rgba(255,255,255,.7)}
+.built .step p{color:rgba(255,255,255,.88)}
+
+/* ---------- faq ---------- */
+.faq{margin-top:clamp(28px,3.6vw,46px);border-top:2px solid var(--ink)}
+details{border-bottom:1px solid var(--hair)}
+summary{
+  list-style:none;cursor:pointer;padding:20px 44px 20px 0;position:relative;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(17px,1.9vw,21px);letter-spacing:-.02em;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"";position:absolute;right:8px;top:50%;width:13px;height:13px;
+  margin-top:-6px;background:var(--signal);transition:transform .2s;
+}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 44px 22px 0;color:#33332C;max-width:66ch}
+
+/* ---------- close ---------- */
+.close{background:var(--ink);color:var(--paper)}
+.close .sec-mark .num{color:var(--signal)}
+.close .sec-mark .lbl{color:rgba(242,240,234,.55)}
+.close .sec-body .sub{color:rgba(242,240,234,.75)}
+.contact{margin-top:clamp(30px,4vw,48px);display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);border-top:1px solid rgba(242,240,234,.28);padding-top:26px}
+.contact div{grid-column:span 4}
+.contact .k{color:rgba(242,240,234,.55);display:block;margin-bottom:9px}
+.contact a{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;
+  font-size:clamp(17px,2vw,23px);letter-spacing:-.02em;text-decoration:none;
+  border-bottom:2px solid rgba(242,240,234,.3);padding-bottom:2px;
+}
+.contact a:hover{color:var(--signal);border-color:var(--signal)}
+footer{background:var(--ink);color:rgba(242,240,234,.44);padding:22px 0 30px;border-top:1px solid rgba(242,240,234,.14)}
+.foot{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+footer a{text-decoration:none}
+footer a:hover{color:var(--paper)}
+
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:12px 18px;z-index:200}
+.skip:focus{left:0}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+
+/* ---------- reveal (visible by default) ---------- */
+.rv{opacity:1;transform:none}
+html.js .rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+html.js .rv.in{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .hero-type,.hero-meta{grid-column:1 / -1}
+  .hero-meta{padding-bottom:0}
+  .spec-in{grid-template-columns:repeat(2,1fr)}
+  .spec-c:nth-child(3){border-left:0}
+  .spec-c:nth-child(3),.spec-c:nth-child(4){border-top:1px solid var(--hair)}
+  .spec-c:nth-child(odd){padding-left:0}
+  .sec-mark,.sec-body,.proof-head,.proof-note,.demo-note{grid-column:1 / -1}
+  .sec-mark{margin-bottom:14px}
+  .step .sn,.step h3,.step p{grid-column:1 / -1}
+  .step h3{margin:8px 0 8px}
+  .w-4,.w-6,.w-3{grid-column:span 6}
+  .contact div{grid-column:span 12}
+  .contact div + div{margin-top:22px}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .w-4,.w-6,.w-3{grid-column:1 / -1}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1!important;transform:none!important}
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="mark" href="#top"><span class="mark-sq"></span><b>Feedwork</b></a>
+    <nav class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#built">How it's built</a>
+    </nav>
+    <a class="cta" href="#start">Start a project</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="top">
+  <div class="orbit-stage" id="orbitStage" aria-label="Selected ads. Drag to spin, click a card to see how it was made.">
+    <div class="orbit-center">
+      <span class="mono eyebrow">Feedwork Studio</span>
+      <h1 class="disp">Ad creative<br>for people who<br><em>make things.</em></h1>
+      <p class="orbit-sub">Send a product photo. Finished ads back in 48 hours.</p>
+    </div>
+    <div class="orbit-ring" id="orbitRing">
+      <button class="ocard" data-i="0"><img src="work/cedarmill.webp" alt="Cedarmill Coffee ad" draggable="false"></button>
+      <button class="ocard" data-i="1"><img src="work/ironhouse.webp" alt="Ironhouse Supply ad" draggable="false"></button>
+      <button class="ocard" data-i="2"><img src="work/scent-studio.webp" alt="Scent and Co studio ad" draggable="false"></button>
+      <button class="ocard" data-i="3"><img src="work/marlowe.webp" alt="Marlowe Woodworks ad" draggable="false"></button>
+      <button class="ocard" data-i="4"><img src="work/scent-bedside.webp" alt="Scent and Co bedside ad" draggable="false"></button>
+      <button class="ocard" data-i="5"><img src="work/northbound.webp" alt="Northbound Supply ad" draggable="false"></button>
+      <button class="ocard" data-i="6"><img src="work/scent-hands.webp" alt="Scent and Co hands ad" draggable="false"></button>
+    </div>
+    <span class="mono orbit-hint" aria-hidden="true">Drag to spin · Click a card</span>
+  </div>
+
+  <div class="spec">
+    <div class="spec-in">
+      <div class="spec-c"><span class="mono k">Turnaround</span><span class="v">48 hours</span></div>
+      <div class="spec-c"><span class="mono k">Built from</span><span class="v">Your product</span></div>
+      <div class="spec-c"><span class="mono k">Sizes</span><span class="v">Feed + story</span></div>
+      <div class="spec-c"><span class="mono k">Access needed</span><span class="v">None</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="grid">
+    <div class="proof-head rv">
+      <span class="mono" style="color:var(--signal);display:block;margin-bottom:16px">The whole service</span>
+      <h2 class="disp">One phone photo in.<br>A finished ad out.</h2>
+    </div>
+    <div class="proof-note rv">
+      <p>Left is what a client sends: a bag on a kitchen counter, shot on a phone. Right is what goes back, 48 hours later. Same bag, same label.</p>
+    </div>
+  </div>
+  <div class="proof-img rv">
+    <img src="work/cedarmill-ba.webp" alt="Before and after: a coffee bag photographed on a kitchen counter, next to the finished advertisement built from it" width="1600" height="982" loading="eager" decoding="async">
+  </div>
+</section>
+
+<div class="formats">
+  <div class="formats-in">
+    <span class="mono k">Formats</span>
+    <ul>
+      <li>Static ads</li><li>Product video</li><li>UGC style</li><li>Carousels</li>
+      <li>Story frames</li><li>Catalog shots</li><li>Lifestyle scenes</li><li>Seasonal refresh</li>
+    </ul>
+  </div>
+</div>
+
+<section id="work">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">01</span><span class="mono lbl">Work</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">Selected work</h2>
+      <p class="sub">Every one of these started as a single product photograph. No studio, no shoot day, no crew.</p>
+    </div>
+  </div>
+
+  <div class="workwrap">
+    <div class="work-row">
+      <figure class="w w-6 rv">
+        <img src="work/cedarmill.webp" alt="Cedarmill Coffee Roasters advertisement, kraft coffee bag beside a steaming mug in window light" width="900" height="1125" loading="lazy" decoding="async">
+        <figcaption><span class="brand">Cedarmill Coffee</span><span class="fmt">4:5 · Feed</span></figcaption>
+      </figure>
+      <figure class="w w-6 rv">
+        <img src="work/ironhouse.webp" alt="Ironhouse Supply work boots advertisement, worn leather boots on a workshop floor" width="900" height="1125" loading="lazy" decoding="async">
+        <figcaption><span class="brand">Ironhouse Supply</span><span class="fmt">4:5 · Feed</span></figcaption>
+      </figure>
+
+      <figure class="w w-4 rv">
+        <img src="work/marlowe.webp" alt="Marlowe Woodworks advertisement, solid walnut dining table in a sunlit room" width="900" height="1125" loading="lazy" decoding="async">
+        <figcaption><span class="brand">Marlowe Woodworks</span><span class="fmt">4:5 · Feed</span></figcaption>
+      </figure>
+      <figure class="w w-4 rv">
+        <img src="work/northbound.webp" alt="Northbound Supply advertisement, waxed canvas duffel bag in falling snow" width="900" height="1125" loading="lazy" decoding="async">
+        <figcaption><span class="brand">Northbound Supply</span><span class="fmt">4:5 · Feed</span></figcaption>
+      </figure>
+      <figure class="w w-4 rv">
+        <img src="work/scent-studio.webp" alt="Scent and Co advertisement, ceramic candle on dark marble" width="900" height="1125" loading="lazy" decoding="async">
+        <figcaption><span class="brand">Scent &amp; Co.</span><span class="fmt">4:5 · Feed</span></figcaption>
+      </figure>
+
+      <figure class="w w-6 rv">
+        <img src="work/scent-bedside.webp" alt="Scent and Co advertisement, lit candle on a bedside bench at dusk" width="900" height="1125" loading="lazy" decoding="async">
+        <figcaption><span class="brand">Scent &amp; Co.</span><span class="fmt">Same product · New angle</span></figcaption>
+      </figure>
+      <figure class="w w-6 rv">
+        <img src="work/scent-hands.webp" alt="Scent and Co advertisement, hands lifting the lid from a stoneware candle" width="900" height="1125" loading="lazy" decoding="async">
+        <figcaption><span class="brand">Scent &amp; Co.</span><span class="fmt">Same product · New angle</span></figcaption>
+      </figure>
+
+      <p class="demo-note rv">These are Feedwork demonstration pieces, produced on invented brands to show the work without putting a client's product on a marketing page. Client work goes here once the client says it can.</p>
+    </div>
+  </div>
+</section>
+
+<section id="process" style="border-top:1px solid var(--hair)">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">02</span><span class="mono lbl">Process</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">Three steps. No kickoff call, no brief to fill out.</h2>
+      <p class="sub">Most creative work stalls in the setup. This one does not have a setup.</p>
+    </div>
+  </div>
+  <div class="workwrap">
+    <div class="steps">
+      <div class="step rv">
+        <span class="sn">Step 01 — Send</span>
+        <h3>Email a photo</h3>
+        <p>One picture of the product you want to sell. The one already on your website is fine.</p>
+      </div>
+      <div class="step rv">
+        <span class="sn">Step 02 — Build</span>
+        <h3>The ads get built</h3>
+        <p>Around your actual product, from your actual photo. Not a stock version that looks close enough.</p>
+      </div>
+      <div class="step rv">
+        <span class="sn">Step 03 — Receive</span>
+        <h3>Finished files, 48 hours</h3>
+        <p>Sized for feed and stories, ready to upload. Changes get made until it is right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="built" id="built">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">03</span><span class="mono lbl">How it's built</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">Built around your brand, not a template.</h2>
+      <p class="sub">Nothing here is generic stock work with a logo dropped on it. Every batch starts from your product and the way your own customers already talk about it.</p>
+    </div>
+  </div>
+  <div class="workwrap">
+    <div class="steps">
+      <div class="step rv"><span class="sn">Your product</span><h3>Your actual thing</h3><p>Built from your own photography, so the packaging, the finish, the label and the shape are yours rather than something that looks close enough.</p></div>
+      <div class="step rv"><span class="sn">Your customers</span><h3>Their words</h3><p>Your reviews get read before anything is written. The copy uses the words your buyers already use, not the words a marketer would reach for.</p></div>
+      <div class="step rv"><span class="sn">Your offer</span><h3>What you actually run</h3><p>Free shipping over a threshold, a bundle, a seasonal promo. Whatever is live goes in the creative instead of a generic call to action.</p></div>
+      <div class="step rv"><span class="sn">Your category</span><h3>Shot to suit it</h3><p>A candle, a smoker and a leather bag do not get photographed the same way or sold with the same angle. The approach changes with the product.</p></div>
+      <div class="step rv"><span class="sn">Your quote</span><h3>Priced per project</h3><p>Quoted once we have talked about what you sell and what you need. You get the number before anything starts, and it does not move.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="border-top:1px solid var(--hair)">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">04</span><span class="mono lbl">Questions</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">The things people ask on the phone</h2>
+
+      <div class="faq">
+        <details class="rv"><summary>Do you need access to my ad account?</summary>
+          <p>No, and it is not offered. Feedwork delivers files. You or whoever runs your ads uploads them. Nobody here needs a login, partner access, or admin on anything.</p></details>
+        <details class="rv"><summary>Do you run the ads too?</summary>
+          <p>No. Media buying is a different job and it is not this one. If you already have someone running your ads, they get more to work with. If you do not, the files still work whenever you start.</p></details>
+        <details class="rv"><summary>What if it does not look like my product?</summary>
+          <p>Then it gets rebuilt. Product accuracy is the whole job, so if the thing in the ad does not look like the thing you sell, it is not finished.</p></details>
+        <details class="rv"><summary>What do you actually need from me?</summary>
+          <p>A photo of the product and the name of it. If you have a current offer or a discount code worth putting in the ad, that helps. Nothing else, and there is no form to fill out.</p></details>
+        <details class="rv"><summary>Will you promise these will perform?</summary>
+          <p>No. Anyone who promises you ad performance without controlling your product, your price, your landing page and your budget is guessing. Feedwork promises finished files, on time, that look like your product. That is the part that can actually be guaranteed.</p></details>
+        <details class="rv"><summary>How fast, really?</summary>
+          <p>48 hours from the photo arriving. If a batch is going to be late you get told before the deadline, not after.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="close" id="start">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">05</span><span class="mono lbl">Start</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">Send a photo. Start there.</h2>
+      <p class="sub">Tell me what you sell and send one picture of it. You get a quote and a turnaround before anything is committed.</p>
+    </div>
+  </div>
+  <div class="workwrap">
+    <div class="contact">
+      <div class="rv">
+        <span class="mono k">Email a photo</span>
+        <a href="mailto:oren@feedworkstudio.com?subject=Project%20enquiry&body=Product%20name%3A%0AProduct%20photo%3A%20(attach)%0AWebsite%3A%0AAnything%20else%3A%0A">oren@feedworkstudio.com</a>
+      </div>
+      <div class="rv">
+        <span class="mono k">Or call</span>
+        <a href="tel:+19727422543">972-742-2543</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot">
+    <span class="mono">Feedwork Studio</span>
+    <span class="mono"><a href="tel:+19727422543">972-742-2543</a> &nbsp;·&nbsp; <a href="mailto:oren@feedworkstudio.com">oren@feedworkstudio.com</a></span>
+  </div>
+</footer>
+
+<div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="caseBrand">
+  <div class="case-in">
+    <div class="case-head">
+      <span class="brand" id="caseBrand"></span>
+      <button class="case-close" id="caseClose">Close</button>
+    </div>
+    <div class="case-imgs">
+      <figure><img id="caseSrc" src="" alt="Source image"><figcaption id="caseSrcCap"></figcaption></figure>
+      <figure><img id="caseAd" src="" alt="Finished ad"><figcaption>Finished ad · 48 hours later</figcaption></figure>
+    </div>
+    <div class="case-body">
+      <div><h4>The angle</h4><p id="caseAngle"></p></div>
+      <div><h4>The headline</h4><p id="caseHead"></p></div>
+    </div>
+    <div class="case-cta">
+      <span class="mono">Feed + story sizes · No account access needed</span>
+      <a class="cta" href="#start" id="caseGo">Start yours</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('js');
+  function start(){
+    var hero=document.querySelectorAll('.hero .rv, .proof .rv');
+    hero.forEach(function(el,i){ setTimeout(function(){el.classList.add('in');}, 60+i*90); });
+    var rest=document.querySelectorAll('section .rv:not(.in)');
+    if(!('IntersectionObserver' in window)){ rest.forEach(function(e){e.classList.add('in');}); return; }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{rootMargin:'0px 0px -10% 0px'});
+    rest.forEach(function(e){ io.observe(e); });
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',start); } else { start(); }
+  setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(e){e.classList.add('in');}); },2500);
+})();
+</script>
+<script>
+(function(){
+  var CASES=[
+    {brand:"Cedarmill Coffee", src:"work/before-cedarmill.webp", srcCap:"What the client sent · phone photo", ad:"work/cedarmill.webp",
+     angle:"Freshness as logistics. Small roaster's real edge is the gap between roast date and doorstep, so the ad sells the calendar, not the beans.",
+     head:"“Roasted Friday. At your door Monday.”"},
+    {brand:"Ironhouse Supply", src:"work/raw-ironhouse.webp", srcCap:"Source frame · before type", ad:"work/ironhouse.webp",
+     angle:"Durability worn as proof. Scuffed boots outsell new ones in this category, so the creative leads with wear, not shine.",
+     head:"“Broken in, not broken down.”"},
+    {brand:"Scent & Co.", src:"work/raw-scent-studio.webp", srcCap:"Source frame · before type", ad:"work/scent-studio.webp",
+     angle:"Quiet luxury on dark stone. Studio angle of a three-part test: one product, three different buying moods.",
+     head:"“Some evenings need a match.”"},
+    {brand:"Marlowe Woodworks", src:"work/raw-marlowe.webp", srcCap:"Source frame · before type", ad:"work/marlowe.webp",
+     angle:"Permanence against fast furniture. High-ticket buyers respond to lifetime framing, so the ad sells the decades, not the table.",
+     head:"“One tree. One table. One lifetime.”"},
+    {brand:"Scent & Co.", src:"work/raw-scent-bedside.webp", srcCap:"Source frame · before type", ad:"work/scent-bedside.webp",
+     angle:"The wind-down ritual. Bedside angle of the same three-part test, aimed at the evening-routine buyer.",
+     head:"“Hand poured. Twelve at a time.”"},
+    {brand:"Northbound Supply", src:"work/raw-northbound.webp", srcCap:"Source frame · before type", ad:"work/northbound.webp",
+     angle:"The impossible shot. Deep snow in August: conditions the client could never photograph, produced without a shoot.",
+     head:"“Shot in August.”"},
+    {brand:"Scent & Co.", src:"work/raw-scent-hands.webp", srcCap:"Source frame · before type", ad:"work/scent-hands.webp",
+     angle:"Tactility up close. Hands-on angle of the test: texture and touch for the shopper who buys with their fingers.",
+     head:"“The best part is the lid.”"}
+  ];
+  var stage=document.getElementById('orbitStage'), ring=document.getElementById('orbitRing');
+  var cards=Array.prototype.slice.call(ring.querySelectorAll('.ocard'));
+  var N=cards.length, STEP=360/N, TILT=-18;
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mobile=window.matchMedia('(max-width: 760px)');
+
+  var angle=0, vel=reduced?0:0.06, AUTO=reduced?0:0.06;
+  var dragging=false, px=0, moved=0, raf=null, paused=false;
+
+  function radius(){ return Math.min(stage.clientWidth*.40, 560); }
+  function layout(){
+    if(mobile.matches){ cards.forEach(function(c){c.style.transform='';c.style.filter='';}); return; }
+    var R=radius();
+    for(var i=0;i<N;i++){
+      var a=angle+i*STEP, rad=a*Math.PI/180, depth=Math.cos(rad); /* 1 front, -1 back */
+      cards[i].style.transform='rotateX('+TILT+'deg) rotateY('+a+'deg) translateZ('+R+'px) rotateY('+(-a)+'deg) rotateX('+(-TILT)+'deg)';
+      cards[i].style.filter='brightness('+(0.66+0.34*(depth+1)/2)+')';
+    }
+  }
+  function tick(){
+    if(!dragging && !paused){ vel+=(AUTO-vel)*0.02; angle+=vel; layout(); }
+    else if(!dragging){ layout(); }
+    raf=requestAnimationFrame(tick);
+  }
+  stage.addEventListener('pointerdown',function(e){
+    if(mobile.matches) return;
+    dragging=true; moved=0; px=e.clientX; stage.classList.add('dragging');
+  });
+  window.addEventListener('pointermove',function(e){
+    if(!dragging) return;
+    var dx=e.clientX-px; px=e.clientX; moved+=Math.abs(dx);
+    angle+=dx*0.25; vel=dx*0.25; layout();
+  });
+  window.addEventListener('pointerup',function(){
+    if(!dragging) return;
+    dragging=false; stage.classList.remove('dragging');
+    vel=Math.max(-6,Math.min(6,vel));
+  });
+  cards.forEach(function(c){
+    c.addEventListener('mouseenter',function(){ paused=true; });
+    c.addEventListener('mouseleave',function(){ paused=false; });
+  });
+
+  /* case panel */
+  var panel=document.getElementById('case'), lastFocus=null;
+  function openCase(i){
+    var c=CASES[i];
+    document.getElementById('caseBrand').textContent=c.brand;
+    document.getElementById('caseSrc').src=c.src;
+    document.getElementById('caseSrcCap').textContent=c.srcCap;
+    document.getElementById('caseAd').src=c.ad;
+    document.getElementById('caseAngle').textContent=c.angle;
+    document.getElementById('caseHead').textContent=c.head;
+    lastFocus=document.activeElement;
+    panel.classList.add('open'); document.body.style.overflow='hidden';
+    document.getElementById('caseClose').focus();
+  }
+  function closeCase(){
+    panel.classList.remove('open'); document.body.style.overflow='';
+    if(lastFocus) lastFocus.focus();
+  }
+  cards.forEach(function(c){
+    c.addEventListener('click',function(e){
+      if(moved>8){ moved=0; return; } /* drag, not click */
+      openCase(parseInt(c.getAttribute('data-i'),10));
+    });
+  });
+  document.getElementById('caseClose').addEventListener('click',closeCase);
+  document.getElementById('caseGo').addEventListener('click',closeCase);
+  panel.addEventListener('click',function(e){ if(e.target===panel) closeCase(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&panel.classList.contains('open')) closeCase(); });
+
+  mobile.addEventListener('change',layout);
+  window.addEventListener('resize',layout);
+  layout(); tick();
+})();
+</script>
+</body>
+</html>
