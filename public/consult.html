@@ -18,7 +18,9 @@
 <link rel="stylesheet" href="styles.css">
 <style>
 /* page-local: one quiet room */
-.consult{min-height:calc(100vh - 58px);display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,6vw,80px) 0}
+.consult{position:relative;min-height:calc(100vh - 58px);display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,6vw,80px) 0;overflow:hidden}
+#field{position:absolute;inset:0;width:100%;height:100%;display:block}
+.consult-in,.next{position:relative}
 .consult-in{max-width:820px;margin:0 auto;padding:0 var(--gut);text-align:center}
 .consult h1{font-size:clamp(40px,6vw,84px)}
 .consult .lede{margin:26px auto 0;max-width:44ch;color:#33332C;font-size:clamp(17px,2vw,21px);line-height:1.55}
@@ -56,6 +58,7 @@
 <main id="main">
 
 <section class="consult">
+  <canvas id="field" aria-hidden="true"></canvas>
   <div class="consult-in">
     <span class="mono" style="color:var(--skyink);display:block;margin-bottom:18px">No rate card. On purpose.</span>
     <h1 class="disp">Your brand isn't<br>a line item.</h1>
@@ -86,5 +89,80 @@
     <span class="mono"><a href="tel:+19727422543">+1 972-742-2543</a> &nbsp;·&nbsp; <a href="mailto:consult@feedworkstudio.com">consult@feedworkstudio.com</a></span>
   </div>
 </footer>
+<script>
+(function(){
+  var cv=document.getElementById('field'), ctx=cv.getContext('2d');
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,DPR=Math.min(window.devicePixelRatio||1,2);
+  var mx=-9999,my=-9999,frames=[],raf=null;
+  var COLORS=['rgba(78,107,133,.30)','rgba(78,107,133,.18)','rgba(191,208,222,.55)','rgba(61,85,112,.22)','rgba(14,14,12,.10)'];
+
+  function size(){
+    var r=cv.parentNode.getBoundingClientRect();
+    W=r.width;H=r.height;
+    cv.width=W*DPR;cv.height=H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  function seed(){
+    frames=[];
+    var n=Math.round(Math.min(150,Math.max(45,W*H/14000)));
+    for(var i=0;i<n;i++){
+      var w=5+Math.random()*9;
+      frames.push({
+        x:Math.random()*W,
+        y:H*(1-Math.pow(Math.random(),1.7)), /* denser near the bottom */
+        vx:0,vy:0,
+        w:w,h:w*1.25,
+        rot:(Math.random()-.5)*.9,
+        speed:.08+Math.random()*.22,       /* slow rise */
+        c:COLORS[(Math.random()*COLORS.length)|0],
+        wob:Math.random()*6.28
+      });
+    }
+  }
+  function step(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<frames.length;i++){
+      var f=frames[i];
+      if(!reduced){
+        f.wob+=.004;
+        f.y-=f.speed;
+        f.x+=Math.sin(f.wob)*.12;
+        /* cursor scatters */
+        var dx=f.x-mx,dy=f.y-my,d2=dx*dx+dy*dy,R=130;
+        if(d2<R*R&&d2>.01){
+          var d=Math.sqrt(d2),push=(1-d/R)*2.2;
+          f.vx+=dx/d*push;f.vy+=dy/d*push;
+        }
+        f.vx*=.90;f.vy*=.90;
+        f.x+=f.vx;f.y+=f.vy;
+        if(f.y<-20){f.y=H+16;f.x=Math.random()*W;}
+        if(f.x<-24)f.x=W+16; if(f.x>W+24)f.x=-16;
+      }
+      ctx.save();
+      ctx.translate(f.x,f.y);
+      ctx.rotate(f.rot+Math.sin(f.wob)*.15);
+      ctx.fillStyle=f.c;
+      ctx.fillRect(-f.w/2,-f.h/2,f.w,f.h);
+      ctx.restore();
+    }
+    if(!reduced) raf=requestAnimationFrame(step);
+  }
+  function start(){ if(raf===null){ raf=requestAnimationFrame(step); } }
+  size();seed();
+  if(reduced){ step(); } else { start(); }
+  if('IntersectionObserver' in window && !reduced){
+    new IntersectionObserver(function(es){
+      var v=es[es.length-1].isIntersecting;
+      if(v){ start(); } else if(raf!==null){ cancelAnimationFrame(raf); raf=null; }
+    }).observe(cv);
+  }
+  cv.parentNode.addEventListener('pointermove',function(e){
+    var r=cv.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top;
+  });
+  cv.parentNode.addEventListener('pointerleave',function(){ mx=-9999;my=-9999; });
+  window.addEventListener('resize',function(){ size();seed();if(reduced){ctx.clearRect(0,0,W,H);step();} });
+})();
+</script>
 </body>
 </html>
