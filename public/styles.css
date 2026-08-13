@@ -149,8 +149,18 @@ a.cta:hover{background:var(--deep)}
 .proof-head h2{font-size:clamp(28px,3.6vw,46px)}
 .proof-note{grid-column:8 / span 5;align-self:end}
 .proof-note p{color:rgba(242,240,234,.72);font-size:15px;max-width:34ch}
-.proof-img{margin-top:clamp(26px,4vw,44px);padding:0 var(--gut);max-width:var(--maxw);margin-left:auto;margin-right:auto}
-.proof-img img{width:100%;height:auto;border:1px solid rgba(242,240,234,.18)}
+.proof-img{
+  margin-top:clamp(26px,4vw,44px);padding:0 var(--gut);
+  max-width:940px;margin-left:auto;margin-right:auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,24px);
+}
+.proof-img figure{margin:0}
+.proof-img img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border:1px solid rgba(242,240,234,.22)}
+.proof-img figcaption{
+  font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(242,240,234,.65);margin-bottom:10px;
+}
+@media(max-width:640px){.proof-img{grid-template-columns:1fr}}
 
 /* ---------- formats: sky field ---------- */
 .formats{background:var(--sky);color:var(--ink);padding:22px 0}
