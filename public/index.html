@@ -305,19 +305,25 @@
       if(visible) startLoop();
     }).observe(stage);
   }
+  var pid=null, captured=false, downCard=null;
   stage.addEventListener('pointerdown',function(e){
+    downCard=e.target && e.target.closest ? e.target.closest('.ocard') : null;
     if(mobile.matches || e.button!==0 || !e.isPrimary) return;
-    dragging=true; moved=0; px=e.clientX; stage.classList.add('dragging');
-    if(stage.setPointerCapture){ try{ stage.setPointerCapture(e.pointerId); }catch(err){} }
+    dragging=true; moved=0; px=e.clientX; pid=e.pointerId; captured=false;
+    stage.classList.add('dragging');
   });
   window.addEventListener('pointermove',function(e){
     if(!dragging) return;
     var dx=e.clientX-px; px=e.clientX; moved+=Math.abs(dx);
     angle+=dx*0.25; vel=dx*0.25;
+    /* capture only once a real drag starts, so plain clicks keep their target */
+    if(!captured && moved>6 && stage.setPointerCapture){
+      try{ stage.setPointerCapture(pid); captured=true; }catch(err){}
+    }
   });
   function endDrag(){
     if(!dragging) return;
-    dragging=false; stage.classList.remove('dragging');
+    dragging=false; captured=false; stage.classList.remove('dragging');
     vel=Math.max(-6,Math.min(6,vel));
     setTimeout(function(){ moved=0; },0); /* after the suppressed click fires */
   }
@@ -347,11 +353,13 @@
     if(lastFocus) lastFocus.focus();
     lastFocus=null;
   }
-  cards.forEach(function(c){
-    c.addEventListener('click',function(e){
-      if(moved>8 && e.detail!==0){ return; } /* drag, not click; keyboard (detail 0) always activates */
-      openCase(parseInt(c.getAttribute('data-i'),10));
-    });
+  /* cards move under the cursor, so a click's target can retarget to the stage
+     between pointerdown and pointerup; open the card the press STARTED on */
+  stage.addEventListener('click',function(e){
+    if(moved>8 && e.detail!==0){ downCard=null; return; } /* drag, not click */
+    var c=(e.target && e.target.closest ? e.target.closest('.ocard') : null)||downCard;
+    downCard=null;
+    if(c) openCase(parseInt(c.getAttribute('data-i'),10));
   });
   document.getElementById('caseClose').addEventListener('click',closeCase);
   document.getElementById('caseGo').addEventListener('click',function(){
