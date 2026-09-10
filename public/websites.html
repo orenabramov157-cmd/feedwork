@@ -384,7 +384,7 @@
     n=Math.max(0,Math.min(4,parseInt(n,10)||0));
     mini.className='mini lv-'+n; vol.setAttribute('aria-valuetext',NAMES[n]); note.textContent=NOTES[n];
   }
-  if(vol&&mini){ vol.addEventListener('input',function(){ setLevel(vol.value); }); setLevel(vol.value); }
+  if(vol&&mini){ var q=/[?&]volume=(\d)/.exec(location.search); if(q){ vol.value=q[1]; } vol.addEventListener('input',function(){ setLevel(vol.value); }); setLevel(vol.value); }
 
   /* before and after */
   document.querySelectorAll('[data-cmp]').forEach(function(box){
