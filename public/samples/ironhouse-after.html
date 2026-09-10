@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ironhouse Supply Co. · Work boots made in Pittsburgh since 1971</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14110f;--bg:#f2ede6;--rust:#a8471f;--line:#dcd3c8;--muted:#6a625b}
+*{box-sizing:border-box;margin:0;padding:0}body{font:16px/1.55 Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+header{display:flex;justify-content:space-between;align-items:center;height:72px}
+.brand{font:800 20px Archivo,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+nav a{margin-left:26px;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px}
+.call{background:var(--rust);color:#fff;padding:10px 16px;border-radius:4px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:56px 0 64px}
+.hero h1{font:800 56px/1 Archivo,system-ui,sans-serif;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:18px}
+.hero p{font-size:18px;color:var(--muted);max-width:44ch;margin-bottom:26px}
+.btn{display:inline-block;text-decoration:none;padding:13px 20px;border-radius:4px;font-weight:600;margin-right:10px}
+.btn.p{background:var(--ink);color:#fff}.btn.s{border:1.5px solid var(--ink);color:var(--ink)}
+.hero img{width:100%;height:520px;object-fit:cover;border-radius:4px}
+.strip{background:var(--ink);color:#e9e2d8;padding:16px 0;font-size:14px}.strip .wrap{display:flex;gap:34px;flex-wrap:wrap}
+.boots{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;padding:60px 0}
+.boot img{width:100%;height:320px;object-fit:cover;border-radius:4px;margin-bottom:12px}
+.boot h3{font:800 20px Archivo,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.03em}.boot p{color:var(--muted);font-size:15px}.boot b{display:block;margin-top:6px;font-size:18px}
+.resole{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:56px 0}
+.resole h2{font:800 34px Archivo,system-ui,sans-serif;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:12px}.resole p{color:var(--muted);max-width:60ch;margin-bottom:22px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}.steps b{display:block;color:var(--rust);margin-bottom:6px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.sizing{padding:56px 0}.sizing h2{font:800 34px Archivo,system-ui,sans-serif;text-transform:uppercase;margin-bottom:12px}.sizing p{color:var(--muted);max-width:60ch}
+footer{background:var(--ink);color:#d9d0c4;padding:34px 0;font-size:14px}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}footer b{color:#fff;display:block;margin-bottom:4px}
+@media(max-width:820px){.hero,.boots,.steps{grid-template-columns:1fr}.hero img{height:360px}.hero h1{font-size:40px}nav a:not(.call){display:none}}
+</style></head>
+<body>
+<div class="wrap"><header><div class="brand">Ironhouse Supply Co.</div><nav><a href="#boots">Boots</a><a href="#resole">Resoling</a><a href="#sizing">Sizing</a><a class="call" href="#order">Order by phone</a></nav></header></div>
+<section class="wrap hero"><div><h1>Boots that get resoled, not replaced.</h1><p>Full grain leather, Goodyear welt, made in Pittsburgh since 1971. Worn by carpenters, ironworkers and linemen who buy one pair and keep it for a decade.</p><a class="btn p" href="#boots">See the three boots</a><a class="btn s" href="#sizing">Find your size</a></div><div><img src="../work/ironhouse.webp" alt="Worn Ironhouse boots on a workshop floor"></div></section>
+<div class="strip"><div class="wrap"><span>Made in Pittsburgh, PA</span><span>Goodyear welt, resoleable</span><span>Sizes 7 to 14, D and EE</span><span>Since 1971</span></div></div>
+<section class="wrap boots" id="boots">
+<div class="boot"><img src="../work/ironhouse.webp" alt="Model 71 six inch boot"><h3>Model 71 · 6 inch</h3><p>Brown full grain, steel toe available. The everyday boot.</p><b>$189</b></div>
+<div class="boot"><img src="../work/raw-ironhouse.webp" alt="Model 88 eight inch boot"><h3>Model 88 · 8 inch</h3><p>Black leather, lineman heel, extra ankle.</p><b>$219</b></div>
+<div class="boot"><img src="../work/ironhouse.webp" alt="Model 100 wedge boot" style="object-position:left"><h3>Model 100 · Wedge</h3><p>Moc toe, wedge sole, for concrete all day.</p><b>$199</b></div>
+</section>
+<section class="resole" id="resole"><div class="wrap"><h2>Send them back. We resole them.</h2><p>Every pair is welted so the sole comes off and a new one goes on. Most pairs come back to us two or three times over their life.</p><div class="steps">
+<div><b>01 · Box them up</b>Any age, any condition. Include a note with your name and number.</div>
+<div><b>02 · We rebuild</b>New sole, new heel, new laces, leather conditioned. About three weeks.</div>
+<div><b>03 · Back to you</b>Shipped UPS, $65 flat, and they fit exactly the way they did before.</div>
+</div></div></section>
+<section class="wrap sizing" id="sizing"><h2>Sizing</h2><p>Ironhouse runs true to size in D. If you are between sizes or wear thick socks, go EE, not up a size. Call the shop and we will size you over the phone in two minutes.</p></section>
+<footer id="order"><div class="wrap"><div><b>Ironhouse Supply Co.</b>Pittsburgh, PA · Mon to Fri 7 to 4</div><div><b>Order by phone</b>(412) 555-0199</div><div><b>Email</b>orders@ironhousesupply.example</div></div></footer>
+</body></html>

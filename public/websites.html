@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Websites · Feedwork Studio</title>
+<meta name="description" content="Websites Feedwork Studio has built and shipped, and two sample rebuilds that show what happens to a site from 2004.">
+<link rel="canonical" href="https://feedworkstudio.com/websites">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://feedworkstudio.com/websites">
+<meta property="og:site_name" content="Feedwork Studio">
+<meta property="og:title" content="Websites · Feedwork Studio">
+<meta property="og:description" content="Sites we built and shipped, and two sample rebuilds.">
+<meta property="og:image" content="https://feedworkstudio.com/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Websites · Feedwork Studio">
+<meta name="twitter:description" content="Sites we built and shipped, and two sample rebuilds.">
+<meta name="twitter:image" content="https://feedworkstudio.com/og.jpg">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* websites page only */
+.w-hero{padding:clamp(40px,6vw,84px) 0 0}
+.w-hero .sec-body h1{font-size:clamp(34px,5vw,68px)}
+.w-hero .sub{margin-top:20px;max-width:52ch;color:#33332C;font-size:clamp(16px,1.7vw,19px)}
+.sites{max-width:var(--maxw);margin:clamp(30px,4vw,52px) auto 0;padding:0 var(--gut)}
+.site{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);padding:clamp(30px,4vw,60px) 0;border-top:1px solid var(--hair);align-items:start}
+.site:first-child{border-top:2px solid var(--skyink)}
+.shot{grid-column:1 / span 8;border:1px solid var(--ink);background:#ddd;position:relative}
+.shot::before{content:"";display:block;height:26px;background:#e6e3dc;border-bottom:1px solid var(--hair)}
+.shot::after{content:"";position:absolute;top:8px;left:12px;width:10px;height:10px;border-radius:50%;background:var(--skyink);box-shadow:16px 0 0 var(--sky),32px 0 0 var(--hair)}
+.shot img{width:100%;height:auto;aspect-ratio:1440/1000;object-fit:cover;object-position:top}
+.side{grid-column:9 / span 4;position:sticky;top:86px}
+.site-n{font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'opsz' 144;font-size:clamp(36px,4.6vw,60px);line-height:.8;color:var(--skyink);letter-spacing:-.02em}
+.site-k{color:var(--metal);display:block;margin:16px 0 8px}
+.side h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'opsz' 144;font-size:clamp(26px,3.2vw,40px);letter-spacing:-.02em;line-height:1}
+.side h4{font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--skyink);margin:22px 0 7px}
+.side p{font-size:15px;color:#33332C;max-width:38ch}
+.side .go{display:inline-block;margin-top:22px;font-family:'Jost',sans-serif;font-weight:600;font-size:14px;text-decoration:none;border-bottom:2px solid var(--skyink);padding-bottom:2px}
+.side .go:hover{color:var(--skyink)}
+.side .nolink{display:inline-block;margin-top:22px;font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--metal)}
+.pairs{max-width:var(--maxw);margin:clamp(30px,4vw,52px) auto 0;padding:0 var(--gut)}
+.pair{padding:clamp(30px,4vw,60px) 0;border-top:1px solid var(--hair)}
+.pair:first-child{border-top:2px solid var(--skyink)}
+.pair-head{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);margin-bottom:clamp(18px,2.4vw,30px)}
+.pair-head .site-n{grid-column:1 / span 2}
+.pair-head .pt{grid-column:3 / span 8}
+.pair-head h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'opsz' 144;font-size:clamp(26px,3.2vw,40px);letter-spacing:-.02em;line-height:1}
+.pair-head p{margin-top:10px;font-size:15px;color:#33332C;max-width:60ch}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,24px)}
+.ba figure{margin:0}
+.ba figcaption{font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--metal);margin-bottom:10px;display:flex;justify-content:space-between;gap:12px}
+.ba figcaption a{text-decoration:none;color:var(--skyink);border-bottom:1px solid var(--skyink)}
+.ba .shot{grid-column:auto}
+.rules{margin-top:clamp(30px,4vw,52px);border-top:2px solid var(--skyink)}
+@media(max-width:900px){
+  .shot,.side{grid-column:1 / -1 !important;position:static}
+  .side{margin-top:4px}
+  .pair-head .site-n,.pair-head .pt{grid-column:1 / -1}
+  .pair-head .pt{margin-top:12px}
+}
+@media(max-width:640px){.ba{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="mark" href="index.html"><svg class="mark-sq" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="10" y="8" width="34" height="34" rx="4" fill="#3D5570" transform="rotate(-8 27 25)"/><rect x="20" y="16" width="34" height="34" rx="4" fill="#BFD0DE" stroke="#3D5570" stroke-width="2" transform="rotate(8 37 33)"/></svg><b>Feedwork</b></a>
+    <nav class="nav-links">
+      <a href="index.html#process">Ads</a>
+      <a href="websites.html" aria-current="page">Websites</a>
+      <a href="consult.html">Consult</a>
+    </nav>
+    <a class="cta" href="#start">Start a project</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="w-hero" id="top">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">01</span><span class="mono lbl">Websites</span></div>
+    <div class="sec-body rv">
+      <h1 class="disp">Sites we built. Some shipped, some built to show.</h1>
+      <p class="sub">Three sites we designed and built end to end, two of them live and doing their job. Below them, two sample rebuilds: a site from the early 2000s and the one page it becomes. The sample brands are made up. The method is the one you get.</p>
+    </div>
+  </div>
+  <div class="spec" style="margin-top:clamp(30px,4vw,52px)">
+    <div class="spec-in">
+      <div class="spec-c"><span class="mono k">Shipped</span><span class="v">Two live sites</span></div>
+      <div class="spec-c"><span class="mono k">A rebuild</span><span class="v">One page, one week</span></div>
+      <div class="spec-c"><span class="mono k">Your domain</span><span class="v">Stays yours</span></div>
+      <div class="spec-c"><span class="mono k">Price</span><span class="v">Agreed up front</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="shipped" style="padding-top:clamp(40px,6vw,84px)">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">02</span><span class="mono lbl">Built and shipped</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">Two live. One built and waiting on its launch.</h2>
+      <p class="sub">A calm one, a loud one, and the one you are reading. Different businesses, different jobs for the site to do.</p>
+    </div>
+  </div>
+  <div class="sites">
+
+    <article class="site rv">
+      <div class="shot"><img src="websites/osp.jpg" alt="The OSP Health Management homepage: a hero over a residential street, referral reference panel, location cards" loading="lazy" decoding="async"></div>
+      <div class="side">
+        <span class="site-n">01</span>
+        <span class="mono site-k">Live · The calm one</span>
+        <h3>OSP Health Management</h3>
+        <h4>What it is</h4>
+        <p>Recuperative care and short-term post-hospital housing across Southern California. The site is read by hospital discharge planners with ten seconds to decide.</p>
+        <h4>What it had to do</h4>
+        <p>Earn trust fast and make the next step obvious: which locations, what is contracted, one phone number.</p>
+        <h4>What we built</h4>
+        <p>A fully static site, no scripts, no trackers, every location on its own page, the referral path front and center.</p>
+        <a class="go" href="https://osphealth.org" target="_blank" rel="noopener">osphealth.org</a>
+      </div>
+    </article>
+
+    <article class="site rv">
+      <div class="shot"><img src="websites/answerside.jpg" alt="The Answerside homepage: a large headline asking whether AI says your name, and a visibility audit panel" loading="lazy" decoding="async"></div>
+      <div class="side">
+        <span class="site-n">02</span>
+        <span class="mono site-k">Built · The loud one</span>
+        <h3>Answerside</h3>
+        <h4>What it is</h4>
+        <p>A service that gets a local business named when someone asks ChatGPT or Perplexity for the best in town. A new idea that has to explain itself on one screen.</p>
+        <h4>What it had to do</h4>
+        <p>Make a curious owner type in their business and city, and turn that into a conversation.</p>
+        <h4>What we built</h4>
+        <p>A scrolling story in six short chapters, a live generator that drafts the owner's first moves, and dated proof behind every claim.</p>
+        <span class="nolink">Launching · not public yet</span>
+      </div>
+    </article>
+
+    <article class="site rv">
+      <div class="shot"><img src="websites/feedwork.jpg" alt="The Feedwork Studio homepage: a ring of sample ads around the studio name" loading="lazy" decoding="async"></div>
+      <div class="side">
+        <span class="site-n">03</span>
+        <span class="mono site-k">Live · The one you are on</span>
+        <h3>Feedwork Studio</h3>
+        <h4>What it is</h4>
+        <p>This site. Ad creative for people who make things, sold to manufacturers who have never bought creative before.</p>
+        <h4>What it had to do</h4>
+        <p>Get a busy owner to email one photo. No form, no call, no account.</p>
+        <h4>What we built</h4>
+        <p>The whole pitch in one scroll, the samples you can spin through, and a start that is one email.</p>
+        <a class="go" href="index.html">feedworkstudio.com</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="rebuilds" style="border-top:1px solid var(--hair)">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">03</span><span class="mono lbl">Rebuilds</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">A site from 2004, and the page it becomes.</h2>
+      <p class="sub">Most of the manufacturers we talk to have a site like the left side. These two are samples, built to show the move: same business, same products, same phone number, one page that works on a phone.</p>
+    </div>
+  </div>
+  <div class="pairs">
+
+    <div class="pair rv">
+      <div class="pair-head">
+        <span class="site-n">01</span>
+        <div class="pt"><h3>Marlowe Woodworks <span class="mono" style="color:var(--metal);font-size:11.5px">· sample brand</span></h3>
+        <p>A furniture maker with a guest book, a hit counter and a page last updated in 2004. The rebuild keeps every fact and every photo, drops everything else.</p></div>
+      </div>
+      <div class="ba">
+        <figure><figcaption><span>Before</span><a href="samples/marlowe-before.html" target="_blank" rel="noopener">Open</a></figcaption><div class="shot"><img src="websites/marlowe-before.jpg" alt="The old Marlowe Woodworks site: yellow background, pink menu, table layout" loading="lazy" decoding="async"></div></figure>
+        <figure><figcaption><span>After</span><a href="samples/marlowe-after.html" target="_blank" rel="noopener">Open</a></figcaption><div class="shot"><img src="websites/marlowe-after.jpg" alt="The rebuilt Marlowe Woodworks site: one page, a walnut table hero, a clear phone number" loading="lazy" decoding="async"></div></figure>
+      </div>
+    </div>
+
+    <div class="pair rv">
+      <div class="pair-head">
+        <span class="site-n">02</span>
+        <div class="pt"><h3>Ironhouse Supply Co. <span class="mono" style="color:var(--metal);font-size:11.5px">· sample brand</span></h3>
+        <p>A boot maker on a black page with an orange border and a fax number. The rebuild leads with the one thing they do that nobody else does: resoling.</p></div>
+      </div>
+      <div class="ba">
+        <figure><figcaption><span>Before</span><a href="samples/ironhouse-before.html" target="_blank" rel="noopener">Open</a></figcaption><div class="shot"><img src="websites/ironhouse-before.jpg" alt="The old Ironhouse Supply site: black background, orange headline, product table" loading="lazy" decoding="async"></div></figure>
+        <figure><figcaption><span>After</span><a href="samples/ironhouse-after.html" target="_blank" rel="noopener">Open</a></figcaption><div class="shot"><img src="websites/ironhouse-after.jpg" alt="The rebuilt Ironhouse Supply site: a bold headline about resoling, three boots, a phone number" loading="lazy" decoding="async"></div></figure>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="how" style="border-top:1px solid var(--hair)">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">04</span><span class="mono lbl">How a rebuild works</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">Send the address of your site. That is the brief.</h2>
+      <p class="sub">The same rule as the ads: nothing to fill out, nothing to log in to, a number before anything starts.</p>
+    </div>
+  </div>
+  <div class="workwrap">
+    <div class="steps rules">
+      <div class="step rv"><span class="sn">Step 01 · Send</span><h3>Your current site and a few photos</h3><p>The address of the site you have now, and whatever product photos you have, phone shots included.</p></div>
+      <div class="step rv"><span class="sn">Step 02 · Draft</span><h3>A one-page draft within a week</h3><p>Your business, your products, your phone number, on one page that works on a phone. You see it before you decide anything.</p></div>
+      <div class="step rv"><span class="sn">Step 03 · Live</span><h3>Your domain, live, changes until it is right</h3><p>The new site goes up on the address you already own. We host it or hand it to whoever you like. One price, agreed up front.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="close" id="start">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">05</span><span class="mono lbl">Start</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">Send your site's address. Start there.</h2>
+      <p class="sub">Tell me what you make and send the address of your current site. You get a quote and a turnaround before anything is committed.</p>
+    </div>
+  </div>
+  <div class="workwrap">
+    <div class="contact">
+      <div class="rv">
+        <span class="mono k">Email</span>
+        <a href="mailto:consult@feedworkstudio.com?subject=Website%20enquiry&body=Business%20name%3A%0ACurrent%20site%3A%0AWhat%20you%20make%3A%0AAnything%20else%3A%0A">consult@feedworkstudio.com</a>
+      </div>
+      <div class="rv">
+        <span class="mono k">Or call</span>
+        <a href="tel:+19727422543">+1 972-742-2543</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot">
+    <span class="mono">Feedwork Studio</span>
+    <span class="mono"><a href="tel:+19727422543">+1 972-742-2543</a> &nbsp;·&nbsp; <a href="mailto:consult@feedworkstudio.com">consult@feedworkstudio.com</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('js');
+  function start(){
+    var first=document.querySelectorAll('.w-hero .rv');
+    first.forEach(function(el,i){ setTimeout(function(){el.classList.add('in');}, 60+i*90); });
+    var rest=document.querySelectorAll('section .rv:not(.in)');
+    if(!('IntersectionObserver' in window)){ rest.forEach(function(e){e.classList.add('in');}); return; }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{rootMargin:'0px 0px -10% 0px'});
+    rest.forEach(function(e){ io.observe(e); });
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',start); } else { start(); }
+  setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(e){e.classList.add('in');}); },2500);
+})();
+</script>
+</body>
+</html>
