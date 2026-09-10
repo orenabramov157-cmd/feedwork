@@ -65,6 +65,88 @@
   .pair-head .pt{margin-top:12px}
 }
 @media(max-width:640px){.ba{grid-template-columns:1fr}}
+
+/* ---- the dial ---- */
+.dial{max-width:var(--maxw);margin:clamp(26px,4vw,48px) auto 0;padding:0 var(--gut);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--gut);align-items:start}
+.dial-ctl{position:sticky;top:86px;border-top:2px solid var(--skyink);padding-top:18px}
+.dial-ctl label{color:var(--metal);display:block;margin-bottom:14px}
+#volume{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:var(--ink);border-radius:2px;outline:none;margin:14px 0 10px}
+#volume::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
+#volume::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
+#volume:focus-visible{outline:3px solid var(--skyink);outline-offset:8px}
+.dial-ticks{display:flex;justify-content:space-between;font-family:'Jost',sans-serif;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--metal)}
+.dial-note{margin-top:18px;font-size:15px;color:#33332C;min-height:3.2em}
+.stage{border:1px solid var(--ink);background:#e6e3dc;position:relative;padding-top:26px;overflow:hidden}
+.stage::before{content:"";position:absolute;top:8px;left:12px;width:10px;height:10px;border-radius:50%;background:var(--skyink);box-shadow:16px 0 0 var(--sky),32px 0 0 var(--hair)}
+
+/* the sample page: every level is the same markup with different variables */
+.mini{--m-bg:#ffffff;--m-ink:#1c1a17;--m-accent:#7a4a24;--m-muted:#6b625a;--m-font:'Jost',sans-serif;--m-hfont:'Fraunces',Georgia,serif;--m-hw:600;--m-hsize:clamp(26px,3.4vw,46px);--m-radius:6px;--m-pad:clamp(18px,3vw,40px);
+  background:var(--m-bg);color:var(--m-ink);font-family:var(--m-font);transition:background .5s,color .5s;min-height:420px}
+.m-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px var(--m-pad);border-bottom:1px solid rgba(0,0,0,.08);font-size:13px}
+.m-brand{font-family:var(--m-hfont);font-weight:700;font-size:17px;transition:all .5s}
+.m-links{display:flex;gap:18px;color:var(--m-muted)}
+.m-cta{background:var(--m-accent);color:#fff;padding:8px 14px;border-radius:var(--m-radius);font-weight:600;font-size:12px;transition:all .5s}
+.m-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(18px,3vw,40px);align-items:center;padding:clamp(26px,4vw,52px) var(--m-pad)}
+.m-kicker{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--m-accent);margin-bottom:12px;font-weight:600}
+.m-h{font-family:var(--m-hfont);font-weight:var(--m-hw);font-size:var(--m-hsize);line-height:1.02;letter-spacing:-.01em;margin-bottom:12px;transition:all .5s}
+.m-h em{font-style:normal;transition:all .5s}
+.m-p{font-size:15px;color:var(--m-muted);max-width:40ch;margin-bottom:18px}
+.m-btn{display:inline-block;background:var(--m-ink);color:var(--m-bg);padding:11px 16px;border-radius:var(--m-radius);font-weight:600;font-size:13px;transition:all .5s}
+.m-img img{width:100%;height:clamp(200px,26vw,330px);object-fit:cover;border-radius:var(--m-radius);transition:transform .6s,border-radius .5s,box-shadow .5s}
+.m-strip{border-top:1px solid rgba(0,0,0,.08);padding:12px 0;overflow:hidden;font-size:12px;color:var(--m-muted)}
+.m-run{display:flex;gap:28px;padding:0 var(--m-pad);white-space:nowrap}
+
+.mini.lv-0{--m-bg:#fbfaf7;--m-ink:#2b2b2b;--m-accent:#4e6b85;--m-muted:#6b6b6b;--m-hfont:'Jost',sans-serif;--m-hw:500;--m-hsize:clamp(22px,2.6vw,34px);--m-radius:2px}
+.mini.lv-0 .m-hero{grid-template-columns:1fr;text-align:center}
+.mini.lv-0 .m-copy{max-width:52ch;margin:0 auto}
+.mini.lv-0 .m-p{margin-left:auto;margin-right:auto}
+.mini.lv-0 .m-img img{height:clamp(160px,20vw,240px);max-width:520px;margin:0 auto;filter:saturate(.7)}
+.mini.lv-0 .m-btn{background:transparent;color:var(--m-ink);border:1px solid var(--m-ink)}
+.mini.lv-0 .m-strip{display:none}
+
+.mini.lv-1{--m-bg:#f6f2ec;--m-ink:#1f2a35;--m-accent:#3d5570;--m-hfont:'Fraunces',Georgia,serif;--m-hw:600;--m-hsize:clamp(24px,3vw,40px);--m-radius:4px}
+.mini.lv-1 .m-img img{filter:saturate(.9)}
+
+.mini.lv-2{--m-bg:#f4efe7;--m-ink:#1c1a17;--m-accent:#7a4a24;--m-hfont:'Fraunces',Georgia,serif;--m-hw:700;--m-hsize:clamp(28px,3.6vw,50px);--m-radius:6px}
+
+.mini.lv-3{--m-bg:#0e0e0c;--m-ink:#f2f0ea;--m-accent:#e8b84a;--m-muted:rgba(242,240,234,.66);--m-hfont:'Fraunces',Georgia,serif;--m-hw:900;--m-hsize:clamp(32px,4.4vw,62px);--m-radius:0}
+.mini.lv-3 .m-nav{border-color:rgba(255,255,255,.14)}
+.mini.lv-3 .m-h em{color:var(--m-accent)}
+.mini.lv-3 .m-btn{background:var(--m-accent);color:#0e0e0c}
+.mini.lv-3 .m-strip{border-color:rgba(255,255,255,.14);color:var(--m-accent)}
+.mini.lv-3 .m-img img{transform:rotate(-2deg) scale(1.03);box-shadow:0 24px 50px rgba(0,0,0,.5)}
+
+.mini.lv-4{--m-bg:#fff7d6;--m-ink:#0e0e0c;--m-accent:#0a4bd6;--m-muted:#3b3b3b;--m-hfont:'Fraunces',Georgia,serif;--m-hw:900;--m-hsize:clamp(36px,5.4vw,78px);--m-radius:999px}
+.mini.lv-4 .m-brand{text-transform:uppercase;letter-spacing:.06em}
+.mini.lv-4 .m-h{letter-spacing:-.03em;text-transform:uppercase;line-height:.92}
+.mini.lv-4 .m-h em{background:linear-gradient(transparent 55%,#ffd23f 55%);color:var(--m-accent);padding:0 .08em}
+.mini.lv-4 .m-cta{border-radius:999px}
+.mini.lv-4 .m-btn{background:var(--m-accent);color:#fff;border-radius:999px;padding:13px 22px;font-size:14px}
+.mini.lv-4 .m-img img{transform:rotate(3deg) scale(1.06);border-radius:16px;box-shadow:0 30px 60px rgba(10,75,214,.25);height:clamp(220px,30vw,380px)}
+.mini.lv-4 .m-strip{background:var(--m-ink);color:#fff7d6;border:0;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.mini.lv-4 .m-run{animation:m-run 18s linear infinite}
+@keyframes m-run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.mini.lv-4 .m-run{animation:none}}
+@media(max-width:900px){
+  .dial{grid-template-columns:1fr}
+  .dial-ctl{position:static}
+  .m-hero{grid-template-columns:1fr}
+  .m-links{display:none}
+}
+
+/* ---- before and after, drag to compare ---- */
+.cmp-frame{position:relative;border:1px solid var(--ink);background:#ddd;aspect-ratio:1440/1000;overflow:hidden;user-select:none}
+.cmp-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.cmp-before-wrap{position:absolute;inset:0;width:var(--cut,55%);overflow:hidden}
+.cmp-before-wrap img{width:calc(100% * 100 / var(--pct,55))}
+.cmp-line{position:absolute;top:0;bottom:0;left:var(--cut,55%);width:2px;background:var(--paper);box-shadow:0 0 0 1px rgba(14,14,12,.35);pointer-events:none}
+.cmp-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--ink)}
+.cmp-tag{position:absolute;top:12px;font-family:'Jost',sans-serif;font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:6px 10px;background:var(--ink);color:var(--paper);pointer-events:none}
+.cmp-tag-b{left:12px}.cmp-tag-a{right:12px;background:var(--skyink)}
+.cmp-range{-webkit-appearance:none;appearance:none;position:absolute;inset:0;width:100%;height:100%;margin:0;background:transparent;cursor:ew-resize;opacity:0}
+.cmp-range:focus-visible{opacity:1;outline:3px solid var(--skyink);outline-offset:-3px;background:transparent}
+.cmp-links{display:flex;gap:26px;margin-top:12px}
+.cmp-links a{text-decoration:none;color:var(--skyink);border-bottom:1px solid var(--skyink)}
 </style>
 </head>
 <body>
@@ -88,10 +170,36 @@
   <div class="grid">
     <div class="sec-mark rv"><span class="num">01</span><span class="mono lbl">Websites</span></div>
     <div class="sec-body rv">
-      <h1 class="disp">Sites we built. Some shipped, some built to show.</h1>
-      <p class="sub">Three sites we designed and built end to end, two of them live and doing their job. Below them, two sample rebuilds: a site from the early 2000s and the one page it becomes. The sample brands are made up. The method is the one you get.</p>
+      <h1 class="disp">How loud do you want your site?</h1>
+      <p class="sub">Same business, same words, same photo. Drag the dial and watch one page go from quiet to loud. Whatever you land on is the brief; the rest of the page shows the real ones we shipped at both ends.</p>
     </div>
   </div>
+
+  <div class="dial rv" id="dial">
+    <div class="dial-ctl">
+      <label class="mono" for="volume">Volume</label>
+      <input type="range" id="volume" min="0" max="4" step="1" value="2" aria-valuetext="Clear" aria-describedby="volNote">
+      <div class="dial-ticks" aria-hidden="true"><span>Quiet</span><span>Calm</span><span>Clear</span><span>Bold</span><span>Loud</span></div>
+      <p class="dial-note" id="volNote">Clear: the version most of our clients pick. Reads in one glance, still has a spine.</p>
+    </div>
+
+    <div class="stage" aria-label="A sample homepage that changes style with the dial">
+      <div class="mini lv-2" id="mini">
+        <div class="m-nav"><span class="m-brand">Marlowe Woodworks</span><span class="m-links"><span>Tables</span><span>Chairs</span><span>Woods</span></span><span class="m-cta">Call the shop</span></div>
+        <div class="m-hero">
+          <div class="m-copy">
+            <span class="m-kicker">Vermont · since 1988</span>
+            <h3 class="m-h">One tree. <em>One table.</em></h3>
+            <p class="m-p">Hardwood dining tables built by hand, one at a time, delivered and set up across New England.</p>
+            <span class="m-btn">Call (802) 555-0148</span>
+          </div>
+          <div class="m-img"><img src="work/raw-marlowe.webp" alt="A hardwood dining table in a sunlit room" width="900" height="1125" decoding="async"></div>
+        </div>
+        <div class="m-strip"><div class="m-run"><span>Black walnut</span><span>Cherry</span><span>Hard maple</span><span>White oak</span><span>Built to your room</span><span>Delivered in New England</span><span>Black walnut</span><span>Cherry</span><span>Hard maple</span><span>White oak</span><span>Built to your room</span><span>Delivered in New England</span></div></div>
+      </div>
+    </div>
+  </div>
+
   <div class="spec" style="margin-top:clamp(30px,4vw,52px)">
     <div class="spec-in">
       <div class="spec-c"><span class="mono k">Shipped</span><span class="v">Two live sites</span></div>
@@ -168,7 +276,7 @@
     <div class="sec-mark rv"><span class="num">03</span><span class="mono lbl">Rebuilds</span></div>
     <div class="sec-body rv">
       <h2 class="disp">A site from 2004, and the page it becomes.</h2>
-      <p class="sub">Most of the manufacturers we talk to have a site like the left side. These two are samples, built to show the move: same business, same products, same phone number, one page that works on a phone.</p>
+      <p class="sub">Most of the manufacturers we talk to have a site like the one under the handle. Drag it. These two are samples, built to show the move: same business, same products, same phone number, one page that works on a phone.</p>
     </div>
   </div>
   <div class="pairs">
@@ -179,9 +287,15 @@
         <div class="pt"><h3>Marlowe Woodworks <span class="mono" style="color:var(--metal);font-size:11.5px">· sample brand</span></h3>
         <p>A furniture maker with a guest book, a hit counter and a page last updated in 2004. The rebuild keeps every fact and every photo, drops everything else.</p></div>
       </div>
-      <div class="ba">
-        <figure><figcaption><span>Before</span><a href="samples/marlowe-before.html" target="_blank" rel="noopener">Open</a></figcaption><div class="shot"><img src="websites/marlowe-before.jpg" alt="The old Marlowe Woodworks site: yellow background, pink menu, table layout" loading="lazy" decoding="async"></div></figure>
-        <figure><figcaption><span>After</span><a href="samples/marlowe-after.html" target="_blank" rel="noopener">Open</a></figcaption><div class="shot"><img src="websites/marlowe-after.jpg" alt="The rebuilt Marlowe Woodworks site: one page, a walnut table hero, a clear phone number" loading="lazy" decoding="async"></div></figure>
+      <div class="cmp" data-cmp>
+        <div class="cmp-frame">
+          <img class="cmp-after" src="websites/marlowe-after.jpg" alt="The rebuilt Marlowe Woodworks site: one page, a table hero, a clear phone number" loading="lazy" decoding="async">
+          <div class="cmp-before-wrap"><img class="cmp-before" src="websites/marlowe-before.jpg" alt="The old Marlowe Woodworks site: yellow background, pink menu, table layout" loading="lazy" decoding="async"></div>
+          <div class="cmp-line" aria-hidden="true"><span class="cmp-knob">&#8596;</span></div>
+          <span class="cmp-tag cmp-tag-b" aria-hidden="true">Before</span><span class="cmp-tag cmp-tag-a" aria-hidden="true">After</span>
+          <input class="cmp-range" type="range" min="0" max="100" value="55" aria-label="Drag to compare the old site with the rebuild">
+        </div>
+        <div class="cmp-links mono"><a href="samples/marlowe-before.html" target="_blank" rel="noopener">Open the old site</a><a href="samples/marlowe-after.html" target="_blank" rel="noopener">Open the rebuild</a></div>
       </div>
     </div>
 
@@ -191,9 +305,15 @@
         <div class="pt"><h3>Ironhouse Supply Co. <span class="mono" style="color:var(--metal);font-size:11.5px">· sample brand</span></h3>
         <p>A boot maker on a black page with an orange border and a fax number. The rebuild leads with the one thing they do that nobody else does: resoling.</p></div>
       </div>
-      <div class="ba">
-        <figure><figcaption><span>Before</span><a href="samples/ironhouse-before.html" target="_blank" rel="noopener">Open</a></figcaption><div class="shot"><img src="websites/ironhouse-before.jpg" alt="The old Ironhouse Supply site: black background, orange headline, product table" loading="lazy" decoding="async"></div></figure>
-        <figure><figcaption><span>After</span><a href="samples/ironhouse-after.html" target="_blank" rel="noopener">Open</a></figcaption><div class="shot"><img src="websites/ironhouse-after.jpg" alt="The rebuilt Ironhouse Supply site: a bold headline about resoling, three boots, a phone number" loading="lazy" decoding="async"></div></figure>
+      <div class="cmp" data-cmp>
+        <div class="cmp-frame">
+          <img class="cmp-after" src="websites/ironhouse-after.jpg" alt="The rebuilt Ironhouse Supply site: a bold headline about resoling, three boots, a phone number" loading="lazy" decoding="async">
+          <div class="cmp-before-wrap"><img class="cmp-before" src="websites/ironhouse-before.jpg" alt="The old Ironhouse Supply site: black background, orange headline, product table" loading="lazy" decoding="async"></div>
+          <div class="cmp-line" aria-hidden="true"><span class="cmp-knob">&#8596;</span></div>
+          <span class="cmp-tag cmp-tag-b" aria-hidden="true">Before</span><span class="cmp-tag cmp-tag-a" aria-hidden="true">After</span>
+          <input class="cmp-range" type="range" min="0" max="100" value="55" aria-label="Drag to compare the old site with the rebuild">
+        </div>
+        <div class="cmp-links mono"><a href="samples/ironhouse-before.html" target="_blank" rel="noopener">Open the old site</a><a href="samples/ironhouse-after.html" target="_blank" rel="noopener">Open the rebuild</a></div>
       </div>
     </div>
 
@@ -248,6 +368,33 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  /* the dial */
+  var vol=document.getElementById('volume'), mini=document.getElementById('mini'), note=document.getElementById('volNote');
+  var NAMES=['Quiet','Calm','Clear','Bold','Loud'];
+  var NOTES=[
+    'Quiet: for a business whose customers arrive already convinced. Reads like a letterhead.',
+    'Calm: the version a hospital or a bank would sign off on. Trust first, everything else second.',
+    'Clear: the version most of our clients pick. Reads in one glance, still has a spine.',
+    'Bold: dark, big type, one loud color. For a product with a point of view.',
+    'Loud: for a brand that wants to be remembered on the first visit. Motion, highlight, no apologies.'
+  ];
+  function setLevel(n){
+    n=Math.max(0,Math.min(4,parseInt(n,10)||0));
+    mini.className='mini lv-'+n; vol.setAttribute('aria-valuetext',NAMES[n]); note.textContent=NOTES[n];
+  }
+  if(vol&&mini){ vol.addEventListener('input',function(){ setLevel(vol.value); }); setLevel(vol.value); }
+
+  /* before and after */
+  document.querySelectorAll('[data-cmp]').forEach(function(box){
+    var frame=box.querySelector('.cmp-frame'), range=box.querySelector('.cmp-range');
+    function paint(v){ frame.style.setProperty('--cut',v+'%'); frame.style.setProperty('--pct',v); }
+    range.addEventListener('input',function(){ paint(range.value); });
+    paint(range.value);
+  });
+})();
+</script>
 <script>
 (function(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
