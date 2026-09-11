@@ -28,41 +28,19 @@
 .w-hero{padding:clamp(40px,6vw,84px) 0 0}
 .w-hero .sec-body h1{font-size:clamp(34px,5vw,68px)}
 .w-hero .sub{margin-top:20px;max-width:52ch;color:#33332C;font-size:clamp(16px,1.7vw,19px)}
-.sites{max-width:var(--maxw);margin:clamp(30px,4vw,52px) auto 0;padding:0 var(--gut)}
-.site{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);padding:clamp(30px,4vw,60px) 0;border-top:1px solid var(--hair);align-items:start}
-.site:first-child{border-top:2px solid var(--skyink)}
-.shot{grid-column:1 / span 8;border:1px solid var(--ink);background:#ddd;position:relative}
-.shot::before{content:"";display:block;height:26px;background:#e6e3dc;border-bottom:1px solid var(--hair)}
-.shot::after{content:"";position:absolute;top:8px;left:12px;width:10px;height:10px;border-radius:50%;background:var(--skyink);box-shadow:16px 0 0 var(--sky),32px 0 0 var(--hair)}
-.shot img{width:100%;height:auto;aspect-ratio:1440/1000;object-fit:cover;object-position:top}
-.side{grid-column:9 / span 4;position:sticky;top:86px}
-.site-n{font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'opsz' 144;font-size:clamp(36px,4.6vw,60px);line-height:.8;color:var(--skyink);letter-spacing:-.02em}
-.site-k{color:var(--metal);display:block;margin:16px 0 8px}
-.side h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'opsz' 144;font-size:clamp(26px,3.2vw,40px);letter-spacing:-.02em;line-height:1}
-.side h4{font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--skyink);margin:22px 0 7px}
-.side p{font-size:15px;color:#33332C;max-width:38ch}
-.side .go{display:inline-block;margin-top:22px;font-family:'Jost',sans-serif;font-weight:600;font-size:14px;text-decoration:none;border-bottom:2px solid var(--skyink);padding-bottom:2px}
-.side .go:hover{color:var(--skyink)}
-.side .nolink{display:inline-block;margin-top:22px;font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--metal)}
 .pairs{max-width:var(--maxw);margin:clamp(30px,4vw,52px) auto 0;padding:0 var(--gut)}
 .pair{padding:clamp(30px,4vw,60px) 0;border-top:1px solid var(--hair)}
 .pair:first-child{border-top:2px solid var(--skyink)}
-.pair-head{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);margin-bottom:clamp(18px,2.4vw,30px)}
-.pair-head .site-n{grid-column:1 / span 2}
-.pair-head .pt{grid-column:3 / span 8}
+.pair-head{max-width:72ch;margin-bottom:clamp(18px,2.4vw,30px)}
+.pair-k{display:block;color:var(--skyink);margin-bottom:14px}
 .pair-head h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'opsz' 144;font-size:clamp(26px,3.2vw,40px);letter-spacing:-.02em;line-height:1}
 .pair-head p{margin-top:10px;font-size:15px;color:#33332C;max-width:60ch}
 .ba{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,24px)}
 .ba figure{margin:0}
 .ba figcaption{font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--metal);margin-bottom:10px;display:flex;justify-content:space-between;gap:12px}
 .ba figcaption a{text-decoration:none;color:var(--skyink);border-bottom:1px solid var(--skyink)}
-.ba .shot{grid-column:auto}
 .rules{margin-top:clamp(30px,4vw,52px);border-top:2px solid var(--skyink)}
 @media(max-width:900px){
-  .shot,.side{grid-column:1 / -1 !important;position:static}
-  .side{margin-top:4px}
-  .pair-head .site-n,.pair-head .pt{grid-column:1 / -1}
-  .pair-head .pt{margin-top:12px}
 }
 @media(max-width:640px){.ba{grid-template-columns:1fr}.m-cards{grid-template-columns:1fr}}
 
@@ -244,16 +222,18 @@
 }
 
 /* ---- before and after, drag to compare ---- */
-.cmp-frame{position:relative;border:1px solid var(--ink);background:#ddd;aspect-ratio:1440/1000;overflow:hidden;user-select:none}
-.cmp-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.cmp-frame{position:relative;border:1px solid var(--ink);background:#ddd;aspect-ratio:1440/1000;overflow:hidden;user-select:none;cursor:ew-resize;touch-action:pan-y}
+.cmp-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block;-webkit-user-drag:none;user-drag:none;pointer-events:none}
 .cmp-before-wrap{position:absolute;inset:0;width:var(--cut,55%);overflow:hidden}
 .cmp-before-wrap img{width:calc(100% * 100 / var(--pct,55))}
 .cmp-line{position:absolute;top:0;bottom:0;left:var(--cut,55%);width:2px;background:var(--paper);box-shadow:0 0 0 1px rgba(14,14,12,.35);pointer-events:none}
 .cmp-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--ink)}
-.cmp-tag{position:absolute;top:12px;font-family:'Jost',sans-serif;font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:6px 10px;background:var(--ink);color:var(--paper);pointer-events:none}
-.cmp-tag-b{left:12px}.cmp-tag-a{right:12px;background:var(--skyink)}
-.cmp-range{-webkit-appearance:none;appearance:none;position:absolute;inset:0;width:100%;height:100%;margin:0;background:transparent;cursor:ew-resize;opacity:0}
-.cmp-range:focus-visible{opacity:1;outline:3px solid var(--skyink);outline-offset:-3px;background:transparent}
+.cmp-ctl{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;margin-top:16px}
+.cmp-lab{color:var(--metal)}.cmp-lab-a{color:var(--skyink)}
+.cmp-range{-webkit-appearance:none;appearance:none;width:100%;height:4px;margin:0;background:var(--ink);border-radius:2px;outline:none;cursor:ew-resize}
+.cmp-range::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
+.cmp-range::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
+.cmp-range:focus-visible{outline:3px solid var(--skyink);outline-offset:8px}
 .cmp-links{display:flex;gap:26px;margin-top:12px}
 .cmp-links a{text-decoration:none;color:var(--skyink);border-bottom:1px solid var(--skyink)}
 </style>
@@ -280,7 +260,7 @@
     <div class="sec-mark rv"><span class="num">01</span><span class="mono lbl">Websites</span></div>
     <div class="sec-body rv">
       <h1 class="disp">How loud do you want your site?</h1>
-      <p class="sub">Same business, same words, same photo. Drag the dial and watch one page go from quiet to loud. Whatever you land on is the brief; the rest of the page shows the real ones we shipped at both ends.</p>
+      <p class="sub">Same business, same words, same photo. Drag the dial and watch one page go from quiet to loud. Whatever you land on is the brief.</p>
     </div>
   </div>
 
@@ -374,90 +354,32 @@
   </div>
 </section>
 
-<section id="shipped" style="padding-top:clamp(40px,6vw,84px)">
+<section id="rebuilds" style="border-top:1px solid var(--hair);padding-top:clamp(40px,6vw,84px)">
   <div class="grid">
-    <div class="sec-mark rv"><span class="num">02</span><span class="mono lbl">Built and shipped</span></div>
-    <div class="sec-body rv">
-      <h2 class="disp">Two live. One built and waiting on its launch.</h2>
-      <p class="sub">A calm one, a loud one, and the one you are reading. Different businesses, different jobs for the site to do.</p>
-    </div>
-  </div>
-  <div class="sites">
-
-    <article class="site rv">
-      <div class="shot"><img src="websites/osp.jpg" alt="The OSP Health Management homepage: a hero over a residential street, referral reference panel, location cards" loading="lazy" decoding="async"></div>
-      <div class="side">
-        <span class="site-n">01</span>
-        <span class="mono site-k">Live · The calm one</span>
-        <h3>OSP Health Management</h3>
-        <h4>What it is</h4>
-        <p>Recuperative care and short-term post-hospital housing across Southern California. The site is read by hospital discharge planners with ten seconds to decide.</p>
-        <h4>What it had to do</h4>
-        <p>Earn trust fast and make the next step obvious: which locations, what is contracted, one phone number.</p>
-        <h4>What we built</h4>
-        <p>A fully static site, no scripts, no trackers, every location on its own page, the referral path front and center.</p>
-        <a class="go" href="https://osphealth.org" target="_blank" rel="noopener">osphealth.org</a>
-      </div>
-    </article>
-
-    <article class="site rv">
-      <div class="shot"><img src="websites/answerside.jpg" alt="The Answerside homepage: a large headline asking whether AI says your name, and a visibility audit panel" loading="lazy" decoding="async"></div>
-      <div class="side">
-        <span class="site-n">02</span>
-        <span class="mono site-k">Built · The loud one</span>
-        <h3>Answerside</h3>
-        <h4>What it is</h4>
-        <p>A service that gets a local business named when someone asks ChatGPT or Perplexity for the best in town. A new idea that has to explain itself on one screen.</p>
-        <h4>What it had to do</h4>
-        <p>Make a curious owner type in their business and city, and turn that into a conversation.</p>
-        <h4>What we built</h4>
-        <p>A scrolling story in six short chapters, a live generator that drafts the owner's first moves, and dated proof behind every claim.</p>
-        <span class="nolink">Launching · not public yet</span>
-      </div>
-    </article>
-
-    <article class="site rv">
-      <div class="shot"><img src="websites/feedwork.jpg" alt="The Feedwork Studio homepage: a ring of sample ads around the studio name" loading="lazy" decoding="async"></div>
-      <div class="side">
-        <span class="site-n">03</span>
-        <span class="mono site-k">Live · The one you are on</span>
-        <h3>Feedwork Studio</h3>
-        <h4>What it is</h4>
-        <p>This site. Ad creative for people who make things, sold to manufacturers who have never bought creative before.</p>
-        <h4>What it had to do</h4>
-        <p>Get a busy owner to email one photo. No form, no call, no account.</p>
-        <h4>What we built</h4>
-        <p>The whole pitch in one scroll, the samples you can spin through, and a start that is one email.</p>
-        <a class="go" href="index.html">feedworkstudio.com</a>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<section id="rebuilds" style="border-top:1px solid var(--hair)">
-  <div class="grid">
-    <div class="sec-mark rv"><span class="num">03</span><span class="mono lbl">Rebuilds</span></div>
+    <div class="sec-mark rv"><span class="num">02</span><span class="mono lbl">Rebuilds</span></div>
     <div class="sec-body rv">
       <h2 class="disp">A site from 2004, and the page it becomes.</h2>
-      <p class="sub">Most of the manufacturers we talk to have a site like the one under the handle. Drag it. These two are samples, built to show the move: same business, same products, same phone number, one page that works on a phone.</p>
+      <p class="sub">Most of the manufacturers we talk to have a site like the one on the left. Drag the slider. These two are samples, built to show the move: same business, same products, same phone number, one page that works on a phone.</p>
     </div>
   </div>
   <div class="pairs">
 
     <div class="pair rv">
       <div class="pair-head">
-        <span class="site-n">01</span>
-        <div class="pt"><h3>Marlowe Woodworks <span class="mono" style="color:var(--metal);font-size:11.5px">· sample brand</span></h3>
-        <p>A furniture maker with a guest book, a hit counter and a page last updated in 2004. The rebuild keeps every fact and every photo, drops everything else.</p></div>
+        <span class="pair-k mono">Sample 1 of 2 · Furniture · Sample brand</span>
+        <h3>Marlowe Woodworks</h3>
+        <p>A furniture maker with a guest book, a hit counter and a page last updated in 2004. The rebuild keeps every fact and every photo, drops everything else.</p>
       </div>
       <div class="cmp" data-cmp>
         <div class="cmp-frame">
-          <img class="cmp-after" src="websites/marlowe-after.jpg" alt="The rebuilt Marlowe Woodworks site: one page, a table hero, a clear phone number" loading="lazy" decoding="async">
-          <div class="cmp-before-wrap"><img class="cmp-before" src="websites/marlowe-before.jpg" alt="The old Marlowe Woodworks site: yellow background, pink menu, table layout" loading="lazy" decoding="async"></div>
+          <img class="cmp-after" draggable="false" src="websites/marlowe-after.jpg" alt="The rebuilt Marlowe Woodworks site: one page, a table hero, a clear phone number" loading="lazy" decoding="async">
+          <div class="cmp-before-wrap"><img class="cmp-before" draggable="false" src="websites/marlowe-before.jpg" alt="The old Marlowe Woodworks site: yellow background, pink menu, table layout" loading="lazy" decoding="async"></div>
           <div class="cmp-line" aria-hidden="true"><span class="cmp-knob">&#8596;</span></div>
-          <span class="cmp-tag cmp-tag-b" aria-hidden="true">Before</span><span class="cmp-tag cmp-tag-a" aria-hidden="true">After</span>
-          <input class="cmp-range" type="range" min="0" max="100" value="55" aria-label="Drag to compare the old site with the rebuild">
+        </div>
+        <div class="cmp-ctl">
+          <span class="mono cmp-lab cmp-lab-b">Before</span>
+          <input class="cmp-range" type="range" min="0" max="100" value="55" aria-label="Compare the old site with the rebuild">
+          <span class="mono cmp-lab cmp-lab-a">After</span>
         </div>
         <div class="cmp-links mono"><a href="samples/marlowe-before.html" target="_blank" rel="noopener">Open the old site</a><a href="samples/marlowe-after.html" target="_blank" rel="noopener">Open the rebuild</a></div>
       </div>
@@ -465,17 +387,20 @@
 
     <div class="pair rv">
       <div class="pair-head">
-        <span class="site-n">02</span>
-        <div class="pt"><h3>Ironhouse Supply Co. <span class="mono" style="color:var(--metal);font-size:11.5px">· sample brand</span></h3>
-        <p>A boot maker on a black page with an orange border and a fax number. The rebuild leads with the one thing they do that nobody else does: resoling.</p></div>
+        <span class="pair-k mono">Sample 2 of 2 · Boots · Sample brand</span>
+        <h3>Ironhouse Supply Co.</h3>
+        <p>A boot maker on a black page with an orange border and a fax number. The rebuild leads with the one thing they do that nobody else does: resoling.</p>
       </div>
       <div class="cmp" data-cmp>
         <div class="cmp-frame">
-          <img class="cmp-after" src="websites/ironhouse-after.jpg" alt="The rebuilt Ironhouse Supply site: a bold headline about resoling, three boots, a phone number" loading="lazy" decoding="async">
-          <div class="cmp-before-wrap"><img class="cmp-before" src="websites/ironhouse-before.jpg" alt="The old Ironhouse Supply site: black background, orange headline, product table" loading="lazy" decoding="async"></div>
+          <img class="cmp-after" draggable="false" src="websites/ironhouse-after.jpg" alt="The rebuilt Ironhouse Supply site: a bold headline about resoling, three boots, a phone number" loading="lazy" decoding="async">
+          <div class="cmp-before-wrap"><img class="cmp-before" draggable="false" src="websites/ironhouse-before.jpg" alt="The old Ironhouse Supply site: black background, orange headline, product table" loading="lazy" decoding="async"></div>
           <div class="cmp-line" aria-hidden="true"><span class="cmp-knob">&#8596;</span></div>
-          <span class="cmp-tag cmp-tag-b" aria-hidden="true">Before</span><span class="cmp-tag cmp-tag-a" aria-hidden="true">After</span>
-          <input class="cmp-range" type="range" min="0" max="100" value="55" aria-label="Drag to compare the old site with the rebuild">
+        </div>
+        <div class="cmp-ctl">
+          <span class="mono cmp-lab cmp-lab-b">Before</span>
+          <input class="cmp-range" type="range" min="0" max="100" value="55" aria-label="Compare the old site with the rebuild">
+          <span class="mono cmp-lab cmp-lab-a">After</span>
         </div>
         <div class="cmp-links mono"><a href="samples/ironhouse-before.html" target="_blank" rel="noopener">Open the old site</a><a href="samples/ironhouse-after.html" target="_blank" rel="noopener">Open the rebuild</a></div>
       </div>
@@ -486,7 +411,7 @@
 
 <section id="how" style="border-top:1px solid var(--hair)">
   <div class="grid">
-    <div class="sec-mark rv"><span class="num">04</span><span class="mono lbl">How a rebuild works</span></div>
+    <div class="sec-mark rv"><span class="num">03</span><span class="mono lbl">How a rebuild works</span></div>
     <div class="sec-body rv">
       <h2 class="disp">Send the address of your site. That is the brief.</h2>
       <p class="sub">The same rule as the ads: nothing to fill out, nothing to log in to, a number before anything starts.</p>
@@ -503,7 +428,7 @@
 
 <section class="close" id="start">
   <div class="grid">
-    <div class="sec-mark rv"><span class="num">05</span><span class="mono lbl">Start</span></div>
+    <div class="sec-mark rv"><span class="num">04</span><span class="mono lbl">Start</span></div>
     <div class="sec-body rv">
       <h2 class="disp">Send your site's address. Start there.</h2>
       <p class="sub">Tell me what you make and send the address of your current site. You get a quote and a turnaround before anything is committed.</p>
@@ -653,9 +578,13 @@
 
   /* before and after */
   document.querySelectorAll('[data-cmp]').forEach(function(box){
-    var frame=box.querySelector('.cmp-frame'), range=box.querySelector('.cmp-range');
+    var frame=box.querySelector('.cmp-frame'), range=box.querySelector('.cmp-range'), down=false;
     function paint(v){ frame.style.setProperty('--cut',v+'%'); frame.style.setProperty('--pct',v); }
+    function fromX(x){ var r=frame.getBoundingClientRect(); var v=Math.round(Math.max(0,Math.min(100,(x-r.left)/r.width*100))); range.value=v; paint(v); }
     range.addEventListener('input',function(){ paint(range.value); });
+    frame.addEventListener('pointerdown',function(e){ if(e.button!==0&&e.pointerType==='mouse') return; e.preventDefault(); down=true; frame.setPointerCapture(e.pointerId); fromX(e.clientX); });
+    frame.addEventListener('pointermove',function(e){ if(down) fromX(e.clientX); });
+    ['pointerup','pointercancel'].forEach(function(t){ frame.addEventListener(t,function(){ down=false; }); });
     paint(range.value);
   });
 })();
