@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://feedworkstudio.com/sitemap.xml
+Disallow: /samples/

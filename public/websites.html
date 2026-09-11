@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Websites · Feedwork Studio</title>
+<meta name="description" content="Websites Feedwork Studio has built and shipped, and two sample rebuilds that show what happens to a site from 2004.">
+<link rel="canonical" href="https://feedworkstudio.com/websites">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://feedworkstudio.com/websites">
+<meta property="og:site_name" content="Feedwork Studio">
+<meta property="og:title" content="Websites · Feedwork Studio">
+<meta property="og:description" content="Sites we built and shipped, and two sample rebuilds.">
+<meta property="og:image" content="https://feedworkstudio.com/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Websites · Feedwork Studio">
+<meta name="twitter:description" content="Sites we built and shipped, and two sample rebuilds.">
+<meta name="twitter:image" content="https://feedworkstudio.com/og.jpg">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* websites page only */
+.w-hero{padding:clamp(40px,6vw,84px) 0 0}
+.w-hero .sec-body h1{font-size:clamp(34px,5vw,68px)}
+.w-hero .sub{margin-top:20px;max-width:52ch;color:#33332C;font-size:clamp(16px,1.7vw,19px)}
+.pairs{max-width:var(--maxw);margin:clamp(30px,4vw,52px) auto 0;padding:0 var(--gut)}
+.pair{padding:clamp(30px,4vw,60px) 0;border-top:1px solid var(--hair)}
+.pair:first-child{border-top:2px solid var(--skyink)}
+.pair-head{max-width:72ch;margin-bottom:clamp(18px,2.4vw,30px)}
+.pair-k{display:block;color:var(--skyink);margin-bottom:14px}
+.pair-head h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'opsz' 144;font-size:clamp(26px,3.2vw,40px);letter-spacing:-.02em;line-height:1}
+.pair-head p{margin-top:10px;font-size:15px;color:#33332C;max-width:60ch}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,24px)}
+.ba figure{margin:0}
+.ba figcaption{font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--metal);margin-bottom:10px;display:flex;justify-content:space-between;gap:12px}
+.ba figcaption a{text-decoration:none;color:var(--skyink);border-bottom:1px solid var(--skyink)}
+.rules{margin-top:clamp(30px,4vw,52px);border-top:2px solid var(--skyink)}
+@media(max-width:900px){
+}
+@media(max-width:640px){.ba{grid-template-columns:1fr}.m-cards{grid-template-columns:1fr}}
+
+/* ---- the dial ---- */
+.dial{max-width:var(--maxw);margin:clamp(26px,4vw,48px) auto 0;padding:0 var(--gut);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--gut);align-items:start}
+.dial-ctl{position:sticky;top:86px;border-top:2px solid var(--skyink);padding-top:18px}
+.dial-ctl label{color:var(--metal);display:block;margin-bottom:14px}
+#volume{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:var(--ink);border-radius:2px;outline:none;margin:14px 0 10px}
+#volume::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
+#volume::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
+#volume:focus-visible{outline:3px solid var(--skyink);outline-offset:8px}
+.dial-ticks{display:flex;justify-content:space-between;font-family:'Jost',sans-serif;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--metal)}
+.dial-note{margin-top:18px;font-size:15px;color:#33332C;min-height:3.2em}
+.stage{border:1px solid var(--ink);background:#e6e3dc;position:relative;padding-top:26px;overflow:hidden}
+.stage::before{content:"";position:absolute;top:8px;left:12px;width:10px;height:10px;border-radius:50%;background:var(--skyink);box-shadow:16px 0 0 var(--sky),32px 0 0 var(--hair)}
+.win{position:relative;height:clamp(440px,62vh,680px);overflow:auto;overscroll-behavior:contain;outline:none;scroll-behavior:smooth}
+.win:focus-visible{box-shadow:inset 0 0 0 3px var(--skyink)}
+.stage-hint{grid-column:2;margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--metal)}
+/* overlays that stay put while the sample scrolls: the cursor and the spotlight */
+.m-cur,.m-dot{position:absolute;top:0;left:0;pointer-events:none;opacity:0;transition:opacity .3s}
+.m-dot{width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#e9b872;transform:translate(var(--dx,-100px),var(--dy,-100px));transition:opacity .3s,transform .28s cubic-bezier(.2,.7,.2,1)}
+.m-cur{width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid var(--cur,#0a4bd6);border-radius:50%;transform:translate(var(--cx,-100px),var(--cy,-100px)) scale(var(--cs,1));transition:opacity .3s,transform .08s linear,width .2s,height .2s,margin .2s,background .2s}
+.m-cur.big{width:56px;height:56px;margin:-28px 0 0 -28px;background:color-mix(in srgb,var(--cur,#0a4bd6) 14%,transparent)}
+@media(hover:hover) and (pointer:fine){
+  .stage.st-3 .m-dot{opacity:.85}
+  .stage.st-3 .m-dot.off{opacity:0}
+  .stage.st-4 .m-cur{opacity:1}
+  .stage.st-4 .m-cur.off{opacity:0}
+  .stage.st-4 .win,.stage.st-4 .win *{cursor:none}
+}
+
+/* the sample page: every level is the same markup with different variables */
+.mini{--m-bg:#ffffff;--m-ink:#1c1a17;--m-accent:#7a4a24;--m-muted:#6b625a;--m-font:'Jost',sans-serif;--m-hfont:'Fraunces',Georgia,serif;--m-hw:600;--m-hsize:clamp(26px,3.4vw,46px);--m-radius:6px;--m-pad:clamp(18px,3vw,40px);
+  background:var(--m-bg);color:var(--m-ink);font-family:var(--m-font);transition:background .5s,color .5s;min-height:100%}
+.m-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px var(--m-pad);border-bottom:1px solid rgba(0,0,0,.08);font-size:13px;position:sticky;top:0;background:var(--m-bg);z-index:2;transition:background .5s}
+.m-tab,.m-btn,.m-cta,.m-x{appearance:none;border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-align:left;line-height:1.2}
+.m-brand{font-family:var(--m-hfont);font-weight:700;font-size:17px;transition:all .5s}
+.m-links{display:flex;gap:18px;color:var(--m-muted)}
+.m-tab{position:relative;padding:4px 0;color:var(--m-muted);transition:color .3s}
+.m-tab::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--m-accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.m-tab:hover,.m-tab.on{color:var(--m-ink)}
+.m-tab.on::after{transform:none}
+.m-tab:focus-visible,.m-cta:focus-visible,.m-btn:focus-visible,.m-x:focus-visible{outline:2px solid var(--m-accent);outline-offset:3px}
+.m-cta{background:var(--m-accent);color:#fff;padding:8px 14px;border-radius:var(--m-radius);font-weight:600;font-size:12px;transition:background .5s,color .5s,border-radius .5s,transform .25s ease-out;will-change:transform}
+.m-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(18px,3vw,40px);align-items:center;padding:clamp(26px,4vw,52px) var(--m-pad)}
+.m-kicker{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--m-accent);margin-bottom:12px;font-weight:600}
+.m-h{font-family:var(--m-hfont);font-weight:var(--m-hw);font-size:var(--m-hsize);line-height:1.02;letter-spacing:-.01em;margin-bottom:12px;transition:all .5s}
+.m-h em{font-style:normal;transition:all .5s}
+.m-h .w{display:inline-block}
+.m-p{font-size:15px;color:var(--m-muted);max-width:40ch;margin-bottom:18px}
+.m-btn{display:inline-block;position:relative;background:var(--m-ink);color:var(--m-bg);padding:11px 16px;border-radius:var(--m-radius);font-weight:600;font-size:13px;transition:background .5s,color .5s,border-radius .5s,transform .25s ease-out;will-change:transform;overflow:hidden}
+.m-btn span{position:relative;z-index:1}
+.m-img{position:relative}
+.m-img img{width:100%;height:clamp(200px,26vw,330px);object-fit:cover;border-radius:var(--m-radius);display:block;transition:transform .6s,border-radius .5s,box-shadow .5s,filter .5s,height .5s}
+.m-badge{position:absolute;right:-22px;top:-22px;width:96px;height:96px;opacity:0;transform:scale(.6);transition:opacity .4s,transform .4s;pointer-events:none}
+.m-badge text{font-family:'Jost',sans-serif;font-weight:700;font-size:9.2px;letter-spacing:.14em;fill:#0e0e0c}
+.m-badge .spin{transform-origin:60px 60px;animation:m-spin 14s linear infinite}
+@keyframes m-spin{to{transform:rotate(360deg)}}
+.m-strip{border-top:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.08);padding:12px 0;overflow:hidden;font-size:12px;color:var(--m-muted)}
+.m-run{display:flex;gap:28px;padding:0 var(--m-pad);white-space:nowrap}
+.m-sec{padding:clamp(26px,4vw,52px) var(--m-pad)}
+.m-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.m-card{border:1px solid rgba(0,0,0,.1);border-radius:var(--m-radius);overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s}
+.m-card .art{aspect-ratio:4/3;background:#d9d2c5;overflow:hidden}
+.m-card .art img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.m-card:hover .art img{transform:scale(1.04)}
+.m-wide{margin:0 0 clamp(18px,3vw,32px);aspect-ratio:21/9;overflow:hidden;border-radius:var(--m-radius);background:#d9d2c5;transition:border-radius .5s}
+.m-wide img{width:100%;height:100%;object-fit:cover;display:block}
+.m-wide-steps{margin:0 var(--m-pad) clamp(18px,3vw,32px)}
+.m-card h5{font-family:var(--m-hfont);font-weight:var(--m-hw);font-size:16px;margin:12px 12px 4px}
+.m-card p{font-size:12.5px;color:var(--m-muted);margin:0 12px 12px;line-height:1.45}
+.m-card:hover{transform:translateY(-3px)}
+.m-sheet{position:sticky;bottom:12px;margin:0 var(--m-pad) 12px;background:var(--m-ink);color:var(--m-bg);border-radius:calc(var(--m-radius) * .5 + 4px);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 14px 34px rgba(0,0,0,.25);z-index:3;font-size:13px;line-height:1.45}
+.m-sheet[hidden]{display:none}
+.m-sheet strong{display:block;font-family:var(--m-hfont);font-size:15px;margin-bottom:2px}
+.m-x{border:1px solid currentColor;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;white-space:nowrap}
+.m-h2{font-family:var(--m-hfont);font-weight:var(--m-hw);font-size:calc(var(--m-hsize)*.56);line-height:1.1;letter-spacing:-.01em;margin-bottom:18px;max-width:22ch;transition:all .5s}
+.m-swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.m-swatch{appearance:none;border:1px solid rgba(0,0,0,.1);background:transparent;color:inherit;font:inherit;font-size:12px;padding:0 0 10px;border-radius:var(--m-radius);text-align:left;cursor:pointer;overflow:hidden;transition:transform .25s,border-color .3s}
+.m-swatch .chip{display:block;height:64px;background:var(--wood);margin-bottom:8px;transition:height .3s}
+.m-swatch span:not(.chip){display:block;padding:0 10px}
+.m-swatch:hover .chip,.m-swatch.on .chip{height:80px}
+.m-swatch:focus-visible{outline:2px solid var(--m-accent);outline-offset:2px}
+.m-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,28px);padding:0 var(--m-pad) clamp(26px,4vw,52px)}
+.m-step{border-top:1px solid rgba(0,0,0,.12);padding-top:14px}
+.m-n{font-family:'Jost',sans-serif;font-weight:600;font-size:11px;letter-spacing:.16em;color:var(--m-accent);display:block;margin-bottom:8px}
+.m-step h5{font-family:var(--m-hfont);font-weight:var(--m-hw);font-size:18px;margin-bottom:6px}
+.m-step p{font-size:13.5px;color:var(--m-muted);line-height:1.5}
+.m-foot{padding:clamp(26px,4vw,52px) var(--m-pad);border-top:1px solid rgba(0,0,0,.08);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.m-foot .m-h2{margin:0}
+
+/* scroll reveals inside the window: nothing moves until Clear, then more with every stop */
+.mini [data-rv]{transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.mini .w{transition:opacity .5s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*70ms)}
+.mini.lv-2 [data-rv]{opacity:0}
+.mini.lv-2 [data-rv].in{opacity:1}
+.mini.lv-3 [data-rv]{opacity:0;transform:translateY(26px);transition-delay:calc(var(--i,0)*110ms)}
+.mini.lv-3 [data-rv].in{opacity:1;transform:none}
+.mini.lv-4 [data-rv]{opacity:0;transform:translateY(46px) scale(.985);transition-delay:calc(var(--i,0)*110ms)}
+.mini.lv-4 .m-step:nth-child(odd){transform:translateX(-46px)}
+.mini.lv-4 .m-step:nth-child(even){transform:translateX(46px)}
+.mini.lv-4 [data-rv].in{opacity:1;transform:none}
+.mini.lv-4 .m-copy .w{opacity:0;transform:translateY(.55em)}
+.mini.lv-4 .m-copy.in .w{opacity:1;transform:none}
+.mini.lv-4 .m-h em{background-size:0% 100%}
+.mini.lv-4 .m-copy.in .m-h em{background-size:100% 100%;transition:background-size .7s ease .45s}
+
+.mini.lv-0{--m-bg:#fbfaf7;--m-ink:#2b2b2b;--m-accent:#4e6b85;--m-muted:#6b6b6b;--m-hfont:'Jost',sans-serif;--m-hw:500;--m-hsize:clamp(22px,2.6vw,34px);--m-radius:2px}
+.mini.lv-0 .m-hero{grid-template-columns:1fr;text-align:center}
+.mini.lv-0 .m-copy{max-width:52ch;margin:0 auto}
+.mini.lv-0 .m-p{margin-left:auto;margin-right:auto}
+.mini.lv-0 .m-img{max-width:520px;margin:0 auto}
+.mini.lv-0 .m-img img{height:clamp(160px,20vw,240px);filter:saturate(.7)}
+.mini.lv-0 .m-btn{background:transparent;color:var(--m-ink);border:1px solid var(--m-ink)}
+.mini.lv-0 .m-strip{display:none}
+.mini.lv-0 .m-h2{max-width:none;text-align:center;margin-left:auto;margin-right:auto}
+.mini.lv-0 .m-foot{justify-content:center;text-align:center}
+.mini.lv-0 .m-card .art img,.mini.lv-0 .m-wide img{filter:saturate(.7)}
+
+.mini.lv-1{--m-bg:#f6f2ec;--m-ink:#1f2a35;--m-accent:#3d5570;--m-hfont:'Fraunces',Georgia,serif;--m-hw:600;--m-hsize:clamp(24px,3vw,40px);--m-radius:4px}
+.mini.lv-1 .m-img img{filter:saturate(.9)}
+
+.mini.lv-2{--m-bg:#f4efe7;--m-ink:#1c1a17;--m-accent:#7a4a24;--m-hfont:'Fraunces',Georgia,serif;--m-hw:700;--m-hsize:clamp(28px,3.6vw,50px);--m-radius:6px}
+
+/* Bold: dark, gold, the page notices the cursor (spotlight, photo drifts), photo parallax on scroll, button sweeps */
+.mini.lv-3{--m-bg:#1f4d3e;--m-ink:#f5f0e6;--m-accent:#e9b872;--m-muted:rgba(245,240,230,.72);--m-hfont:'Fraunces',Georgia,serif;--m-hw:900;--m-hsize:clamp(32px,4.4vw,62px);--m-radius:3px;--para:.14}
+.mini.lv-3 .m-nav,.mini.lv-3 .m-strip,.mini.lv-3 .m-foot,.mini.lv-3 .m-step,.mini.lv-3 .m-swatch,.mini.lv-3 .m-card{border-color:rgba(245,240,230,.18)}
+.mini.lv-3 .m-cta{color:#1f4d3e}
+.mini.lv-3 .m-h em{color:var(--m-accent)}
+.mini.lv-3 .m-btn{background:var(--m-accent);color:#1f4d3e}
+@media(hover:hover){.mini.lv-3 .m-btn::before{content:"";position:absolute;inset:0;background:#f5f0e6;transform:translateX(-101%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.mini.lv-3 .m-btn:hover::before{transform:none}}
+.mini.lv-3 .m-strip{color:var(--m-accent)}
+.mini.lv-3 .m-sheet{background:#f5f0e6;color:#1f4d3e}
+.mini.lv-3 .m-img img{transform:translate(var(--px,0px),calc(var(--py,0px) + var(--sy,0)*var(--para,0)*1px)) scale(1.06);will-change:transform;box-shadow:0 24px 50px rgba(0,0,0,.35);border:4px solid rgba(245,240,230,.9);transition:transform .35s ease-out,border-radius .5s,box-shadow .5s,filter .5s,height .5s}
+
+/* Loud: custom cursor, magnetic buttons, word-by-word headline, highlight draws itself, spinning badge, hover a wood and the site takes its color */
+.mini.lv-4{--m-bg:#fff7d6;--m-ink:#0e0e0c;--m-accent:#0a4bd6;--m-muted:#3b3b3b;--m-hfont:'Fraunces',Georgia,serif;--m-hw:900;--m-hsize:clamp(36px,5.4vw,78px);--m-radius:999px;--para:.08}
+.mini.lv-4 .m-brand{text-transform:uppercase;letter-spacing:.06em}
+.mini.lv-4 .m-h{letter-spacing:-.03em;text-transform:uppercase;line-height:.92}
+.mini.lv-4 .m-h em{background:linear-gradient(transparent 55%,#ffd23f 55%) no-repeat 0 0;color:var(--m-accent);padding:0 .08em}
+.mini.lv-4 .m-cta{border-radius:999px}
+.mini.lv-4 .m-btn{background:var(--m-accent);color:#fff;border-radius:999px;padding:13px 22px;font-size:14px}
+.mini.lv-4 .m-img{border-radius:16px}
+.mini.lv-4 .m-img img{border-radius:16px;box-shadow:0 30px 60px rgba(10,75,214,.22);height:clamp(220px,30vw,380px);transform:translateY(calc(var(--sy,0)*var(--para,0)*1px)) scale(calc(1 + var(--sy,0)*.00015));will-change:transform}
+.mini.lv-4 .m-badge{opacity:1;transform:none}
+.mini.lv-4 .m-strip{background:var(--m-ink);color:#fff7d6;border:0;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.mini.lv-4 .m-run{animation:m-run 18s linear infinite}
+.mini.lv-4 .m-swatch{border-radius:16px;border-color:transparent;background:rgba(255,255,255,.55)}
+.mini.lv-4 .m-swatch:hover,.mini.lv-4 .m-swatch.on{transform:translateY(-4px)}
+.mini.lv-4 .m-swatch .chip{border-radius:16px 16px 0 0}
+.mini.lv-4 .m-step{border-top:3px solid var(--m-ink)}
+.mini.lv-4 .m-card{border-radius:16px;border-color:transparent;background:rgba(255,255,255,.55)}
+.mini.lv-4 .m-wide{border-radius:16px}
+.mini.lv-4 .m-card:hover{box-shadow:0 18px 40px rgba(10,75,214,.16)}
+.mini.lv-4 .m-sheet{border-radius:16px}
+.mini.lv-4 .m-tab{text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:600}
+@keyframes m-run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){
+  .mini.lv-4 .m-run,.m-badge .spin{animation:none}
+  .mini [data-rv],.mini .w,.mini.lv-4 .m-h em{opacity:1!important;transform:none!important;transition:none!important;background-size:100% 100%!important}
+  .mini.lv-3 .m-img img,.mini.lv-4 .m-img img{transform:none!important}
+  .m-cur,.m-dot{display:none}
+  .stage.st-4 .win{cursor:auto}
+}
+@media(max-width:900px){
+  .dial{grid-template-columns:1fr}
+  .dial-ctl{position:static}
+  .m-hero{grid-template-columns:1fr}
+  .m-nav{flex-wrap:wrap;row-gap:8px}
+  .m-links{order:3;width:100%;gap:16px}
+  .m-swatches{grid-template-columns:repeat(2,1fr)}
+  .m-cards{grid-template-columns:1fr 1fr}
+  .m-steps{grid-template-columns:1fr}
+  .m-sheet{flex-direction:column;align-items:flex-start}
+  .win{height:auto;overflow:visible}
+  .m-nav{position:static}
+  .stage-hint{grid-column:1}
+}
+
+/* ---- before and after, drag to compare ---- */
+.cmp-frame{position:relative;border:1px solid var(--ink);background:#ddd;aspect-ratio:1440/1000;overflow:hidden;user-select:none;cursor:ew-resize;touch-action:pan-y}
+.cmp-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block;-webkit-user-drag:none;user-drag:none;pointer-events:none}
+.cmp-after-wrap{position:absolute;inset:0;width:var(--cut,50%);overflow:hidden;box-shadow:2px 0 0 var(--paper),3px 0 0 rgba(14,14,12,.35)}
+.cmp-after-wrap img{width:calc(100% * 100 / var(--pct,50))}
+.cmp-ctl{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;margin-top:16px}
+.cmp-lab{color:var(--metal)}.cmp-lab-a{color:var(--skyink)}
+.cmp-range{-webkit-appearance:none;appearance:none;width:100%;height:4px;margin:0;background:var(--ink);border-radius:2px;outline:none;cursor:ew-resize}
+.cmp-range::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
+.cmp-range::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
+.cmp-range:focus-visible{outline:3px solid var(--skyink);outline-offset:8px}
+.cmp-hint{margin-top:10px;color:var(--metal);text-align:center}
+.cmp-links{display:flex;gap:26px;margin-top:14px;justify-content:center}
+.cmp-links a{text-decoration:none;color:var(--skyink);border-bottom:1px solid var(--skyink)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="mark" href="index.html"><svg class="mark-sq" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="10" y="8" width="34" height="34" rx="4" fill="#3D5570" transform="rotate(-8 27 25)"/><rect x="20" y="16" width="34" height="34" rx="4" fill="#BFD0DE" stroke="#3D5570" stroke-width="2" transform="rotate(8 37 33)"/></svg><b>Feedwork</b></a>
+    <nav class="nav-links">
+      <a href="index.html#process">Ads</a>
+      <a href="websites.html" aria-current="page">Websites</a>
+      <a href="consult.html">Consult</a>
+    </nav>
+    <a class="cta" href="#start">Start a project</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="w-hero" id="top">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">01</span><span class="mono lbl">Websites</span></div>
+    <div class="sec-body rv">
+      <h1 class="disp">How loud do you want your site?</h1>
+      <p class="sub">Same business, same words, same photo. Drag the dial and watch one page go from quiet to loud. Whatever you land on is the brief.</p>
+    </div>
+  </div>
+
+  <div class="dial rv" id="dial">
+    <div class="dial-ctl">
+      <label class="mono" for="volume">Volume</label>
+      <input type="range" id="volume" min="0" max="4" step="1" value="2" aria-valuetext="Clear" aria-describedby="volNote">
+      <div class="dial-ticks" aria-hidden="true"><span>Quiet</span><span>Calm</span><span>Clear</span><span>Bold</span><span>Loud</span></div>
+      <p class="dial-note" id="volNote">Clear: the version most of our clients pick. Reads in one glance, still has a spine.</p>
+    </div>
+
+    <div class="stage st-2" id="stage" aria-label="A sample homepage that changes style with the dial">
+      <div class="win" id="win" tabindex="0" role="region" aria-label="Sample homepage, scrolls on its own">
+      <div class="mini lv-2" id="mini">
+        <div class="m-nav" id="mnav">
+          <button type="button" class="m-brand m-tab" data-to="m-top">Marlowe Woodworks</button>
+          <span class="m-links"><button type="button" class="m-tab" data-to="m-tables">Tables</button><button type="button" class="m-tab" data-to="m-chairs">Chairs</button><button type="button" class="m-tab" data-to="m-woods">Woods</button></span>
+          <button type="button" class="m-cta" data-magnet data-call>Call the shop</button>
+        </div>
+        <div class="m-hero" id="m-top">
+          <div class="m-copy" data-rv>
+            <span class="m-kicker">Vermont · since 1988</span>
+            <h3 class="m-h"><span class="w" style="--i:0">One</span> <span class="w" style="--i:1">tree.</span> <em><span class="w" style="--i:2">One</span> <span class="w" style="--i:3">table.</span></em></h3>
+            <p class="m-p">Hardwood dining tables built by hand, one at a time, delivered and set up across New England.</p>
+            <button type="button" class="m-btn" data-magnet data-call><span>Call (802) 555-0148</span></button>
+          </div>
+          <div class="m-img" data-rv style="--i:1">
+            <img src="work/raw-marlowe.webp" alt="A hardwood dining table in a sunlit room" width="900" height="1125" decoding="async">
+            <svg class="m-badge" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="60" fill="#ffd23f"/><g class="spin"><path id="mbc" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none"/><text><textPath href="#mbc">Marlowe · Vermont · since 1988 · </textPath></text></g></svg>
+          </div>
+        </div>
+        <div class="m-strip"><div class="m-run"><span>Black walnut</span><span>Cherry</span><span>Hard maple</span><span>White oak</span><span>Built to your room</span><span>Delivered in New England</span><span>Black walnut</span><span>Cherry</span><span>Hard maple</span><span>White oak</span><span>Built to your room</span><span>Delivered in New England</span></div></div>
+        <div class="m-sec" id="m-tables" data-rv>
+          <span class="m-kicker">Tables</span>
+          <h4 class="m-h2">Three shapes. Any wood. Any size your room allows.</h4>
+          <div class="m-cards">
+            <div class="m-card"><div class="art"><img src="work/marlowe/the-orchard.webp" alt="A walnut trestle dining table with two chairs in a sunlit room" width="1200" height="800" loading="lazy" decoding="async"></div><h5>The Orchard</h5><p>Trestle base, seats six to eight. Our most ordered table.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/the-long-house.webp" alt="A long single-slab white oak table with a bench" width="1200" height="800" loading="lazy" decoding="async"></div><h5>The Long House</h5><p>Single slab, seats ten. Made for the room you gather in.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/the-kitchen-table.webp" alt="A small maple kitchen table for four by a window" width="1200" height="800" loading="lazy" decoding="async"></div><h5>The Kitchen Table</h5><p>Four legs, seats four. Sized for a small kitchen.</p></div>
+          </div>
+        </div>
+        <div class="m-sec" id="m-chairs" data-rv>
+          <span class="m-kicker">Chairs</span>
+          <h4 class="m-h2">Built to match the table they sit at.</h4>
+          <div class="m-cards">
+            <div class="m-card"><div class="art"><img src="work/marlowe/ladder-back.webp" alt="A cherry ladder-back chair with a woven seat" width="1200" height="800" loading="lazy" decoding="async"></div><h5>Ladder-back</h5><p>Three slats, woven seat. The one from your grandmother's kitchen.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/windsor.webp" alt="A white oak Windsor chair on an oak floor" width="1200" height="800" loading="lazy" decoding="async"></div><h5>Windsor</h5><p>Turned spindles, carved seat. Light enough to pull out one-handed.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/bench.webp" alt="A long white oak bench beside a dining table" width="1200" height="800" loading="lazy" decoding="async"></div><h5>Bench</h5><p>For the long side of the table. Seats three, or two and a dog.</p></div>
+          </div>
+        </div>
+        <div class="m-sec" id="m-woods" data-rv>
+          <span class="m-kicker">The woods</span>
+          <h4 class="m-h2">Four species, cut and dried in our own yard.</h4>
+          <div class="m-wide"><img src="work/marlowe/the-yard.webp" alt="Stacks of hardwood boards air-drying in the shed" width="1200" height="800" loading="lazy" decoding="async"></div>
+          <div class="m-swatches" id="woods">
+            <button type="button" class="m-swatch" style="--wood:#5b3a29" data-wood="#5b3a29"><span class="chip"></span><span>Black walnut</span></button>
+            <button type="button" class="m-swatch" style="--wood:#a04a2e" data-wood="#a04a2e"><span class="chip"></span><span>Cherry</span></button>
+            <button type="button" class="m-swatch" style="--wood:#c9a06a" data-wood="#8a6a3a"><span class="chip"></span><span>Hard maple</span></button>
+            <button type="button" class="m-swatch" style="--wood:#a8825a" data-wood="#7a5a34"><span class="chip"></span><span>White oak</span></button>
+          </div>
+        </div>
+        <div class="m-wide m-wide-steps" data-rv><img src="work/marlowe/the-bench-room.webp" alt="A workbench with hand planes and a table top clamped down" width="1200" height="800" loading="lazy" decoding="async"></div>
+        <div class="m-steps">
+          <div class="m-step" data-rv style="--i:0"><span class="m-n">01</span><h5>Pick the tree</h5><p>Walk the yard with us, or send a photo of your room and we pick for you.</p></div>
+          <div class="m-step" data-rv style="--i:1"><span class="m-n">02</span><h5>We build it</h5><p>Eight to twelve weeks. One maker, start to finish.</p></div>
+          <div class="m-step" data-rv style="--i:2"><span class="m-n">03</span><h5>We set it up</h5><p>Delivered and leveled in your room, anywhere in New England.</p></div>
+        </div>
+        <div class="m-foot" data-rv>
+          <h4 class="m-h2">Tell us about your room.</h4>
+          <button type="button" class="m-btn" data-magnet data-call><span>Call (802) 555-0148</span></button>
+        </div>
+        <div class="m-sheet" id="msheet" hidden role="dialog" aria-label="Call the shop">
+          <div><strong>Nobody picks up. This shop is a sample.</strong>On a real site this button dials the shop or opens a short form. Here it just proves the page works at every volume.</div>
+          <button type="button" class="m-x" data-close>Close</button>
+        </div>
+      </div>
+      </div>
+      <div class="m-dot off" id="mdot" aria-hidden="true"></div>
+      <div class="m-cur off" id="mcur" aria-hidden="true"></div>
+    </div>
+    <p class="stage-hint mono" id="stageHint">Sample brand. Scroll inside the window.</p>
+  </div>
+
+  <div class="spec" style="margin-top:clamp(30px,4vw,52px)">
+    <div class="spec-in">
+      <div class="spec-c"><span class="mono k">Shipped</span><span class="v">Two live sites</span></div>
+      <div class="spec-c"><span class="mono k">A rebuild</span><span class="v">One page, one week</span></div>
+      <div class="spec-c"><span class="mono k">Your domain</span><span class="v">Stays yours</span></div>
+      <div class="spec-c"><span class="mono k">Price</span><span class="v">Agreed up front</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="rebuilds" style="border-top:1px solid var(--hair);padding-top:clamp(40px,6vw,84px)">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">02</span><span class="mono lbl">Rebuilds</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">A site from 2004, and the page it becomes.</h2>
+      <p class="sub">Most of the manufacturers we talk to have a site like the old one in the frame. Drag the slider. These two are samples, built to show the move: same business, same products, same phone number, one page that works on a phone.</p>
+    </div>
+  </div>
+  <div class="pairs">
+
+    <div class="pair rv">
+      <div class="pair-head">
+        <span class="pair-k mono">Sample 1 of 2 · Furniture · Sample brand</span>
+        <h3>Marlowe Woodworks</h3>
+        <p>A furniture maker with a guest book, a hit counter and a page last updated in 2004. The rebuild keeps every fact and every photo, drops everything else.</p>
+      </div>
+      <div class="cmp" data-cmp>
+        <div class="cmp-frame">
+          <img class="cmp-before" draggable="false" src="websites/marlowe-before.jpg" alt="The old Marlowe Woodworks site: yellow background, pink menu, table layout" loading="lazy" decoding="async">
+          <div class="cmp-after-wrap"><img class="cmp-after" draggable="false" src="websites/marlowe-after.jpg" alt="The rebuilt Marlowe Woodworks site: one page, a table hero, a clear phone number" loading="lazy" decoding="async"></div>
+        </div>
+        <div class="cmp-ctl">
+          <span class="mono cmp-lab cmp-lab-b">Before</span>
+          <input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Slide from the old site to the rebuild">
+          <span class="mono cmp-lab cmp-lab-a">After</span>
+        </div>
+        <p class="cmp-hint mono">Drag the slider: all the way left is the old site, all the way right is the rebuild.</p>
+        <div class="cmp-links mono"><a href="samples/marlowe-before.html" target="_blank" rel="noopener">Open the old site</a><a href="samples/marlowe-after.html" target="_blank" rel="noopener">Open the rebuild</a></div>
+      </div>
+    </div>
+
+    <div class="pair rv">
+      <div class="pair-head">
+        <span class="pair-k mono">Sample 2 of 2 · Boots · Sample brand</span>
+        <h3>Ironhouse Supply Co.</h3>
+        <p>A boot maker on a black page with an orange border and a fax number. The rebuild leads with the one thing they do that nobody else does: resoling.</p>
+      </div>
+      <div class="cmp" data-cmp>
+        <div class="cmp-frame">
+          <img class="cmp-before" draggable="false" src="websites/ironhouse-before.jpg" alt="The old Ironhouse Supply site: black background, orange headline, product table" loading="lazy" decoding="async">
+          <div class="cmp-after-wrap"><img class="cmp-after" draggable="false" src="websites/ironhouse-after.jpg" alt="The rebuilt Ironhouse Supply site: a bold headline about resoling, three boots, a phone number" loading="lazy" decoding="async"></div>
+        </div>
+        <div class="cmp-ctl">
+          <span class="mono cmp-lab cmp-lab-b">Before</span>
+          <input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Slide from the old site to the rebuild">
+          <span class="mono cmp-lab cmp-lab-a">After</span>
+        </div>
+        <p class="cmp-hint mono">Drag the slider: all the way left is the old site, all the way right is the rebuild.</p>
+        <div class="cmp-links mono"><a href="samples/ironhouse-before.html" target="_blank" rel="noopener">Open the old site</a><a href="samples/ironhouse-after.html" target="_blank" rel="noopener">Open the rebuild</a></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="how" style="border-top:1px solid var(--hair)">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">03</span><span class="mono lbl">How a rebuild works</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">Send the address of your site. That is the brief.</h2>
+      <p class="sub">The same rule as the ads: nothing to fill out, nothing to log in to, a number before anything starts.</p>
+    </div>
+  </div>
+  <div class="workwrap">
+    <div class="steps rules">
+      <div class="step rv"><span class="sn">Step 01 · Send</span><h3>Your current site and a few photos</h3><p>The address of the site you have now, and whatever product photos you have, phone shots included.</p></div>
+      <div class="step rv"><span class="sn">Step 02 · Draft</span><h3>A one-page draft within a week</h3><p>Your business, your products, your phone number, on one page that works on a phone. You see it before you decide anything.</p></div>
+      <div class="step rv"><span class="sn">Step 03 · Live</span><h3>Your domain, live, changes until it is right</h3><p>The new site goes up on the address you already own. We host it or hand it to whoever you like. One price, agreed up front.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="close" id="start">
+  <div class="grid">
+    <div class="sec-mark rv"><span class="num">04</span><span class="mono lbl">Start</span></div>
+    <div class="sec-body rv">
+      <h2 class="disp">Send your site's address. Start there.</h2>
+      <p class="sub">Tell me what you make and send the address of your current site. You get a quote and a turnaround before anything is committed.</p>
+    </div>
+  </div>
+  <div class="workwrap">
+    <div class="contact">
+      <div class="rv">
+        <span class="mono k">Email</span>
+        <a href="mailto:consult@feedworkstudio.com?subject=Website%20enquiry&body=Business%20name%3A%0ACurrent%20site%3A%0AWhat%20you%20make%3A%0AAnything%20else%3A%0A">consult@feedworkstudio.com</a>
+      </div>
+      <div class="rv">
+        <span class="mono k">Or call</span>
+        <a href="tel:+19727422543">+1 972-742-2543</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot">
+    <span class="mono">Feedwork Studio</span>
+    <span class="mono"><a href="tel:+19727422543">+1 972-742-2543</a> &nbsp;·&nbsp; <a href="mailto:consult@feedworkstudio.com">consult@feedworkstudio.com</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* the dial */
+  var vol=document.getElementById('volume'), mini=document.getElementById('mini'), note=document.getElementById('volNote');
+  var stage=document.getElementById('stage'), win=document.getElementById('win'), cur=document.getElementById('mcur'), dot=document.getElementById('mdot'), hint=document.getElementById('stageHint');
+  var NAMES=['Quiet','Calm','Clear','Bold','Loud'];
+  var NOTES=[
+    'Quiet: for a business whose customers arrive already convinced. Reads like a letterhead. Nothing moves.',
+    'Calm: the version a hospital or a bank would sign off on. Trust first, everything else second.',
+    'Clear: the version most of our clients pick. Reads in one glance, still has a spine. Sections fade in as you scroll.',
+    'Bold: one deep color, big type, cream on green. The photo drifts with your cursor and every section rises in as you scroll.',
+    'Loud: a cursor of its own, buttons that pull toward your hand, a headline that arrives word by word. Hover a wood and the site takes its color.'
+  ];
+  var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches, still=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var HINTS=fine?['Sample brand. Scroll inside the window.','Sample brand. Scroll inside the window.','Sample brand. Scroll inside the window.','Sample brand. Scroll inside the window and move your mouse.','Sample brand. Scroll inside the window, move your mouse, hover the woods.']:['Sample brand. Scroll.','Sample brand. Scroll.','Sample brand. Scroll.','Sample brand. Scroll.','Sample brand. Scroll, then tap a wood.'];
+  var level=2, reveals=Array.prototype.slice.call(mini.querySelectorAll('[data-rv]'));
+  /* reveal when a block enters the window (or the viewport when the window does not scroll on its own) */
+  function reveal(){
+    if(still){ reveals.forEach(function(e){e.classList.add('in');}); return; }
+    var scrolls=/auto|scroll/.test(getComputedStyle(win).overflowY)&&win.scrollHeight>win.clientHeight+4, r=scrolls?win.getBoundingClientRect():{top:0,bottom:window.innerHeight};
+    var limit=r.bottom-(r.bottom-r.top)*.12;
+    reveals.forEach(function(e){
+      if(e.classList.contains('in')) return;
+      var b=e.getBoundingClientRect();
+      if(b.top<limit&&b.bottom>r.top) e.classList.add('in');
+    });
+  }
+  function setLevel(n){
+    n=Math.max(0,Math.min(4,parseInt(n,10)||0));
+    var changed=n!==level; level=n;
+    mini.className='mini lv-'+n; stage.className='stage st-'+n;
+    vol.setAttribute('aria-valuetext',NAMES[n]); note.textContent=NOTES[n]; if(hint){ hint.textContent=HINTS[n]; }
+    if(sheet) sheet.hidden=true;
+    mini.style.removeProperty('--m-accent'); stage.style.removeProperty('--cur'); mini.querySelectorAll('.m-swatch.on').forEach(function(b){b.classList.remove('on');});
+    if(changed){ reveals.forEach(function(e){e.classList.remove('in');}); void mini.offsetWidth; reveal(); }
+  }
+  if(vol&&mini){
+    var q=/[?&]volume=(\d)/.exec(location.search); if(q){ vol.value=q[1]; }
+    vol.addEventListener('input',function(){ setLevel(vol.value); });
+    level=parseInt(vol.value,10); setLevel(vol.value); reveal();
+    window.addEventListener('resize',reveal); window.addEventListener('scroll',reveal,{passive:true});
+    setTimeout(reveal,400); setTimeout(reveal,1500);
+  }
+
+  /* scroll inside the window: parallax for Bold and Loud */
+  var ticking=false;
+  win.addEventListener('scroll',function(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){ mini.style.setProperty('--sy',win.scrollTop); reveal(); ticking=false; });
+  },{passive:true});
+
+  /* the cursor: spotlight at Bold, a cursor of its own and magnetic buttons at Loud */
+  if(fine&&!still){
+    var magnets=Array.prototype.slice.call(mini.querySelectorAll('[data-magnet]')), pending=null;
+    function onMove(ev){
+      pending=ev;
+      requestAnimationFrame(function(){
+        if(!pending) return; var e=pending; pending=null;
+        var r=stage.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+        if(level===3){
+          dot.style.setProperty('--dx',x+'px'); dot.style.setProperty('--dy',y+'px');
+          mini.style.setProperty('--px',((x/r.width)-.5)*-16+'px'); mini.style.setProperty('--py',((y/r.height)-.5)*-12+'px');
+        }
+        if(level===4){
+          cur.style.setProperty('--cx',x+'px'); cur.style.setProperty('--cy',y+'px');
+          var over=e.target.closest('.m-cta,.m-btn,.m-swatch,.m-links span,.m-brand'); cur.classList.toggle('big',!!over);
+          magnets.forEach(function(m){
+            var b=m.getBoundingClientRect(), cx=b.left+b.width/2, cy=b.top+b.height/2, dx=e.clientX-cx, dy=e.clientY-cy, d=Math.hypot(dx,dy);
+            m.style.transform=d<90?'translate('+(dx*.32).toFixed(1)+'px,'+(dy*.32).toFixed(1)+'px)':'';
+          });
+        }
+      });
+    }
+    stage.addEventListener('pointermove',onMove);
+    stage.addEventListener('pointerenter',function(){ cur.classList.remove('off'); dot.classList.remove('off'); });
+    stage.addEventListener('pointerleave',function(){
+      cur.classList.add('off'); dot.classList.add('off'); mini.style.removeProperty('--px'); mini.style.removeProperty('--py');
+      magnets.forEach(function(m){ m.style.transform=''; });
+    });
+  }
+
+  /* the woods: at Loud, hover one and the site takes its color; click to keep it */
+  var woods=document.getElementById('woods');
+  if(woods){
+    var keep='';
+    function tint(c){ if(level!==4) return; if(c){ mini.style.setProperty('--m-accent',c); stage.style.setProperty('--cur',c); } else { mini.style.removeProperty('--m-accent'); stage.style.removeProperty('--cur'); } }
+    woods.addEventListener('pointerover',function(e){ var b=e.target.closest('.m-swatch'); if(b) tint(b.dataset.wood); });
+    woods.addEventListener('pointerout',function(e){ var b=e.target.closest('.m-swatch'); if(b) tint(keep); });
+    woods.addEventListener('click',function(e){
+      var b=e.target.closest('.m-swatch'); if(!b) return;
+      var on=b.classList.contains('on');
+      woods.querySelectorAll('.m-swatch.on').forEach(function(x){x.classList.remove('on');});
+      keep=on?'':b.dataset.wood; if(!on) b.classList.add('on'); tint(keep);
+    });
+  }
+
+  /* the sample site's own tabs and buttons: they work, nobody gets called */
+  var nav=document.getElementById('mnav'), sheet=document.getElementById('msheet'), tabs=Array.prototype.slice.call(mini.querySelectorAll('.m-tab'));
+  function winScrolls(){ return /auto|scroll/.test(getComputedStyle(win).overflowY)&&win.scrollHeight>win.clientHeight+4; }
+  function goTo(id){
+    var el=document.getElementById(id); if(!el) return;
+    var navH=nav.offsetHeight;
+    if(winScrolls()){ win.scrollTo({top:id==='m-top'?0:el.offsetTop-navH,behavior:still?'auto':'smooth'}); }
+    else { var y=el.getBoundingClientRect().top+window.pageYOffset-80; window.scrollTo({top:y,behavior:still?'auto':'smooth'}); }
+  }
+  function markTab(){
+    var ids=['m-tables','m-chairs','m-woods'], navH=nav.offsetHeight, top=winScrolls()?win.getBoundingClientRect().top:0, on='';
+    ids.forEach(function(id){ var el=document.getElementById(id); if(el&&el.getBoundingClientRect().top-top-navH<=40) on=id; });
+    var foot=mini.querySelector('.m-foot'); if(foot&&foot.getBoundingClientRect().top-top-navH<=40) on='';
+    tabs.forEach(function(t){ t.classList.toggle('on',t.dataset.to===on&&on!==''); });
+  }
+  nav.addEventListener('click',function(e){ var t=e.target.closest('.m-tab'); if(t){ goTo(t.dataset.to); } });
+  mini.addEventListener('click',function(e){
+    if(e.target.closest('[data-call]')){ sheet.hidden=false; sheet.querySelector('.m-x').focus({preventScroll:true}); }
+    else if(e.target.closest('[data-close]')){ sheet.hidden=true; }
+  });
+  mini.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!sheet.hidden){ sheet.hidden=true; } });
+  win.addEventListener('scroll',markTab,{passive:true}); window.addEventListener('scroll',markTab,{passive:true}); markTab();
+
+  /* before and after */
+  document.querySelectorAll('[data-cmp]').forEach(function(box){
+    var frame=box.querySelector('.cmp-frame'), range=box.querySelector('.cmp-range'), down=false, touched=false, nudged=false;
+    function paint(v){ frame.style.setProperty('--cut',v+'%'); frame.style.setProperty('--pct',v); }
+    function fromX(x){ var r=frame.getBoundingClientRect(); var v=Math.round(Math.max(0,Math.min(100,(x-r.left)/r.width*100))); range.value=v; paint(v); }
+    range.addEventListener('input',function(){ touched=true; paint(range.value); });
+    frame.addEventListener('pointerdown',function(e){ if(e.button!==0&&e.pointerType==='mouse') return; e.preventDefault(); touched=true; down=true; frame.setPointerCapture(e.pointerId); fromX(e.clientX); });
+    frame.addEventListener('pointermove',function(e){ if(down) fromX(e.clientX); });
+    ['pointerup','pointercancel'].forEach(function(t){ frame.addEventListener(t,function(){ down=false; }); });
+    paint(range.value);
+    /* a small nudge the first time the pair comes into view, so the slider reads as something to move */
+    function nudge(){
+      if(nudged||touched||window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; nudged=true;
+      var from=parseInt(range.value,10), t0=null, dur=1100;
+      function step(ts){ if(touched) return; if(!t0) t0=ts; var p=Math.min(1,(ts-t0)/dur); var v=Math.round(from-18*Math.sin(p*Math.PI)); range.value=v; paint(v); if(p<1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    }
+    if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ nudge(); io.disconnect(); } }); },{threshold:.4}); io.observe(frame); }
+  });
+})();
+</script>
+<script>
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('js');
+  function start(){
+    var first=document.querySelectorAll('.w-hero .rv');
+    first.forEach(function(el,i){ setTimeout(function(){el.classList.add('in');}, 60+i*90); });
+    var rest=document.querySelectorAll('section .rv:not(.in)');
+    if(!('IntersectionObserver' in window)){ rest.forEach(function(e){e.classList.add('in');}); return; }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{rootMargin:'0px 0px -10% 0px'});
+    rest.forEach(function(e){ io.observe(e); });
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',start); } else { start(); }
+  setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(e){e.classList.add('in');}); },2500);
+})();
+</script>
+</body>
+</html>
