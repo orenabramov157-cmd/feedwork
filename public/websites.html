@@ -126,8 +126,12 @@
 .m-sec{padding:clamp(26px,4vw,52px) var(--m-pad)}
 .m-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .m-card{border:1px solid rgba(0,0,0,.1);border-radius:var(--m-radius);overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s}
-.m-card .art{aspect-ratio:4/3;background:var(--wood);display:grid;place-items:center}
-.m-card svg{width:58%;height:auto;fill:none;stroke:rgba(255,255,255,.88);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.m-card .art{aspect-ratio:4/3;background:#d9d2c5;overflow:hidden}
+.m-card .art img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.m-card:hover .art img{transform:scale(1.04)}
+.m-wide{margin:0 0 clamp(18px,3vw,32px);aspect-ratio:21/9;overflow:hidden;border-radius:var(--m-radius);background:#d9d2c5;transition:border-radius .5s}
+.m-wide img{width:100%;height:100%;object-fit:cover;display:block}
+.m-wide-steps{margin:0 var(--m-pad) clamp(18px,3vw,32px)}
 .m-card h5{font-family:var(--m-hfont);font-weight:var(--m-hw);font-size:16px;margin:12px 12px 4px}
 .m-card p{font-size:12.5px;color:var(--m-muted);margin:0 12px 12px;line-height:1.45}
 .m-card:hover{transform:translateY(-3px)}
@@ -176,7 +180,7 @@
 .mini.lv-0 .m-strip{display:none}
 .mini.lv-0 .m-h2{max-width:none;text-align:center;margin-left:auto;margin-right:auto}
 .mini.lv-0 .m-foot{justify-content:center;text-align:center}
-.mini.lv-0 .m-card .art{filter:saturate(.7)}
+.mini.lv-0 .m-card .art img,.mini.lv-0 .m-wide img{filter:saturate(.7)}
 
 .mini.lv-1{--m-bg:#f6f2ec;--m-ink:#1f2a35;--m-accent:#3d5570;--m-hfont:'Fraunces',Georgia,serif;--m-hw:600;--m-hsize:clamp(24px,3vw,40px);--m-radius:4px}
 .mini.lv-1 .m-img img{filter:saturate(.9)}
@@ -212,6 +216,7 @@
 .mini.lv-4 .m-swatch .chip{border-radius:16px 16px 0 0}
 .mini.lv-4 .m-step{border-top:3px solid var(--m-ink)}
 .mini.lv-4 .m-card{border-radius:16px;border-color:transparent;background:rgba(255,255,255,.55)}
+.mini.lv-4 .m-wide{border-radius:16px}
 .mini.lv-4 .m-card:hover{box-shadow:0 18px 40px rgba(10,75,214,.16)}
 .mini.lv-4 .m-sheet{border-radius:16px}
 .mini.lv-4 .m-tab{text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:600}
@@ -312,23 +317,24 @@
           <span class="m-kicker">Tables</span>
           <h4 class="m-h2">Three shapes. Any wood. Any size your room allows.</h4>
           <div class="m-cards">
-            <div class="m-card" style="--wood:#5b3a29"><div class="art"><svg viewBox="0 0 100 60" aria-hidden="true"><rect x="8" y="14" width="84" height="8" rx="2"/><path d="M16 22v28M84 22v28M16 36h68"/></svg></div><h5>The Orchard</h5><p>Trestle base, seats six to eight. Our most ordered table.</p></div>
-            <div class="m-card" style="--wood:#a8825a"><div class="art"><svg viewBox="0 0 100 60" aria-hidden="true"><rect x="6" y="14" width="88" height="8" rx="2"/><path d="M14 22v28M86 22v28M50 22v28"/></svg></div><h5>The Long House</h5><p>Single slab, seats ten. Made for the room you gather in.</p></div>
-            <div class="m-card" style="--wood:#c9a06a"><div class="art"><svg viewBox="0 0 100 60" aria-hidden="true"><rect x="22" y="14" width="56" height="8" rx="2"/><path d="M30 22v28M70 22v28"/></svg></div><h5>The Kitchen Table</h5><p>Four legs, seats four. Sized for a small kitchen.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/the-orchard.webp" alt="A walnut trestle dining table with two chairs in a sunlit room" width="1200" height="800" loading="lazy" decoding="async"></div><h5>The Orchard</h5><p>Trestle base, seats six to eight. Our most ordered table.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/the-long-house.webp" alt="A long single-slab white oak table with a bench" width="1200" height="800" loading="lazy" decoding="async"></div><h5>The Long House</h5><p>Single slab, seats ten. Made for the room you gather in.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/the-kitchen-table.webp" alt="A small maple kitchen table for four by a window" width="1200" height="800" loading="lazy" decoding="async"></div><h5>The Kitchen Table</h5><p>Four legs, seats four. Sized for a small kitchen.</p></div>
           </div>
         </div>
         <div class="m-sec" id="m-chairs" data-rv>
           <span class="m-kicker">Chairs</span>
           <h4 class="m-h2">Built to match the table they sit at.</h4>
           <div class="m-cards">
-            <div class="m-card" style="--wood:#a04a2e"><div class="art"><svg viewBox="0 0 100 60" aria-hidden="true"><path d="M30 6v46M30 30h40v22M30 14h40M30 22h40M70 30v-6"/></svg></div><h5>Ladder-back</h5><p>Three slats, woven seat. The one from your grandmother's kitchen.</p></div>
-            <div class="m-card" style="--wood:#7a5a34"><div class="art"><svg viewBox="0 0 100 60" aria-hidden="true"><path d="M28 30h44v22M28 30v22M36 30V8M44 30V6M52 30V6M60 30V6M64 30V8M30 8q20 -8 40 0"/></svg></div><h5>Windsor</h5><p>Turned spindles, carved seat. Light enough to pull out one-handed.</p></div>
-            <div class="m-card" style="--wood:#8a6a3a"><div class="art"><svg viewBox="0 0 100 60" aria-hidden="true"><rect x="8" y="26" width="84" height="8" rx="2"/><path d="M18 34v18M82 34v18"/></svg></div><h5>Bench</h5><p>For the long side of the table. Seats three, or two and a dog.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/ladder-back.webp" alt="A cherry ladder-back chair with a woven seat" width="1200" height="800" loading="lazy" decoding="async"></div><h5>Ladder-back</h5><p>Three slats, woven seat. The one from your grandmother's kitchen.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/windsor.webp" alt="A white oak Windsor chair on an oak floor" width="1200" height="800" loading="lazy" decoding="async"></div><h5>Windsor</h5><p>Turned spindles, carved seat. Light enough to pull out one-handed.</p></div>
+            <div class="m-card"><div class="art"><img src="work/marlowe/bench.webp" alt="A long white oak bench beside a dining table" width="1200" height="800" loading="lazy" decoding="async"></div><h5>Bench</h5><p>For the long side of the table. Seats three, or two and a dog.</p></div>
           </div>
         </div>
         <div class="m-sec" id="m-woods" data-rv>
           <span class="m-kicker">The woods</span>
           <h4 class="m-h2">Four species, cut and dried in our own yard.</h4>
+          <div class="m-wide"><img src="work/marlowe/the-yard.webp" alt="Stacks of hardwood boards air-drying in the shed" width="1200" height="800" loading="lazy" decoding="async"></div>
           <div class="m-swatches" id="woods">
             <button type="button" class="m-swatch" style="--wood:#5b3a29" data-wood="#5b3a29"><span class="chip"></span><span>Black walnut</span></button>
             <button type="button" class="m-swatch" style="--wood:#a04a2e" data-wood="#a04a2e"><span class="chip"></span><span>Cherry</span></button>
@@ -336,6 +342,7 @@
             <button type="button" class="m-swatch" style="--wood:#a8825a" data-wood="#7a5a34"><span class="chip"></span><span>White oak</span></button>
           </div>
         </div>
+        <div class="m-wide m-wide-steps" data-rv><img src="work/marlowe/the-bench-room.webp" alt="A workbench with hand planes and a table top clamped down" width="1200" height="800" loading="lazy" decoding="async"></div>
         <div class="m-steps">
           <div class="m-step" data-rv style="--i:0"><span class="m-n">01</span><h5>Pick the tree</h5><p>Walk the yard with us, or send a photo of your room and we pick for you.</p></div>
           <div class="m-step" data-rv style="--i:1"><span class="m-n">02</span><h5>We build it</h5><p>Eight to twelve weeks. One maker, start to finish.</p></div>
