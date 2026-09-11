@@ -224,17 +224,16 @@
 /* ---- before and after, drag to compare ---- */
 .cmp-frame{position:relative;border:1px solid var(--ink);background:#ddd;aspect-ratio:1440/1000;overflow:hidden;user-select:none;cursor:ew-resize;touch-action:pan-y}
 .cmp-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block;-webkit-user-drag:none;user-drag:none;pointer-events:none}
-.cmp-before-wrap{position:absolute;inset:0;width:var(--cut,55%);overflow:hidden}
-.cmp-before-wrap img{width:calc(100% * 100 / var(--pct,55))}
-.cmp-line{position:absolute;top:0;bottom:0;left:var(--cut,55%);width:2px;background:var(--paper);box-shadow:0 0 0 1px rgba(14,14,12,.35);pointer-events:none}
-.cmp-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--ink)}
+.cmp-after-wrap{position:absolute;inset:0;width:var(--cut,50%);overflow:hidden;box-shadow:2px 0 0 var(--paper),3px 0 0 rgba(14,14,12,.35)}
+.cmp-after-wrap img{width:calc(100% * 100 / var(--pct,50))}
 .cmp-ctl{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;margin-top:16px}
 .cmp-lab{color:var(--metal)}.cmp-lab-a{color:var(--skyink)}
 .cmp-range{-webkit-appearance:none;appearance:none;width:100%;height:4px;margin:0;background:var(--ink);border-radius:2px;outline:none;cursor:ew-resize}
 .cmp-range::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
 .cmp-range::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--skyink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--skyink);cursor:grab}
 .cmp-range:focus-visible{outline:3px solid var(--skyink);outline-offset:8px}
-.cmp-links{display:flex;gap:26px;margin-top:12px}
+.cmp-hint{margin-top:10px;color:var(--metal);text-align:center}
+.cmp-links{display:flex;gap:26px;margin-top:14px;justify-content:center}
 .cmp-links a{text-decoration:none;color:var(--skyink);border-bottom:1px solid var(--skyink)}
 </style>
 </head>
@@ -359,7 +358,7 @@
     <div class="sec-mark rv"><span class="num">02</span><span class="mono lbl">Rebuilds</span></div>
     <div class="sec-body rv">
       <h2 class="disp">A site from 2004, and the page it becomes.</h2>
-      <p class="sub">Most of the manufacturers we talk to have a site like the one on the left. Drag the slider. These two are samples, built to show the move: same business, same products, same phone number, one page that works on a phone.</p>
+      <p class="sub">Most of the manufacturers we talk to have a site like the old one in the frame. Drag the slider. These two are samples, built to show the move: same business, same products, same phone number, one page that works on a phone.</p>
     </div>
   </div>
   <div class="pairs">
@@ -372,15 +371,15 @@
       </div>
       <div class="cmp" data-cmp>
         <div class="cmp-frame">
-          <img class="cmp-after" draggable="false" src="websites/marlowe-after.jpg" alt="The rebuilt Marlowe Woodworks site: one page, a table hero, a clear phone number" loading="lazy" decoding="async">
-          <div class="cmp-before-wrap"><img class="cmp-before" draggable="false" src="websites/marlowe-before.jpg" alt="The old Marlowe Woodworks site: yellow background, pink menu, table layout" loading="lazy" decoding="async"></div>
-          <div class="cmp-line" aria-hidden="true"><span class="cmp-knob">&#8596;</span></div>
+          <img class="cmp-before" draggable="false" src="websites/marlowe-before.jpg" alt="The old Marlowe Woodworks site: yellow background, pink menu, table layout" loading="lazy" decoding="async">
+          <div class="cmp-after-wrap"><img class="cmp-after" draggable="false" src="websites/marlowe-after.jpg" alt="The rebuilt Marlowe Woodworks site: one page, a table hero, a clear phone number" loading="lazy" decoding="async"></div>
         </div>
         <div class="cmp-ctl">
           <span class="mono cmp-lab cmp-lab-b">Before</span>
-          <input class="cmp-range" type="range" min="0" max="100" value="55" aria-label="Compare the old site with the rebuild">
+          <input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Slide from the old site to the rebuild">
           <span class="mono cmp-lab cmp-lab-a">After</span>
         </div>
+        <p class="cmp-hint mono">Drag the slider: all the way left is the old site, all the way right is the rebuild.</p>
         <div class="cmp-links mono"><a href="samples/marlowe-before.html" target="_blank" rel="noopener">Open the old site</a><a href="samples/marlowe-after.html" target="_blank" rel="noopener">Open the rebuild</a></div>
       </div>
     </div>
@@ -393,15 +392,15 @@
       </div>
       <div class="cmp" data-cmp>
         <div class="cmp-frame">
-          <img class="cmp-after" draggable="false" src="websites/ironhouse-after.jpg" alt="The rebuilt Ironhouse Supply site: a bold headline about resoling, three boots, a phone number" loading="lazy" decoding="async">
-          <div class="cmp-before-wrap"><img class="cmp-before" draggable="false" src="websites/ironhouse-before.jpg" alt="The old Ironhouse Supply site: black background, orange headline, product table" loading="lazy" decoding="async"></div>
-          <div class="cmp-line" aria-hidden="true"><span class="cmp-knob">&#8596;</span></div>
+          <img class="cmp-before" draggable="false" src="websites/ironhouse-before.jpg" alt="The old Ironhouse Supply site: black background, orange headline, product table" loading="lazy" decoding="async">
+          <div class="cmp-after-wrap"><img class="cmp-after" draggable="false" src="websites/ironhouse-after.jpg" alt="The rebuilt Ironhouse Supply site: a bold headline about resoling, three boots, a phone number" loading="lazy" decoding="async"></div>
         </div>
         <div class="cmp-ctl">
           <span class="mono cmp-lab cmp-lab-b">Before</span>
-          <input class="cmp-range" type="range" min="0" max="100" value="55" aria-label="Compare the old site with the rebuild">
+          <input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Slide from the old site to the rebuild">
           <span class="mono cmp-lab cmp-lab-a">After</span>
         </div>
+        <p class="cmp-hint mono">Drag the slider: all the way left is the old site, all the way right is the rebuild.</p>
         <div class="cmp-links mono"><a href="samples/ironhouse-before.html" target="_blank" rel="noopener">Open the old site</a><a href="samples/ironhouse-after.html" target="_blank" rel="noopener">Open the rebuild</a></div>
       </div>
     </div>
@@ -578,14 +577,22 @@
 
   /* before and after */
   document.querySelectorAll('[data-cmp]').forEach(function(box){
-    var frame=box.querySelector('.cmp-frame'), range=box.querySelector('.cmp-range'), down=false;
+    var frame=box.querySelector('.cmp-frame'), range=box.querySelector('.cmp-range'), down=false, touched=false, nudged=false;
     function paint(v){ frame.style.setProperty('--cut',v+'%'); frame.style.setProperty('--pct',v); }
     function fromX(x){ var r=frame.getBoundingClientRect(); var v=Math.round(Math.max(0,Math.min(100,(x-r.left)/r.width*100))); range.value=v; paint(v); }
-    range.addEventListener('input',function(){ paint(range.value); });
-    frame.addEventListener('pointerdown',function(e){ if(e.button!==0&&e.pointerType==='mouse') return; e.preventDefault(); down=true; frame.setPointerCapture(e.pointerId); fromX(e.clientX); });
+    range.addEventListener('input',function(){ touched=true; paint(range.value); });
+    frame.addEventListener('pointerdown',function(e){ if(e.button!==0&&e.pointerType==='mouse') return; e.preventDefault(); touched=true; down=true; frame.setPointerCapture(e.pointerId); fromX(e.clientX); });
     frame.addEventListener('pointermove',function(e){ if(down) fromX(e.clientX); });
     ['pointerup','pointercancel'].forEach(function(t){ frame.addEventListener(t,function(){ down=false; }); });
     paint(range.value);
+    /* a small nudge the first time the pair comes into view, so the slider reads as something to move */
+    function nudge(){
+      if(nudged||touched||window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; nudged=true;
+      var from=parseInt(range.value,10), t0=null, dur=1100;
+      function step(ts){ if(touched) return; if(!t0) t0=ts; var p=Math.min(1,(ts-t0)/dur); var v=Math.round(from-18*Math.sin(p*Math.PI)); range.value=v; paint(v); if(p<1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    }
+    if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ nudge(); io.disconnect(); } }); },{threshold:.4}); io.observe(frame); }
   });
 })();
 </script>
