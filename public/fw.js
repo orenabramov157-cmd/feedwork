@@ -2,7 +2,7 @@
    The cold email links to https://feedworkstudio.com/?p=<token>. The token is an opaque id the funnel gave that
    company; it is the only thing tied to a visitor here. Nothing else about the person is read or stored. */
 (function () {
-  var TOKEN = "";                               /* PostHog project token (public, phc_...). Empty: analytics off. */
+  var TOKEN = "phc_qZexHtMS2NgN57AzCF3jqYabvoMNrcFiDcvCCDWqUbVc";   /* PostHog project token (public). Empty: analytics off. */
   var HOST = "https://us.i.posthog.com";
   var ok = /^[a-z0-9]{6,12}$/, q = new URLSearchParams(location.search), p = q.get("p"), tok = null;
   if (p && !ok.test(p)) p = null;
