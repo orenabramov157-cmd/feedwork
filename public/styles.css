@@ -1,11 +1,11 @@
 :root{
-  --ink:#0E0E0C;
-  --paper:#F2F0EA;
-  --sky:#BFD0DE;
-  --skyink:#4E6B85;
-  --deep:#3D5570;
-  --metal:#626360;
-  --hair:rgba(14,14,12,.16);
+  --ink:#151310;
+  --paper:#F4F0E6;
+  --sky:#E7DFCC;
+  --skyink:#1B48C9;
+  --deep:#12358F;
+  --metal:#6B655A;
+  --hair:rgba(21,19,16,.18);
   --gut:clamp(16px,3.4vw,40px);
   --maxw:1440px;
 }
@@ -119,7 +119,7 @@ a.cta:hover{background:var(--deep)}
 .case-k{color:var(--metal)}
 .case-side h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'opsz' 144;font-size:clamp(24px,3vw,38px);letter-spacing:-.02em;line-height:1}
 .case-row h4{font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--skyink);margin-bottom:7px}
-.case-row p{font-size:15px;color:#33332C}
+.case-row p{font-size:15px;color:#2B2620}
 .case-close{
   position:absolute;top:0;right:0;
   border:1px solid var(--ink);background:var(--paper);cursor:pointer;
@@ -176,7 +176,7 @@ section{padding:clamp(56px,8vw,110px) 0;scroll-margin-top:70px}
 .sec-mark .lbl{color:var(--metal);margin-top:10px;display:block}
 .sec-body{grid-column:3 / span 8}
 .sec-body h2{font-size:clamp(30px,4.4vw,58px)}
-.sec-body .sub{margin-top:20px;max-width:50ch;color:#33332C;font-size:clamp(16px,1.7vw,19px)}
+.sec-body .sub{margin-top:20px;max-width:50ch;color:#2B2620;font-size:clamp(16px,1.7vw,19px)}
 
 /* ---------- process: numbered swiss rows ---------- */
 .steps{margin-top:clamp(30px,4vw,52px);border-top:2px solid var(--skyink)}
@@ -186,7 +186,7 @@ section{padding:clamp(56px,8vw,110px) 0;scroll-margin-top:70px}
 }
 .step .sn{grid-column:1 / span 2;font-family:'Jost',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--skyink);padding-top:6px}
 .step h3{grid-column:3 / span 4;font-family:'Jost',sans-serif;font-weight:700;font-size:clamp(19px,2.2vw,26px);letter-spacing:-.01em;line-height:1.15}
-.step p{grid-column:8 / span 5;color:#33332C;font-size:16px}
+.step p{grid-column:8 / span 5;color:#2B2620;font-size:16px}
 
 /* ---------- built section ---------- */
 .built{border-top:1px solid var(--hair)}
@@ -204,7 +204,7 @@ summary::after{
   margin-top:-6px;background:var(--skyink);transition:transform .2s;
 }
 details[open] summary::after{transform:rotate(45deg)}
-details p{padding:0 44px 22px 0;color:#33332C;max-width:66ch}
+details p{padding:0 44px 22px 0;color:#2B2620;max-width:66ch}
 
 /* ---------- close ---------- */
 .close{background:var(--deep);color:var(--paper)}
