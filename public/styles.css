@@ -43,12 +43,23 @@ header.nav{position:sticky;top:0;z-index:80;background:var(--paper);border-botto
 .nav-links{display:flex;align-items:center;gap:26px}
 .nav-links a{text-decoration:none;font-size:14px;font-weight:700}
 .nav-links a:hover{color:var(--skyink)}
+@property --cta-a{syntax:'<angle>';inherits:false;initial-value:0deg}
 a.cta{
+  position:relative;isolation:isolate;
   background:var(--skyink);color:#fff;text-decoration:none;
   font-weight:600;font-size:14px;padding:11px 20px;white-space:nowrap;
   transition:background .16s;
 }
 a.cta:hover{background:var(--deep)}
+a.cta::after{
+  content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;pointer-events:none;
+  background:conic-gradient(from var(--cta-a),transparent 0 70%,var(--sky) 84%,#fff 92%,transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  animation:cta-spin 2.2s linear infinite;
+}
+@keyframes cta-spin{to{--cta-a:360deg}}
+@media(prefers-reduced-motion:reduce){a.cta::after{animation:none}}
 
 /* ---------- hero: orbital ring ---------- */
 .hero{padding:clamp(14px,2.4vw,30px) 0 0}
