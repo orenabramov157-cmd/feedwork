@@ -2,11 +2,24 @@
    Static assets are served by the ASSETS binding. Two routes are handled here:
      POST /api/lead   a project request from the form in #start
      GET  /leads      the inbox for those requests, behind basic auth
-   Every request is written to KV first and only then sent to Telegram and mail,
-   so an outage on either never loses a lead. */
+   Every request is written to KV once, before anything else happens, and only then
+   sent to Telegram and mail, so an outage on either never loses a lead. A KV key is
+   written at most once per request: KV allows one write per key per second. */
 
 const MAX = { name: 120, company: 160, email: 160, phone: 40, product: 200, website: 200, need: 40, notes: 4000 };
 const RATE = { max: 10, windowSeconds: 3600 };
+const MAX_BODY = 32 * 1024;
+const ORIGINS = ["https://feedworkstudio.com", "https://www.feedworkstudio.com"];
+const EMAIL = /^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;
+
+/* Worker responses get the same protections _headers gives the static pages */
+const SECURITY = {
+  "strict-transport-security": "max-age=31536000",
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "DENY",
+  "referrer-policy": "strict-origin-when-cross-origin",
+  "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+};
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -15,9 +28,28 @@ function json(body, status = 200) {
   });
 }
 
+/* line breaks and direction overrides let a visitor fake extra lines in the alert */
+const BREAKS = /[\r\n\u2028\u2029\u0085]+/g;
+const BIDI = /[\u200e\u200f\u202a-\u202e\u2066-\u2069]/g;
+
 function clean(value, limit) {
   if (typeof value !== "string") return "";
-  return value.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, "").trim().slice(0, limit);
+  return value.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, "").replace(BIDI, "").trim().slice(0, limit);
+}
+
+/* every field except the notes is one line */
+function line(value, limit) {
+  return clean(typeof value === "string" ? value.replace(BREAKS, " ") : value, limit);
+}
+
+/* visitor notes, quoted line by line so they can never pass for the alert's own lines */
+function quoted(notes) {
+  return notes.split("\n").map((l) => `> ${l}`).join("\n");
+}
+
+/* IPv6 visitors can rotate within their /64, so they are counted by it */
+function clientKey(ip) {
+  return ip.includes(":") ? ip.split(":").slice(0, 4).join(":") : ip;
 }
 
 function escapeHtml(s) {
@@ -26,6 +58,12 @@ function escapeHtml(s) {
 
 async function rateLimited(env, ip) {
   if (!ip) return false;
+  /* the binding counts atomically, so parallel requests cannot all slip under it;
+     the KV count below stays as the hourly ceiling */
+  if (env.LEAD_LIMITER) {
+    const { success } = await env.LEAD_LIMITER.limit({ key: `lead:${ip}` });
+    if (!success) return true;
+  }
   const key = `rate:${ip}`;
   const current = Number((await env.LEADS.get(key)) || 0);
   if (current >= RATE.max) return true;
@@ -43,7 +81,7 @@ function leadText(lead) {
     `Needs:    ${lead.need || "-"}`,
     `Website:  ${lead.website || "-"}`,
     "",
-    lead.notes || "(no notes)",
+    lead.notes ? `Notes, as typed by the visitor:\n${quoted(lead.notes)}` : "(no notes)",
     "",
     `Received: ${lead.at}`,
     `Page:     ${lead.page || "-"}`,
@@ -78,7 +116,9 @@ function telegramText(lead) {
   const when = new Date(lead.at).toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "medium", timeStyle: "short" });
   const lines = [
     "New project request",
+    "Inbox: https://feedworkstudio.com/leads",
     "",
+    "Typed by the visitor:",
     `Who: ${who}`,
     `Wants: ${lead.need || "not said"}`,
   ];
@@ -87,11 +127,10 @@ function telegramText(lead) {
   lines.push("");
   if (lead.email) lines.push(`Email: ${lead.email}`);
   if (lead.phone) lines.push(`Phone: ${lead.phone}`);
-  if (lead.notes) lines.push("", lead.notes.length > 2500 ? `${lead.notes.slice(0, 2500)}...` : lead.notes);
+  if (lead.notes) lines.push("", "Notes:", quoted(lead.notes.length > 2500 ? `${lead.notes.slice(0, 2500)}...` : lead.notes));
   lines.push("", `${when} CT${lead.country ? `, ${lead.country}` : ""}`);
   if (lead.page) lines.push(`Sent from: ${lead.page}`);
   if (lead.prospectToken) lines.push(`Cold-email token: ${lead.prospectToken}`);
-  lines.push("Inbox: https://feedworkstudio.com/leads");
   return lines.join("\n");
 }
 
@@ -110,29 +149,40 @@ async function telegram(env, lead) {
 }
 
 async function postLead(request, env) {
-  const ip = request.headers.get("cf-connecting-ip") || "";
+  const ip = clientKey(request.headers.get("cf-connecting-ip") || "");
 
+  /* the form sends JSON from this site; a JSON content type also makes browsers on
+     other sites ask permission first, which this Worker never grants */
+  const type = (request.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
+  if (type !== "application/json") return json({ ok: false, error: "Bad request." }, 415);
+  const origin = request.headers.get("origin");
+  const host = new URL(request.url).hostname;
+  if (origin && !ORIGINS.includes(origin) && !["127.0.0.1", "localhost"].includes(host)) return json({ ok: false, error: "Not allowed." }, 403);
+
+  const raw = await request.text();
+  if (raw.length > MAX_BODY) return json({ ok: false, error: "That is too long. Email it instead." }, 413);
   let body;
   try {
-    body = await request.json();
+    body = JSON.parse(raw);
   } catch {
     return json({ ok: false, error: "Bad request." }, 400);
   }
+  if (!body || typeof body !== "object" || Array.isArray(body)) return json({ ok: false, error: "Bad request." }, 400);
 
   /* a bot that fills the hidden field gets a success it cannot tell from the real one */
   if (clean(body.fax, 40)) return json({ ok: true });
 
   const lead = {
-    company: clean(body.company, MAX.company),
-    name: clean(body.name, MAX.name),
-    email: clean(body.email, MAX.email),
-    phone: clean(body.phone, MAX.phone),
-    product: clean(body.product, MAX.product),
-    need: clean(body.need, MAX.need),
-    website: clean(body.website, MAX.website),
+    company: line(body.company, MAX.company),
+    name: line(body.name, MAX.name),
+    email: line(body.email, MAX.email),
+    phone: line(body.phone, MAX.phone),
+    product: line(body.product, MAX.product),
+    need: line(body.need, MAX.need),
+    website: line(body.website, MAX.website),
     notes: clean(body.notes, MAX.notes),
     prospectToken: /^[a-z0-9]{6,12}$/.test(String(body.prospectToken || "")) ? String(body.prospectToken) : "",
-    page: clean(body.page, 200),
+    page: line(body.page, 200),
     at: new Date().toISOString(),
     ip,
     country: request.headers.get("cf-ipcountry") || "",
@@ -140,7 +190,7 @@ async function postLead(request, env) {
 
   if (!lead.company) return json({ ok: false, error: "Tell me the business name." }, 422);
   if (!lead.email && !lead.phone) return json({ ok: false, error: "Leave an email or a phone number." }, 422);
-  if (lead.email && !/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(lead.email)) return json({ ok: false, error: "That email doesn't look right." }, 422);
+  if (lead.email && !EMAIL.test(lead.email)) return json({ ok: false, error: "That email doesn't look right." }, 422);
 
   /* counted only once the request is real, so a visitor fumbling their own email
      never burns the allowance */
@@ -148,10 +198,25 @@ async function postLead(request, env) {
     return json({ ok: false, error: "That is a lot of requests from one place. Call instead." }, 429);
   }
 
+  /* a retry of the same form fill (same submission id) is answered without a second
+     lead or a second ping */
+  const submission = /^[A-Za-z0-9-]{8,64}$/.test(String(body.submissionId || "")) ? String(body.submissionId) : "";
+  if (submission && (await env.LEADS.get(`sub:${submission}`))) return json({ ok: true });
+
   const key = `lead:${lead.at}:${crypto.randomUUID().slice(0, 8)}`;
   await env.LEADS.put(key, JSON.stringify(lead));
-  const [telegrammed, mailed] = await Promise.all([telegram(env, lead), mail(env, lead)]);
-  await env.LEADS.put(key, JSON.stringify({ ...lead, telegrammed, mailed }));
+  if (submission) await env.LEADS.put(`sub:${submission}`, key, { expirationTtl: 86400 });
+
+  /* the lead is saved; from here on a failure is recorded on its own key and never
+     turns into an error for the visitor */
+  try {
+    const [telegrammed, mailed] = await Promise.all([telegram(env, lead), mail(env, lead)]);
+    if (telegrammed !== "sent" || (mailed !== "sent" && mailed !== "not configured")) {
+      await env.LEADS.put(`delivery:${key}`, JSON.stringify({ telegrammed, mailed }));
+    }
+  } catch (err) {
+    console.error("lead delivery bookkeeping failed", err && err.message);
+  }
 
   return json({ ok: true });
 }
@@ -179,20 +244,41 @@ function authorized(request, env) {
 }
 
 async function leadsPage(request, env) {
+  /* every attempt that carries a password is counted, so guessing is slow */
+  if (env.LOGIN_LIMITER && request.headers.get("authorization")) {
+    const ip = clientKey(request.headers.get("cf-connecting-ip") || "");
+    const { success } = await env.LOGIN_LIMITER.limit({ key: `login:${ip}` });
+    if (!success) return new Response("Too many tries. Wait a minute.", { status: 429, headers: { "retry-after": "60" } });
+  }
   if (!authorized(request, env)) return unauthorized();
 
-  const list = await env.LEADS.list({ prefix: "lead:", limit: 200 });
-  const keys = list.keys.map((k) => k.name).sort().reverse();
+  /* KV lists oldest first, so walk every page and keep the newest 200 */
+  const names = [];
+  let cursor;
+  for (let page = 0; page < 20; page++) {
+    const list = await env.LEADS.list({ prefix: "lead:", cursor });
+    names.push(...list.keys.map((k) => k.name));
+    if (list.list_complete) break;
+    cursor = list.cursor;
+  }
+  const keys = names.sort().reverse().slice(0, 200);
   /* a key can outlive its value for a moment after a delete, so drop the blanks
      before anything counts them */
-  const leads = (await Promise.all(keys.map((k) => env.LEADS.get(k, "json")))).filter(Boolean);
+  const leads = (
+    await Promise.all(
+      keys.map(async (k) => {
+        const [l, delivery] = await Promise.all([env.LEADS.get(k, "json"), env.LEADS.get(`delivery:${k}`, "json")]);
+        return l && { ...l, ...(delivery || {}) };
+      }),
+    )
+  ).filter(Boolean);
 
   const rows = leads
     .map((l) => {
       const who = escapeHtml(l.company || l.name || "no name given");
       const when = escapeHtml(new Date(l.at).toLocaleString("en-US", { timeZone: "America/Chicago" }));
       const reach = [
-        l.email ? `<a href="mailto:${escapeHtml(l.email)}">${escapeHtml(l.email)}</a>` : "",
+        l.email ? `<a href="mailto:${escapeHtml(encodeURIComponent(l.email))}">${escapeHtml(l.email)}</a>` : "",
         l.phone ? `<a href="tel:${escapeHtml(l.phone.replace(/[^+\d]/g, ""))}">${escapeHtml(l.phone)}</a>` : "",
         l.website ? `<a href="${escapeHtml(l.website.startsWith("http") ? l.website : "https://" + l.website)}" rel="noopener nofollow">site</a>` : "",
       ].filter(Boolean).join(" &nbsp;·&nbsp; ");
@@ -227,11 +313,17 @@ b{color:#6B655A;font-weight:600;font-size:13px;text-transform:uppercase;letter-s
 a{color:#1B48C9}
 </style></head><body><div class="wrap">
 <h1>Project requests</h1>
-<p class="count">${leads.length} total${list.list_complete ? "" : ", showing the newest 200"}</p>
+<p class="count">${names.length} total${names.length > leads.length ? `, showing the newest ${leads.length}` : ""}</p>
 ${rows || "<article><p>Nothing yet.</p></article>"}
 </div></body></html>`;
 
   return new Response(html, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", "x-robots-tag": "noindex, nofollow" } });
+}
+
+function secured(response) {
+  const out = new Response(response.body, response);
+  for (const [k, v] of Object.entries(SECURITY)) if (!out.headers.has(k)) out.headers.set(k, v);
+  return out;
 }
 
 export default {
@@ -239,11 +331,16 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/lead") {
-      if (request.method !== "POST") return json({ ok: false, error: "Use POST." }, 405);
-      return postLead(request, env);
+      if (request.method !== "POST") return secured(json({ ok: false, error: "Use POST." }, 405));
+      try {
+        return secured(await postLead(request, env));
+      } catch (err) {
+        console.error("lead failed", err && err.message);
+        return secured(json({ ok: false, error: "Your request could not be sent." }, 500));
+      }
     }
 
-    if (url.pathname === "/leads" || url.pathname === "/leads/") return leadsPage(request, env);
+    if (url.pathname === "/leads" || url.pathname === "/leads/") return secured(await leadsPage(request, env));
 
     return env.ASSETS.fetch(request);
   },

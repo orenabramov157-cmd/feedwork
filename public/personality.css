@@ -4,3 +4,4 @@
 .w-hero.personality{padding:55px clamp(20px,4vw,64px)}
 @media(max-width:760px){.w-hero.personality{padding-top:35px}}
 .personality .explorer{padding:0}
+.is-comparing .explorer-footer p+p{display:none}

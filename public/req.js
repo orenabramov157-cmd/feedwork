@@ -4,6 +4,10 @@
   if (!form) return;
   var note = document.getElementById('reqNote'), go = document.getElementById('reqGo');
   var resting = note.textContent, buttonText = go.textContent, sending = false;
+  /* one id per form fill, so a retry after a lost reply is not a second request */
+  var submission = window.crypto && window.crypto.randomUUID ? window.crypto.randomUUID() : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
+  /* the button ships disabled, so nothing can be sent as a plain page load before this script runs */
+  go.disabled = false;
   function field(name) { return form.querySelector('[name="' + name + '"]'); }
   function say(message, bad) { note.textContent = message; note.className = 'req-note' + (bad ? ' bad' : ''); }
   function error(name, message) {
@@ -34,12 +38,12 @@
     if (!body.email && !body.phone) {
       error('email', 'Add an email or phone number so we can reply.');
       error('phone', 'An email or phone number is required.'); first = first || 'email';
-    } else if (body.email && !/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(body.email)) {
+    } else if (body.email && !/^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/.test(body.email)) {
       error('email', 'Enter a valid email address.'); first = first || 'email';
     }
     if (first) { say('Please check the highlighted fields.', true); field(first).focus(); return; }
     if (style && (body.need === 'Website' || body.need === 'Creative and website')) body.need += ' / ' + style;
-    body.prospectToken = window.fwToken || ''; body.page = location.pathname;
+    body.prospectToken = window.fwToken || ''; body.page = location.pathname; body.submissionId = submission;
     sending = true; go.disabled = true; go.textContent = 'Sending…'; say('Sending your request…');
     fetch('/api/lead', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify(body)})
       .then(function (response) { return response.json().then(function (result) {
