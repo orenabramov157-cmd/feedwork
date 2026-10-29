@@ -2,8 +2,8 @@
    Static assets are served by the ASSETS binding. Two routes are handled here:
      POST /api/lead   a project request from the form in #start
      GET  /leads      the inbox for those requests, behind basic auth
-   Every request is written to KV first and only then mailed, so a mail outage
-   never loses a lead. */
+   Every request is written to KV first and only then sent to Telegram and mail,
+   so an outage on either never loses a lead. */
 
 const MAX = { name: 120, company: 160, email: 160, phone: 40, product: 200, website: 200, need: 40, notes: 4000 };
 const RATE = { max: 10, windowSeconds: 3600 };
@@ -72,6 +72,43 @@ async function mail(env, lead) {
   }
 }
 
+/* plain text, no parse_mode, so nothing a visitor types can break the message */
+function telegramText(lead) {
+  const who = [lead.name, lead.company].filter(Boolean).join(" at ");
+  const when = new Date(lead.at).toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "medium", timeStyle: "short" });
+  const lines = [
+    "New project request",
+    "",
+    `Who: ${who}`,
+    `Wants: ${lead.need || "not said"}`,
+  ];
+  if (lead.product) lines.push(`Product: ${lead.product}`);
+  if (lead.website) lines.push(`Their site: ${lead.website}`);
+  lines.push("");
+  if (lead.email) lines.push(`Email: ${lead.email}`);
+  if (lead.phone) lines.push(`Phone: ${lead.phone}`);
+  if (lead.notes) lines.push("", lead.notes.length > 2500 ? `${lead.notes.slice(0, 2500)}...` : lead.notes);
+  lines.push("", `${when} CT${lead.country ? `, ${lead.country}` : ""}`);
+  if (lead.page) lines.push(`Sent from: ${lead.page}`);
+  if (lead.prospectToken) lines.push(`Cold-email token: ${lead.prospectToken}`);
+  lines.push("Inbox: https://feedworkstudio.com/leads");
+  return lines.join("\n");
+}
+
+async function telegram(env, lead) {
+  if (!env.TG_TOKEN || !env.TG_CHAT) return "not configured";
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${env.TG_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ chat_id: env.TG_CHAT, text: telegramText(lead), disable_web_page_preview: true }),
+    });
+    return res.ok ? "sent" : `failed ${res.status}`;
+  } catch (err) {
+    return `failed ${err && err.message ? err.message : "fetch error"}`;
+  }
+}
+
 async function postLead(request, env) {
   const ip = request.headers.get("cf-connecting-ip") || "";
 
@@ -113,8 +150,8 @@ async function postLead(request, env) {
 
   const key = `lead:${lead.at}:${crypto.randomUUID().slice(0, 8)}`;
   await env.LEADS.put(key, JSON.stringify(lead));
-  const mailed = await mail(env, lead);
-  await env.LEADS.put(key, JSON.stringify({ ...lead, mailed }));
+  const [telegrammed, mailed] = await Promise.all([telegram(env, lead), mail(env, lead)]);
+  await env.LEADS.put(key, JSON.stringify({ ...lead, telegrammed, mailed }));
 
   return json({ ok: true });
 }
@@ -161,7 +198,7 @@ async function leadsPage(request, env) {
       ].filter(Boolean).join(" &nbsp;·&nbsp; ");
       return `<article>
   <h2>${who}</h2>
-  <p class="meta">${when} CT${l.prospectToken ? ` &nbsp;·&nbsp; token ${escapeHtml(l.prospectToken)}` : ""}${l.mailed && l.mailed !== "sent" ? ` &nbsp;·&nbsp; mail ${escapeHtml(l.mailed)}` : ""}</p>
+  <p class="meta">${when} CT${l.prospectToken ? ` &nbsp;·&nbsp; token ${escapeHtml(l.prospectToken)}` : ""}${l.telegrammed && l.telegrammed !== "sent" ? ` &nbsp;·&nbsp; telegram ${escapeHtml(l.telegrammed)}` : ""}${l.mailed && l.mailed !== "sent" ? ` &nbsp;·&nbsp; mail ${escapeHtml(l.mailed)}` : ""}</p>
   <p class="reach">${reach || "no contact given"}</p>
   ${l.name ? `<p><b>Contact</b> ${escapeHtml(l.name)}</p>` : ""}
   ${l.product ? `<p><b>Product</b> ${escapeHtml(l.product)}</p>` : ""}
