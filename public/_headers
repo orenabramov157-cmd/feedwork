@@ -4,3 +4,10 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Public fictional demos may be embedded by this site only.
+/websites/personality/*
+  ! X-Frame-Options
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: frame-ancestors 'self'
+  X-Robots-Tag: noindex

@@ -1,0 +1,1 @@
+document.querySelectorAll('.mobile-menu').forEach(function(menu){menu.addEventListener('keydown',function(e){if(e.key==='Escape'){menu.open=false;menu.querySelector('summary').focus();}});menu.querySelectorAll('a').forEach(function(link){link.addEventListener('click',function(){menu.open=false;});});});
