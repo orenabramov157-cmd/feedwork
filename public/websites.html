@@ -237,6 +237,7 @@
 .cmp-links a{text-decoration:none;color:var(--skyink);border-bottom:1px solid var(--skyink)}
 </style>
 <script src="/fw.js" defer></script>
+<script src="/req.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -430,18 +431,48 @@
   <div class="grid">
     <div class="sec-mark rv"><span class="num">04</span><span class="mono lbl">Start</span></div>
     <div class="sec-body rv">
-      <h2 class="disp">Send your site's address. Start there.</h2>
-      <p class="sub">Tell me what you make and send the address of your current site. You get a quote and a turnaround before anything is committed.</p>
+      <h2 class="disp">Send your site's address.</h2>
+      <p class="sub">Two minutes here is enough. You get a quote and a turnaround back before anything is committed, and nothing is charged to find out.</p>
     </div>
   </div>
   <div class="workwrap">
+    <form class="req rv" id="reqForm" novalidate>
+      <div class="req-grid">
+        <label class="f f6"><span class="mono k">Business name</span>
+          <input name="company" type="text" autocomplete="organization" maxlength="160" required>
+        </label>
+        <label class="f f6"><span class="mono k">Your name</span>
+          <input name="name" type="text" autocomplete="name" maxlength="120">
+        </label>
+        <label class="f f6"><span class="mono k">Email</span>
+          <input name="email" type="email" inputmode="email" autocomplete="email" maxlength="160">
+        </label>
+        <label class="f f6"><span class="mono k">Phone</span>
+          <input name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="40">
+        </label>
+        <label class="f f6"><span class="mono k">Current site</span>
+          <input name="website" type="text" maxlength="200" placeholder="yourbrand.com">
+        </label>
+        <label class="f f6"><span class="mono k">What you make</span>
+          <input name="product" type="text" maxlength="200" placeholder="Cabinets, smokers, candles">
+        </label>
+        <label class="f f12"><span class="mono k">Anything else</span>
+          <textarea name="notes" rows="3" maxlength="4000" placeholder="What the current site gets wrong, what you need it to do, when you need it by."></textarea>
+        </label>
+        <label class="pot" aria-hidden="true"><span>Fax</span><input name="fax" type="text" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <div class="req-foot">
+        <button class="cta" type="submit" id="reqGo">Send the request</button>
+        <p class="req-note" id="reqNote" role="status" aria-live="polite">An email or a phone number, either one is enough.</p>
+      </div>
+    </form>
     <div class="contact">
       <div class="rv">
-        <span class="mono k">Email</span>
-        <a href="mailto:consult@feedworkstudio.com?subject=Website%20enquiry&body=Business%20name%3A%0ACurrent%20site%3A%0AWhat%20you%20make%3A%0AAnything%20else%3A%0A">consult@feedworkstudio.com</a>
+        <span class="mono k">Rather email</span>
+        <a href="mailto:consult@feedworkstudio.com?subject=Website%20enquiry">consult@feedworkstudio.com</a>
       </div>
       <div class="rv">
-        <span class="mono k">Or call</span>
+        <span class="mono k">Rather call</span>
         <a href="tel:+19727422543">+1 972-742-2543</a>
       </div>
     </div>

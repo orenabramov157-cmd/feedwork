@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /samples/
+Disallow: /leads
 
 Sitemap: https://feedworkstudio.com/sitemap.xml
-Disallow: /samples/

@@ -1,9 +1,19 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "dark-salad-dcde",
+  "main": "src/index.js",
   "compatibility_date": "2026-08-12",
   "assets": {
     "directory": "./public",
+    "binding": "ASSETS",
     "not_found_handling": "404-page"
-  }
+  },
+  "kv_namespaces": [
+    { "binding": "LEADS", "id": "ff4f1acd11284b2f8f438c1158e7f7b2" }
+  ],
+  "vars": {
+    "LEAD_TO": "consult@feedworkstudio.com",
+    "LEAD_FROM": "Feedwork Studio <leads@feedworkstudio.com>"
+  },
+  "observability": { "enabled": true }
 }

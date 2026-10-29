@@ -44,14 +44,14 @@ header.nav{position:sticky;top:0;z-index:80;background:var(--paper);border-botto
 .nav-links a{text-decoration:none;font-size:14px;font-weight:700}
 .nav-links a:hover{color:var(--skyink)}
 @property --cta-a{syntax:'<angle>';inherits:false;initial-value:0deg}
-a.cta{
+a.cta,button.cta{
   position:relative;isolation:isolate;
   background:var(--skyink);color:#fff;text-decoration:none;
   font-weight:600;font-size:14px;padding:11px 20px;white-space:nowrap;
   transition:background .16s;
 }
-a.cta:hover{background:var(--deep)}
-a.cta::after{
+a.cta:hover,button.cta:hover{background:var(--deep)}
+a.cta::after,button.cta::after{
   content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;pointer-events:none;
   background:conic-gradient(from var(--cta-a),transparent 0 70%,var(--sky) 84%,#fff 92%,transparent 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
@@ -59,7 +59,7 @@ a.cta::after{
   animation:cta-spin 2.2s linear infinite;
 }
 @keyframes cta-spin{to{--cta-a:360deg}}
-@media(prefers-reduced-motion:reduce){a.cta::after{animation:none}}
+@media(prefers-reduced-motion:reduce){a.cta::after,button.cta::after{animation:none}}
 
 /* ---------- hero: orbital ring ---------- */
 .hero{padding:clamp(14px,2.4vw,30px) 0 0}
@@ -264,4 +264,47 @@ html.js .rv.in{opacity:1;transform:none}
   html{scroll-behavior:auto}
   .rv{opacity:1!important;transform:none!important}
   *{transition:none!important}
+}
+
+/* ---------- project request form (in .close) ---------- */
+button.cta{font-family:'Jost',sans-serif;border:0;cursor:pointer;line-height:1.5}
+button.cta:disabled{opacity:.6;cursor:default}
+button.cta:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+
+.req{margin-top:clamp(28px,4vw,46px);border-top:1px solid rgba(242,240,234,.28);padding-top:clamp(22px,3vw,34px)}
+.req-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(16px,2.2vw,26px) var(--gut)}
+.f{display:block}
+.f6{grid-column:span 6}
+.f12{grid-column:span 12}
+.f .k{color:rgba(242,240,234,.55);display:block;margin-bottom:8px}
+.req input,.req textarea{
+  width:100%;display:block;
+  font-family:'Jost',sans-serif;font-size:clamp(16px,1.5vw,18px);font-weight:500;letter-spacing:-.01em;
+  color:var(--paper);background:transparent;
+  border:0;border-bottom:2px solid rgba(242,240,234,.34);
+  padding:6px 2px 9px;border-radius:0;
+  transition:border-color .16s;
+}
+.req textarea{resize:vertical;min-height:84px;line-height:1.5}
+.req input::placeholder,.req textarea::placeholder{color:rgba(242,240,234,.38)}
+.req input:hover,.req textarea:hover{border-bottom-color:rgba(242,240,234,.6)}
+.req input:focus,.req textarea:focus{outline:0;border-bottom-color:var(--sky)}
+.req input:-webkit-autofill{-webkit-text-fill-color:var(--paper);-webkit-box-shadow:0 0 0 100px var(--deep) inset}
+
+.pot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.req-foot{margin-top:clamp(24px,3.4vw,36px);display:flex;align-items:center;gap:clamp(16px,2.4vw,30px);flex-wrap:wrap}
+.req-foot button.cta{font-size:15px;padding:14px 26px}
+.req-note{margin:0;max-width:46ch;color:rgba(242,240,234,.62);font-size:14.5px}
+.req-note.bad{color:#FFD9C7}
+
+.req-done{padding:4px 0 2px}
+.req-done .k{color:var(--sky);display:block;margin-bottom:12px}
+.req-done p{max-width:52ch;font-size:clamp(17px,1.9vw,20px);color:rgba(242,240,234,.9)}
+.req-done a{color:var(--sky)}
+
+@media(max-width:760px){
+  .f6{grid-column:span 12}
+  .req-foot{flex-direction:column;align-items:flex-start;gap:16px}
+  .req-foot button.cta{width:100%;text-align:center}
 }
