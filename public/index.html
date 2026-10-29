@@ -30,7 +30,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script src="/fw.js" defer></script>
-<script src="/req.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -44,7 +43,7 @@
       <a href="websites.html">Websites</a>
       <a href="consult.html">Consult</a>
     </nav>
-    <a class="cta" href="#start">Start a project</a>
+    <a class="cta" href="start.html">Start a project</a>
   </div>
 </header>
 
@@ -187,40 +186,15 @@
     <div class="sec-mark rv"><span class="num">04</span><span class="mono lbl">Start</span></div>
     <div class="sec-body rv">
       <h2 class="disp">Tell me what you sell.</h2>
-      <p class="sub">Two minutes here is enough. You get a quote and a turnaround back before anything is committed, and nothing is charged to find out.</p>
+      <p class="sub">Two minutes on one page is enough. You get a quote and a turnaround back before anything is committed.</p>
     </div>
   </div>
   <div class="workwrap">
-    <form class="req rv" id="reqForm" novalidate>
-      <div class="req-grid">
-        <label class="f f6"><span class="mono k">Business name</span>
-          <input name="company" type="text" autocomplete="organization" maxlength="160" required>
-        </label>
-        <label class="f f6"><span class="mono k">Your name</span>
-          <input name="name" type="text" autocomplete="name" maxlength="120">
-        </label>
-        <label class="f f6"><span class="mono k">Email</span>
-          <input name="email" type="email" inputmode="email" autocomplete="email" maxlength="160">
-        </label>
-        <label class="f f6"><span class="mono k">Phone</span>
-          <input name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="40">
-        </label>
-        <label class="f f6"><span class="mono k">What you want shot</span>
-          <input name="product" type="text" maxlength="200" placeholder="Your best seller">
-        </label>
-        <label class="f f6"><span class="mono k">Website</span>
-          <input name="website" type="text" maxlength="200" placeholder="yourbrand.com">
-        </label>
-        <label class="f f12"><span class="mono k">Anything else</span>
-          <textarea name="notes" rows="3" maxlength="4000" placeholder="What you have tried, where you are stuck, when you need it by."></textarea>
-        </label>
-        <label class="pot" aria-hidden="true"><span>Fax</span><input name="fax" type="text" tabindex="-1" autocomplete="off"></label>
-      </div>
-      <div class="req-foot">
-        <button class="cta" type="submit" id="reqGo">Send the request</button>
-        <p class="req-note" id="reqNote" role="status" aria-live="polite">An email or a phone number, either one is enough. Send product photos later, by reply.</p>
-      </div>
-    </form>
+    <div class="go rv">
+      <a class="cta" href="start.html">Start a project</a>
+      <a class="alt-link" href="call.html">Or book a call</a>
+      <p class="go-note">Takes about two minutes. Nothing is charged to get a number.</p>
+    </div>
     <div class="contact">
       <div class="rv">
         <span class="mono k">Rather email</span>
@@ -253,7 +227,7 @@
         <h3 id="caseBrand"></h3>
         <div class="case-row"><h4>The angle</h4><p id="caseAngle"></p></div>
         <div class="case-row"><h4>Why this shot</h4><p id="caseWhy"></p></div>
-        <a class="cta" href="#start" id="caseGo">Start yours</a>
+        <a class="cta" href="start.html" id="caseGo">Start yours</a>
       </div>
     </div>
   </div>
@@ -407,10 +381,10 @@
     if(c) openCase(parseInt(c.getAttribute('data-i'),10));
   });
   document.getElementById('caseClose').addEventListener('click',closeCase);
+  /* caseGo is a link to the start page now, so let it navigate; just release
+     the scroll lock on the way out */
   document.getElementById('caseGo').addEventListener('click',function(){
-    lastFocus=null; closeCase();
-    var t=document.getElementById('start');
-    if(t){ t.setAttribute('tabindex','-1'); t.focus({preventScroll:true}); }
+    document.body.style.overflow='';
   });
   panel.addEventListener('click',function(e){ if(e.target===panel) closeCase(); });
   panel.addEventListener('keydown',function(e){

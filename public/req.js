@@ -1,5 +1,4 @@
-/* The project-request form in the #start section. Posts to the worker at /api/lead.
-   Lives on index.html and websites.html; both carry the same markup. */
+/* The project request form on /start. Posts to the worker at /api/lead. */
 (function () {
   var form = document.getElementById('reqForm');
   if (!form) return;
@@ -8,20 +7,22 @@
 
   function say(msg, kind) { note.textContent = msg; note.className = 'req-note' + (kind ? ' ' + kind : ''); }
 
+  function field(name) { return form.querySelector('[name="' + name + '"]'); }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (sending) return;
 
     var d = new FormData(form), body = {};
-    ['company', 'name', 'email', 'phone', 'product', 'website', 'notes', 'fax'].forEach(function (k) {
+    ['company', 'name', 'email', 'phone', 'product', 'website', 'need', 'notes', 'fax'].forEach(function (k) {
       body[k] = (d.get(k) || '').toString();
     });
     body.prospectToken = window.fwToken || '';
-    body.page = location.pathname + location.hash;
+    body.page = location.pathname;
 
-    if (!body.company.trim()) { say('Start with the business name.', 'bad'); form.company.focus(); return; }
+    if (!body.company.trim()) { say('Start with the business name.', 'bad'); field('company').focus(); return; }
     if (!body.email.trim() && !body.phone.trim()) {
-      say('Leave an email or a phone number so there is a way back to you.', 'bad'); form.email.focus(); return;
+      say('Leave an email or a phone number so there is a way back to you.', 'bad'); field('email').focus(); return;
     }
 
     sending = true; go.disabled = true; go.textContent = 'Sending…'; say('Sending…');
@@ -30,9 +31,13 @@
       .then(function (r) { return r.json().catch(function () { return { ok: r.ok }; }); })
       .then(function (res) {
         if (!res || !res.ok) throw new Error((res && res.error) || 'That did not go through.');
-        form.innerHTML = '<div class="req-done"><span class="mono k">Request received</span>' +
-          '<p>Got it. You get a reply at the email or number you left, usually the same day. ' +
-          'If it is urgent, call <a href="tel:+19727422543">+1 972-742-2543</a>.</p></div>';
+        var card = form.parentNode;
+        card.innerHTML = '<div class="req-done"><span class="mono k">Request received</span>' +
+          '<h2>Got it.</h2>' +
+          '<p>You get a reply at the ' + (body.email.trim() ? 'address' : 'number') +
+          ' you left, usually the same day. If it is urgent, call ' +
+          '<a href="tel:+19727422543">+1 972-742-2543</a>.</p></div>';
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
         if (window.posthog) posthog.capture('project_request_sent', { prospect_token: body.prospectToken || null });
       })
       .catch(function (err) {
@@ -45,24 +50,4 @@
   form.addEventListener('input', function () {
     if (!sending && note.className.indexOf('bad') > -1) say(resting);
   });
-  /* a CTA that says "start a project" should land in the first field, not just
-     at the bottom of the page */
-  function focusFirst() {
-    var el = form.querySelector('input[name="company"]');
-    if (!el) return;
-    try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); }
-  }
-  Array.prototype.forEach.call(document.querySelectorAll('a[href="#start"]'), function (a) {
-    a.addEventListener('click', function (e) {
-      var sec = document.getElementById('start');
-      if (!sec) return;
-      /* done here rather than left to the hash, which does nothing when the URL
-         already ends in #start */
-      e.preventDefault();
-      if (location.hash !== '#start') history.replaceState(null, '', '#start');
-      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(focusFirst, 560);
-    });
-  });
-  if (location.hash === '#start') setTimeout(focusFirst, 400);
 })();

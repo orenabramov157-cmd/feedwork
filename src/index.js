@@ -5,7 +5,7 @@
    Every request is written to KV first and only then mailed, so a mail outage
    never loses a lead. */
 
-const MAX = { name: 120, company: 160, email: 160, phone: 40, product: 200, website: 200, notes: 4000 };
+const MAX = { name: 120, company: 160, email: 160, phone: 40, product: 200, website: 200, need: 40, notes: 4000 };
 const RATE = { max: 10, windowSeconds: 3600 };
 
 function json(body, status = 200) {
@@ -40,6 +40,7 @@ function leadText(lead) {
     `Email:    ${lead.email || "-"}`,
     `Phone:    ${lead.phone || "-"}`,
     `Product:  ${lead.product || "-"}`,
+    `Needs:    ${lead.need || "-"}`,
     `Website:  ${lead.website || "-"}`,
     "",
     lead.notes || "(no notes)",
@@ -90,6 +91,7 @@ async function postLead(request, env) {
     email: clean(body.email, MAX.email),
     phone: clean(body.phone, MAX.phone),
     product: clean(body.product, MAX.product),
+    need: clean(body.need, MAX.need),
     website: clean(body.website, MAX.website),
     notes: clean(body.notes, MAX.notes),
     prospectToken: /^[a-z0-9]{6,12}$/.test(String(body.prospectToken || "")) ? String(body.prospectToken) : "",
@@ -163,6 +165,7 @@ async function leadsPage(request, env) {
   <p class="reach">${reach || "no contact given"}</p>
   ${l.name ? `<p><b>Contact</b> ${escapeHtml(l.name)}</p>` : ""}
   ${l.product ? `<p><b>Product</b> ${escapeHtml(l.product)}</p>` : ""}
+  ${l.need ? `<p><b>Needs</b> ${escapeHtml(l.need)}</p>` : ""}
   ${l.notes ? `<p class="notes">${escapeHtml(l.notes)}</p>` : ""}
 </article>`;
     })
