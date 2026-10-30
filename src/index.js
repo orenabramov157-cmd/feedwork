@@ -306,6 +306,9 @@ async function leadsPage(request, env) {
         l.phone ? `<a href="tel:${escapeHtml(l.phone.replace(/[^+\d]/g, ""))}">${escapeHtml(l.phone)}</a>` : "",
         l.website ? `<a href="${escapeHtml(l.website.startsWith("http") ? l.website : "https://" + l.website)}" rel="noopener nofollow">site</a>` : "",
       ].filter(Boolean).join(" &nbsp;·&nbsp; ");
+      /* one tap from a request to a pre-filled new client in the portal */
+      const portal = new URL("/admin/new-client", env.PORTAL_ORIGIN || "https://feedwork-portal.orenab.workers.dev");
+      for (const [k, v] of Object.entries({ name: l.company || "", person: l.name || "", email: l.email || "", tz: l.timezone || "", title: /creative/i.test(l.need || "") && !/website/i.test(l.need || "") ? "Ad creative" : "Website" })) if (v) portal.searchParams.set(k, v);
       return `<article>
   <h2>${who}</h2>
   <p class="meta">${when}${l.prospectToken ? ` &nbsp;·&nbsp; token ${escapeHtml(l.prospectToken)}` : ""}${l.telegrammed && l.telegrammed !== "sent" ? ` &nbsp;·&nbsp; telegram ${escapeHtml(l.telegrammed)}` : ""}${l.mailed && l.mailed !== "sent" ? ` &nbsp;·&nbsp; mail ${escapeHtml(l.mailed)}` : ""}</p>
@@ -315,6 +318,7 @@ async function leadsPage(request, env) {
   ${l.location ? `<p><b>Based in</b> ${escapeHtml(l.location)}</p>` : ""}
   ${l.need ? `<p><b>Needs</b> ${escapeHtml(l.need)}</p>` : ""}
   ${l.notes ? `<p class="notes">${escapeHtml(l.notes)}</p>` : ""}
+  <p class="act"><a href="${escapeHtml(portal.href)}" target="_blank" rel="noopener">Make portal client</a></p>
 </article>`;
     })
     .join("\n");
@@ -336,6 +340,7 @@ p{margin:0 0 7px}
 b{color:#6B655A;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-right:6px}
 .notes{white-space:pre-wrap;border-left:3px solid #1B48C9;padding-left:12px;margin-top:12px}
 a{color:#1B48C9}
+.act{margin-top:14px}.act a{display:inline-block;background:#1B48C9;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:10px 16px}
 </style></head><body><div class="wrap">
 <h1>Project requests</h1>
 <p class="count">${names.length} total${names.length > leads.length ? `, showing the newest ${leads.length}` : ""}</p>

@@ -13,7 +13,8 @@
   ],
   "vars": {
     "LEAD_TO": "consult@feedworkstudio.com",
-    "LEAD_FROM": "Feedwork Studio <leads@feedworkstudio.com>"
+    "LEAD_FROM": "Feedwork Studio <leads@feedworkstudio.com>",
+    "PORTAL_ORIGIN": "https://feedwork-portal.orenab.workers.dev"
   },
   "observability": { "enabled": true }
 }

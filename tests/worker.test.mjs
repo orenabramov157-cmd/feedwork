@@ -137,3 +137,15 @@ test("the alert names where they are and shows the time in Pacific, with theirs 
   const stored = JSON.parse([...bad.LEADS.m.entries()].find(([k]) => k.startsWith("lead:"))[1]);
   assert.equal(stored.timezone, "");
 });
+
+test("each request in the inbox links to a pre-filled new portal client", async () => {
+  const e = env();
+  await worker.fetch(lead({ ...good, location: "Austin, TX", timezone: "America/Chicago", need: "Website / bold" }), e);
+  const html = await (await worker.fetch(inbox(), e)).text();
+  const href = html.match(/href="(https:\/\/feedwork-portal[^"]+)"[^>]*>Make portal client/)[1].replace(/&amp;/g, "&");
+  const q = new URL(href).searchParams;
+  assert.equal(q.get("name"), "Maple Hearth Stoves");
+  assert.equal(q.get("email"), "pat@example.test");
+  assert.equal(q.get("tz"), "America/Chicago");
+  assert.equal(q.get("title"), "Website");
+});
