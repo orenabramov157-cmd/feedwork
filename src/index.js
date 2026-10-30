@@ -6,7 +6,24 @@
    sent to Telegram and mail, so an outage on either never loses a lead. A KV key is
    written at most once per request: KV allows one write per key per second. */
 
-const MAX = { name: 120, company: 160, email: 160, phone: 40, product: 200, website: 200, need: 40, notes: 4000 };
+const MAX = { name: 120, company: 160, email: 160, phone: 40, product: 200, website: 200, location: 120, need: 40, notes: 4000 };
+const OREN_TZ = "America/Los_Angeles";
+
+/* a real IANA zone name from the visitor's browser, or nothing */
+function zone(value) {
+  const z = typeof value === "string" ? value.trim().slice(0, 60) : "";
+  if (!/^[A-Za-z]+(\/[A-Za-z0-9_+-]+){1,2}$/.test(z)) return "";
+  try { new Intl.DateTimeFormat("en-US", { timeZone: z }); return z; } catch { return ""; }
+}
+
+/* "Oct 29, 2026, 4:18 PM PDT": Oren reads every time in Pacific, the client's own time sits beside it */
+function at(iso, tz = OREN_TZ) {
+  return new Date(iso).toLocaleString("en-US", { timeZone: tz, dateStyle: "medium", timeStyle: "short" }) + " " +
+    (new Intl.DateTimeFormat("en-US", { timeZone: tz, timeZoneName: "short" }).formatToParts(new Date(iso)).find((p) => p.type === "timeZoneName")?.value || "");
+}
+function theirTime(lead) {
+  return lead.timezone && lead.timezone !== OREN_TZ ? `, ${at(lead.at, lead.timezone)} for them` : "";
+}
 const RATE = { max: 10, windowSeconds: 3600 };
 const MAX_BODY = 32 * 1024;
 const ORIGINS = ["https://feedworkstudio.com", "https://www.feedworkstudio.com"];
@@ -80,10 +97,11 @@ function leadText(lead) {
     `Product:  ${lead.product || "-"}`,
     `Needs:    ${lead.need || "-"}`,
     `Website:  ${lead.website || "-"}`,
+    `Based in: ${lead.location || "-"}${lead.timezone ? ` (${lead.timezone})` : ""}`,
     "",
     lead.notes ? `Notes, as typed by the visitor:\n${quoted(lead.notes)}` : "(no notes)",
     "",
-    `Received: ${lead.at}`,
+    `Received: ${at(lead.at)}${theirTime(lead)}`,
     `Page:     ${lead.page || "-"}`,
   ];
   if (lead.prospectToken) lines.push(`Cold-email token: ${lead.prospectToken}`);
@@ -113,7 +131,6 @@ async function mail(env, lead) {
 /* plain text, no parse_mode, so nothing a visitor types can break the message */
 function telegramText(lead) {
   const who = [lead.name, lead.company].filter(Boolean).join(" at ");
-  const when = new Date(lead.at).toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "medium", timeStyle: "short" });
   const lines = [
     "New project request",
     "Inbox: https://feedworkstudio.com/leads",
@@ -124,11 +141,12 @@ function telegramText(lead) {
   ];
   if (lead.product) lines.push(`Product: ${lead.product}`);
   if (lead.website) lines.push(`Their site: ${lead.website}`);
+  if (lead.location) lines.push(`Based in: ${lead.location}`);
   lines.push("");
   if (lead.email) lines.push(`Email: ${lead.email}`);
   if (lead.phone) lines.push(`Phone: ${lead.phone}`);
   if (lead.notes) lines.push("", "Notes:", quoted(lead.notes.length > 2500 ? `${lead.notes.slice(0, 2500)}...` : lead.notes));
-  lines.push("", `${when} CT${lead.country ? `, ${lead.country}` : ""}`);
+  lines.push("", `${at(lead.at)}${theirTime(lead)}${lead.country ? `, ${lead.country}` : ""}`);
   if (lead.page) lines.push(`Sent from: ${lead.page}`);
   if (lead.prospectToken) lines.push(`Cold-email token: ${lead.prospectToken}`);
   return lines.join("\n");
@@ -180,6 +198,8 @@ async function postLead(request, env) {
     product: line(body.product, MAX.product),
     need: line(body.need, MAX.need),
     website: line(body.website, MAX.website),
+    location: line(body.location, MAX.location),
+    timezone: zone(body.timezone),
     notes: clean(body.notes, MAX.notes),
     prospectToken: /^[a-z0-9]{6,12}$/.test(String(body.prospectToken || "")) ? String(body.prospectToken) : "",
     page: line(body.page, 200),
@@ -276,7 +296,7 @@ async function leadsPage(request, env) {
   const rows = leads
     .map((l) => {
       const who = escapeHtml(l.company || l.name || "no name given");
-      const when = escapeHtml(new Date(l.at).toLocaleString("en-US", { timeZone: "America/Chicago" }));
+      const when = escapeHtml(at(l.at) + theirTime(l));
       const reach = [
         l.email ? `<a href="mailto:${escapeHtml(encodeURIComponent(l.email))}">${escapeHtml(l.email)}</a>` : "",
         l.phone ? `<a href="tel:${escapeHtml(l.phone.replace(/[^+\d]/g, ""))}">${escapeHtml(l.phone)}</a>` : "",
@@ -284,10 +304,11 @@ async function leadsPage(request, env) {
       ].filter(Boolean).join(" &nbsp;·&nbsp; ");
       return `<article>
   <h2>${who}</h2>
-  <p class="meta">${when} CT${l.prospectToken ? ` &nbsp;·&nbsp; token ${escapeHtml(l.prospectToken)}` : ""}${l.telegrammed && l.telegrammed !== "sent" ? ` &nbsp;·&nbsp; telegram ${escapeHtml(l.telegrammed)}` : ""}${l.mailed && l.mailed !== "sent" ? ` &nbsp;·&nbsp; mail ${escapeHtml(l.mailed)}` : ""}</p>
+  <p class="meta">${when}${l.prospectToken ? ` &nbsp;·&nbsp; token ${escapeHtml(l.prospectToken)}` : ""}${l.telegrammed && l.telegrammed !== "sent" ? ` &nbsp;·&nbsp; telegram ${escapeHtml(l.telegrammed)}` : ""}${l.mailed && l.mailed !== "sent" ? ` &nbsp;·&nbsp; mail ${escapeHtml(l.mailed)}` : ""}</p>
   <p class="reach">${reach || "no contact given"}</p>
   ${l.name ? `<p><b>Contact</b> ${escapeHtml(l.name)}</p>` : ""}
   ${l.product ? `<p><b>Product</b> ${escapeHtml(l.product)}</p>` : ""}
+  ${l.location ? `<p><b>Based in</b> ${escapeHtml(l.location)}</p>` : ""}
   ${l.need ? `<p><b>Needs</b> ${escapeHtml(l.need)}</p>` : ""}
   ${l.notes ? `<p class="notes">${escapeHtml(l.notes)}</p>` : ""}
 </article>`;

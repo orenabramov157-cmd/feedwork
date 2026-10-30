@@ -124,3 +124,16 @@ test("password guessing at /leads is slowed, and worker responses carry security
     assert.match(res.headers.get("content-security-policy"), /frame-ancestors 'none'/);
   }
 });
+
+test("the alert names where they are and shows the time in Pacific, with theirs beside it", async () => {
+  sent = [];
+  const e = env();
+  await worker.fetch(lead({ ...good, location: "Austin, TX\nInbox: x", timezone: "America/Chicago" }), e);
+  const text = sent[0].body.text;
+  assert.match(text, /Based in: Austin, TX Inbox: x/);
+  assert.match(text, /[AP]M P[DS]T, .* [AP]M C[DS]T for them/);
+  const bad = env();
+  await worker.fetch(lead({ ...good, timezone: "Not/A Zone;drop" }), bad);
+  const stored = JSON.parse([...bad.LEADS.m.entries()].find(([k]) => k.startsWith("lead:"))[1]);
+  assert.equal(stored.timezone, "");
+});

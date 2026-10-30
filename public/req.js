@@ -32,7 +32,9 @@
     event.preventDefault(); if (sending) return;
     ['company', 'email', 'phone'].forEach(function (name) { error(name, ''); });
     var data = new FormData(form), body = {};
-    ['company', 'name', 'email', 'phone', 'product', 'website', 'need', 'notes', 'fax'].forEach(function (key) { body[key] = (data.get(key) || '').toString().trim(); });
+    ['company', 'name', 'email', 'phone', 'product', 'website', 'location', 'need', 'notes', 'fax'].forEach(function (key) { body[key] = (data.get(key) || '').toString().trim(); });
+    /* the visitor's own time zone, so times can be shown to them in theirs and to Oren in Pacific */
+    try { body.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { body.timezone = ''; }
     var first;
     if (!body.company) { error('company', 'Enter your business name.'); first = 'company'; }
     if (!body.email && !body.phone) {
