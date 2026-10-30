@@ -21,6 +21,10 @@ function at(iso, tz = OREN_TZ) {
   return new Date(iso).toLocaleString("en-US", { timeZone: tz, dateStyle: "medium", timeStyle: "short" }) + " " +
     (new Intl.DateTimeFormat("en-US", { timeZone: tz, timeZoneName: "short" }).formatToParts(new Date(iso)).find((p) => p.type === "timeZoneName")?.value || "");
 }
+/* "Central Time" rather than "America/Chicago" */
+function zoneName(tz) {
+  try { return new Intl.DateTimeFormat("en-US", { timeZone: tz, timeZoneName: "longGeneric" }).formatToParts(new Date()).find((p) => p.type === "timeZoneName")?.value || tz; } catch { return tz; }
+}
 function theirTime(lead) {
   return lead.timezone && lead.timezone !== OREN_TZ ? `, ${at(lead.at, lead.timezone)} for them` : "";
 }
@@ -97,7 +101,7 @@ function leadText(lead) {
     `Product:  ${lead.product || "-"}`,
     `Needs:    ${lead.need || "-"}`,
     `Website:  ${lead.website || "-"}`,
-    `Based in: ${lead.location || "-"}${lead.timezone ? ` (${lead.timezone})` : ""}`,
+    `Based in: ${lead.location || "-"}${lead.timezone ? ` (${zoneName(lead.timezone)})` : ""}`,
     "",
     lead.notes ? `Notes, as typed by the visitor:\n${quoted(lead.notes)}` : "(no notes)",
     "",
