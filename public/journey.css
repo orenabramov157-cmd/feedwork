@@ -9,3 +9,5 @@
 .art-pair img,.art-pair img:first-child{height:auto;aspect-ratio:4/5;object-fit:cover}
 /* privacy and terms */
 .legal{max-width:760px;padding-top:64px;padding-bottom:80px}.legal h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(38px,4.6vw,58px);line-height:1.08;letter-spacing:-.04em}.legal h2{font-size:24px;margin:44px 0 12px}.legal p,.legal li{font-size:16px;line-height:1.7;color:#4f564c}.legal ul{padding-left:20px}.legal li+li{margin-top:10px}.legal li b{color:#20251f;font-weight:500}.legal a{color:#1b48c9}.legal-foot{margin-top:44px;border-top:1px solid #d2d7c9;padding-top:22px}
+.legal-caps{font-size:14px!important}.legal-credit{margin-top:48px;border-top:1px solid #d2d7c9;padding-top:20px;font-size:13px!important;color:#656c61}
+.legal .j-lead+p{margin-top:18px}
