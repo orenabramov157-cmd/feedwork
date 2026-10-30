@@ -307,7 +307,7 @@ async function leadsPage(request, env) {
         l.website ? `<a href="${escapeHtml(l.website.startsWith("http") ? l.website : "https://" + l.website)}" rel="noopener nofollow">site</a>` : "",
       ].filter(Boolean).join(" &nbsp;·&nbsp; ");
       /* one tap from a request to a pre-filled new client in the portal */
-      const portal = new URL("/admin/new-client", env.PORTAL_ORIGIN || "https://feedwork-portal.orenab.workers.dev");
+      const portal = new URL("/admin/new-client", env.PORTAL_ORIGIN || "https://portal.feedworkstudio.com");
       for (const [k, v] of Object.entries({ name: l.company || "", person: l.name || "", email: l.email || "", tz: l.timezone || "", title: /creative/i.test(l.need || "") && !/website/i.test(l.need || "") ? "Ad creative" : "Website" })) if (v) portal.searchParams.set(k, v);
       return `<article>
   <h2>${who}</h2>
