@@ -52,7 +52,7 @@
 <main id="main">
 
 <section class="hero" id="top">
-  <div class="orbit-stage" id="orbitStage" role="group" aria-label="Sample ads for fictional brands. Drag to spin, click a card to see how it was made.">
+  <div class="orbit-stage" id="orbitStage" role="group" aria-label="Sample ads for fictional brands. Drag or swipe to spin, tap a card to see how it was made.">
     <div class="orbit-center">
       <h1 class="disp orbit-word">Feedwork<br>Studio</h1>
       <span class="sr">Ad creative for people who make things. Send a product photo, get finished ads back.</span>
@@ -260,17 +260,21 @@
   var mobile=window.matchMedia('(max-width: 760px)');
   function listen(mq,fn){ if(mq.addEventListener){mq.addEventListener('change',fn);} else if(mq.addListener){mq.addListener(fn);} }
 
-  var BASE=0.055;
+  var BASE=mobile.matches?0.12:0.055; /* smaller ring needs a quicker turn to read as moving */
   var AUTO=reducedMq.matches?0:BASE;
   var angle=0, vel=AUTO;
   var dragging=false, focusHold=false, px=0, moved=0, raf=null, visible=true, RX=0, RY=0;
 
   function computeR(){
+    if(mobile.matches){ /* phone ring sits in its own 300px band under the title */
+      RX=Math.max(60, Math.min(ring.clientWidth/2-62, 150));
+      RY=Math.min(ring.clientHeight*.23, 70);
+      return;
+    }
     RX=Math.min(stage.clientWidth*.40, 560);
     RY=Math.min(stage.clientHeight*.29, 172);
   }
   function layout(){
-    if(mobile.matches) return;
     for(var i=0;i<N;i++){
       var a=angle+i*STEP, rad=a*Math.PI/180, depth=Math.cos(rad); /* 1 front, -1 back */
       var x=Math.sin(rad)*RX, y=depth*RY;
@@ -280,17 +284,13 @@
       shades[i].style.opacity=(0.34*(1-(depth+1)/2)).toFixed(3);
     }
   }
-  function clearInline(){
-    cards.forEach(function(c,i){ c.style.transform=''; c.style.zIndex=''; shades[i].style.opacity=''; });
-  }
   function tick(){
-    if(mobile.matches){ raf=null; return; }
     var moving=dragging||Math.abs(vel)>0.0005||AUTO!==0;
     if(!dragging && !focusHold){ vel+=(AUTO-vel)*0.02; angle+=vel; }
     if(moving) layout();
     raf=visible?requestAnimationFrame(tick):null;
   }
-  function startLoop(){ if(raf===null && !mobile.matches){ raf=requestAnimationFrame(tick); } }
+  function startLoop(){ if(raf===null){ raf=requestAnimationFrame(tick); } }
   /* init before any listener can throw (old MediaQueryList implementations) */
   computeR(); layout(); startLoop();
 
@@ -303,7 +303,7 @@
   var pid=null, captured=false, downCard=null;
   stage.addEventListener('pointerdown',function(e){
     downCard=e.target && e.target.closest ? e.target.closest('.ocard') : null;
-    if(mobile.matches || e.button!==0 || !e.isPrimary) return;
+    if(e.button!==0 || !e.isPrimary) return;
     dragging=true; moved=0; px=e.clientX; pid=e.pointerId; captured=false;
     stage.classList.add('dragging');
   });
@@ -371,10 +371,7 @@
   });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&panel.classList.contains('open')) closeCase(); });
 
-  listen(mobile,function(){
-    if(mobile.matches){ clearInline(); }
-    else { computeR(); layout(); startLoop(); }
-  });
+  listen(mobile,function(){ computeR(); layout(); startLoop(); });
   listen(reducedMq,function(){
     AUTO=reducedMq.matches?0:BASE;
     if(reducedMq.matches){ vel=0; }
