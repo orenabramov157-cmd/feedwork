@@ -370,7 +370,8 @@ export default {
       }
     }
 
-    if (url.pathname === "/leads" || url.pathname === "/leads/") return secured(await leadsPage(request, env));
+    // Phones capitalize the first letter, so /Leads works too.
+    if (/^\/leads\/?$/i.test(url.pathname)) return secured(await leadsPage(request, env));
 
     return env.ASSETS.fetch(request);
   },

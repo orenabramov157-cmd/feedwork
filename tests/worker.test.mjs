@@ -149,3 +149,10 @@ test("each request in the inbox links to a pre-filled new portal client", async 
   assert.equal(q.get("tz"), "America/Chicago");
   assert.equal(q.get("title"), "Website");
 });
+
+test("the inbox answers when a phone capitalizes the address", async () => {
+  for (const path of ["/Leads", "/LEADS/"]) {
+    const res = await worker.fetch(new Request(`https://feedworkstudio.com${path}`), env());
+    assert.equal(res.status, 401);
+  }
+});
