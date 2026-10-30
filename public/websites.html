@@ -219,7 +219,7 @@
     paint(range.value);
     /* a small nudge the first time the pair comes into view, so the slider reads as something to move */
     function nudge(){
-      if(nudged||touched||window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; nudged=true;
+      if(nudged||touched||window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 760px)').matches) return; nudged=true;
       var from=parseInt(range.value,10), t0=null, dur=1100;
       function step(ts){ if(touched) return; if(!t0) t0=ts; var p=Math.min(1,(ts-t0)/dur); var v=Math.round(from-18*Math.sin(p*Math.PI)); range.value=v; paint(v); if(p<1) requestAnimationFrame(step); }
       requestAnimationFrame(step);

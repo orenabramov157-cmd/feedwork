@@ -58,13 +58,12 @@
       <span class="sr">Ad creative for people who make things. Send a product photo, get finished ads back.</span>
     </div>
     <div class="orbit-ring" id="orbitRing">
-      <button class="ocard" data-i="0"><img src="work/cedarmill.webp" alt="Cedarmill Coffee ad" draggable="false"><span class="shade"></span></button>
-      <button class="ocard" data-i="1"><img src="work/ironhouse.webp" alt="Ironhouse Supply ad" draggable="false"><span class="shade"></span></button>
-      <button class="ocard" data-i="2"><img src="work/scent-studio.webp" alt="Scent and Co studio ad" draggable="false"><span class="shade"></span></button>
-      <button class="ocard" data-i="3"><img src="work/marlowe.webp" alt="Marlowe Woodworks ad" draggable="false"><span class="shade"></span></button>
-      <button class="ocard" data-i="4"><img src="work/scent-bedside.webp" alt="Scent and Co bedside ad" draggable="false"><span class="shade"></span></button>
-      <button class="ocard" data-i="5"><img src="work/northbound.webp" alt="Northbound Supply ad" draggable="false"><span class="shade"></span></button>
-      <button class="ocard" data-i="6"><img src="work/scent-hands.webp" alt="Scent and Co hands ad" draggable="false"><span class="shade"></span></button>
+      <button class="ocard" data-i="0"><img src="work/ironhouse.webp" alt="Ironhouse Supply ad" draggable="false"><span class="shade"></span></button>
+      <button class="ocard" data-i="1"><img src="work/scent-studio.webp" alt="Scent and Co studio ad" draggable="false"><span class="shade"></span></button>
+      <button class="ocard" data-i="2"><img src="work/marlowe.webp" alt="Marlowe Woodworks ad" draggable="false"><span class="shade"></span></button>
+      <button class="ocard" data-i="3"><img src="work/scent-bedside.webp" alt="Scent and Co bedside ad" draggable="false"><span class="shade"></span></button>
+      <button class="ocard" data-i="4"><img src="work/northbound.webp" alt="Northbound Supply ad" draggable="false"><span class="shade"></span></button>
+      <button class="ocard" data-i="5"><img src="work/scent-hands.webp" alt="Scent and Co hands ad" draggable="false"><span class="shade"></span></button>
     </div>
     <span class="mono orbit-hint" aria-hidden="true">Sample brands · Drag to spin · Click a card</span>
   </div>
@@ -76,28 +75,6 @@
       <div class="spec-c"><span class="mono k">Sizes</span><span class="v">Feed + story</span></div>
       <div class="spec-c"><span class="mono k">Access needed</span><span class="v">None</span></div>
     </div>
-  </div>
-</section>
-
-<section class="proof">
-  <div class="grid">
-    <div class="proof-head rv">
-      <span class="mono" style="color:var(--sky);display:block;margin-bottom:16px">The whole service</span>
-      <h2 class="disp">One phone photo in.<br>A finished ad out.</h2>
-    </div>
-    <div class="proof-note rv">
-      <p>Left is the kind of photo you send: a bag on a kitchen counter, shot on a phone. Right is what comes back. Same bag, same label.</p>
-    </div>
-  </div>
-  <div class="proof-img rv">
-    <figure>
-      <figcaption>What you send</figcaption>
-      <img src="work/before-cedarmill.webp" alt="Coffee bag photographed on a kitchen counter with a phone" width="900" height="1125" loading="eager" decoding="async">
-    </figure>
-    <figure>
-      <figcaption>What comes back</figcaption>
-      <img src="work/cedarmill.webp" alt="Finished Cedarmill Coffee advertisement built from that photo" width="900" height="1125" loading="eager" decoding="async">
-    </figure>
   </div>
 </section>
 
@@ -240,7 +217,7 @@
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   document.documentElement.classList.add('js');
   function start(){
-    var hero=document.querySelectorAll('.hero .rv, .proof .rv');
+    var hero=document.querySelectorAll('.hero .rv');
     hero.forEach(function(el,i){ setTimeout(function(){el.classList.add('in');}, 60+i*90); });
     var rest=document.querySelectorAll('section .rv:not(.in)');
     if(!('IntersectionObserver' in window)){ rest.forEach(function(e){e.classList.add('in');}); return; }
@@ -256,9 +233,6 @@
 <script>
 (function(){
   var CASES=[
-    {brand:"Cedarmill Coffee", kind:"Sample ad, fictional brand", img:"work/cedarmill.webp",
-     angle:"Cedarmill's real pitch is the three-day gap between roast and doorstep, not the beans themselves. So the ad sells a Monday morning, not a bag.",
-     why:"Steam still rising off the cup is the whole claim, fresh enough to look hot next to the roast date."},
     {brand:"Ironhouse Supply", kind:"Sample ad, fictional brand", img:"work/ironhouse.webp",
      angle:"Nobody trusts a boot ad where the boots look untouched. So instead of showing them new, this pair is worn exactly the amount a carpenter's boots would be after six real months.",
      why:"Sawdust on the floor, a half-used wood plane in frame. The boots have to look like they belong in that room, not staged for it."},
